@@ -25,7 +25,7 @@ function render(){var now=new Date().toLocaleTimeString("fr-FR");
   app.innerHTML='<div class="bar">'+crumb+'</div><div class="nav"><button class="btn" id="ret">‹ Retour</button><span><button class="btn" id="prev">‹</button> <button class="btn" id="next">›</button></span></div>'+body;
   app.querySelectorAll("[data-o]").forEach(function(e){e.onclick=function(){go(cur,+e.dataset.o)}});var up=document.getElementById("up");if(up)up.onclick=function(){window.up(cur)};
   document.getElementById("back").onclick=function(){window.up(null)};document.getElementById("ret").onclick=function(){window.up(P&&sub!==null?cur:null)};
- document.getElementById("prev").onclick=function(){side((cur+S.length-1)%S.length)};document.getElementById("next").onclick=function(){side((cur+1)%S.length)}}}
+ document.getElementById("prev").onclick=function(){side(cur<=1?S.length-1:cur-1)};document.getElementById("next").onclick=function(){side(cur>=S.length-1?1:cur+1)}}}
 
 var PL=null;function planning(){var D=29,i,j,days=[],t=new Date(2026,10,2),now0=new Date(),ti=-1;for(i=0;i<D;i++){var d=new Date(t);d.setDate(t.getDate()+i);if(d.toDateString()===now0.toDateString())ti=i;days.push(d.toLocaleDateString("fr-FR",{weekday:"short",day:"numeric"}))}
  if(!PL){var N=["Martin","Bernard","Dubois","Leroy","Moreau","Simon","Laurent","Michel","Garcia","Roux","Fournier","Girard"],R=[];for(i=1;i<=100;i++)R.push("Mobil-home "+i);N=N.concat(["Lefèvre","Mercier","Dupont","Lambert","Bonnet","François","Martinez","Legrand","Garnier","Faure","Rousseau","Blanc","Guerin","Muller","Henry","Roussel","Nicolas","Perrin","Morin","Mathieu"]);PL=R.map(function(r){var c=[],k=0;while(k<D){if(Math.random()<.3){c.push(["",1]);k++}else{var l=Math.min(2+Math.floor(Math.random()*6),D-k);c.push([N[Math.floor(Math.random()*N.length)],l]);k+=l}}return[r,c]})}
@@ -42,7 +42,7 @@ function url(h){return h?h:location.pathname+location.search}
 function go(i,o){var h=H(i,o),c=chain();if(h===location.hash)return;var k=c.lastIndexOf(h);if(k>=0&&k<c.length-1){history.go(k-(c.length-1));return}c.push(h);history.pushState({c:c},"",url(h));show()}
 function side(i,o){var h=H(i,o),c=chain();if(c.length>1&&c[c.length-2]===h){history.back();return}c[c.length-1]=h;history.replaceState({c:c},"",url(h));show()}
 function up(i,o){var h=H(i,o),c=chain(),k=c.lastIndexOf(h);if(k>=0&&k<c.length-1){history.go(k-(c.length-1));return}var nc=[h];history.replaceState({c:nc},"",url(h));show()}
-function fromHash(){if(!history.state||!history.state.c)history.replaceState({c:[location.hash]},"",url(location.hash));show()}
+function fromHash(){var h=location.hash,p=h.slice(1).split("/"),i=parseInt(p[0],10),o=parseInt(p[1],10);if(!(i>=0&&i<S.length))h="";else if(p.length>1&&!(i===0&&o>=1&&o<=3))h="#"+i;if(!history.state||!history.state.c){if(h){var c=[""];if(h.indexOf("/")>0)c.push(h.split("/")[0]);history.replaceState({c:[""]},"",url(""));for(var k=1;k<c.length;k++)history.pushState({c:c.slice(0,k+1)},"",url(c[k]));c.push(h);history.pushState({c:c},"",url(h))}else history.replaceState({c:[""]},"",url(""))}show()}
 window.addEventListener("popstate",show);
 fromHash();setInterval(render,5000);
 </script></body></html>
