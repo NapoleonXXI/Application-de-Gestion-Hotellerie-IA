@@ -40,7 +40,7 @@ function chain(){var st=history.state;return st&&st.c?st.c.slice():[location.has
 function show(){var p=location.hash.slice(1).split("/"),i=parseInt(p[0],10),o=parseInt(p[1],10);cur=(i>=0&&i<S.length)?i:null;sub=(cur!==null&&o>=1&&o<=3)?o:null;render()}
 function url(h){return h?h:location.pathname+location.search}
 function go(i,o){var h=H(i,o),c=chain();if(h===location.hash)return;var k=c.lastIndexOf(h);if(k>=0&&k<c.length-1){history.go(k-(c.length-1));return}c.push(h);history.pushState({c:c},"",url(h));show()}
-function side(i,o){var h=H(i,o),c=chain();c[c.length-1]=h;history.replaceState({c:c},"",url(h));show()}
+function side(i,o){var h=H(i,o),c=chain();if(c.length>1&&c[c.length-2]===h){history.back();return}c[c.length-1]=h;history.replaceState({c:c},"",url(h));show()}
 function up(i,o){var h=H(i,o),c=chain(),k=c.lastIndexOf(h);if(k>=0&&k<c.length-1){history.go(k-(c.length-1));return}var nc=[h];history.replaceState({c:nc},"",url(h));show()}
 function fromHash(){if(!history.state||!history.state.c)history.replaceState({c:[location.hash]},"",url(location.hash));show()}
 window.addEventListener("popstate",show);
