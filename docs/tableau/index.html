@@ -35,10 +35,11 @@ function v(){return Math.floor(Math.random()*40)}
 function render(){var now=new Date().toLocaleTimeString("fr-FR");
  if(cur===null){app.innerHTML='<div class="bar">Tableau de bord · données simulées</div><div class="grid">'+S.map(function(s,i){return '<div class="t" role="button" tabindex="0" data-i="'+i+'"><h2>'+s[0]+'</h2><p>'+s[1][0]+' : '+v()+'</p></div>'}).join("")+'</div>';
   app.querySelectorAll(".t").forEach(function(e){e.onclick=function(){go(+e.dataset.i)}})}
- else{var s=S[cur],P=s[0]==="Planning & réservations",OPT=["Vue de planning","Modification du planning","Paramétrage du planning","Séjour","Client","Arrivée","Départ","Litige","Demande de réservation"],ORD=[1,9,4,5,6,7,8,3,2],body,title=s[0],crumb='<span id="back">Tableau de bord</span> › ';
+ else{var s=S[cur],P=s[0]==="Planning & réservations",OPT=["Vue de planning","Modification du planning","Paramétrage du planning","Séjour","Client","Arrivée","Départ","Litige","Demande de réservation"],ORD=[1,9,6,7,3,2],H=s[0]==="Hébergements",HO=["Séjour","Client","Litige"],body,title=s[0],crumb='<span id="back">Tableau de bord</span> › ';
   if(P&&sub===null){crumb+=s[0];body='<div class="grid">'+ORD.map(function(n,k){return '<div class="t" role="button" tabindex="0" style="grid-column:'+(k%2+1)+'" data-o="'+n+'"><h2>'+OPT[n-1]+'</h2></div>'}).join("")+'</div>'}
   else if(P){crumb+='<span id="up">'+s[0]+'</span> › '+OPT[sub-1];title=sub===1?"Planning des réservations":OPT[sub-1];body='<div class="d">'+(sub===1?'<div class="ph"><div><h2>'+title+'</h2><div class="psub">'+pDesc()+'</div></div>'+pCtl()+'</div>':'<h2>'+title+'</h2>')+(sub===1?planning()+'<div class="ts">Données simulées</div>':'<p class="sm" style="color:var(--t3)">Page à venir.</p>')+'</div>'}
-  else{crumb+=s[0];body='<div class="d"><h2>'+s[0]+'</h2>'+s[1].map(function(k){return '<div class="r"><span>'+k+'</span><span>'+v()+'</span></div>'}).join("")+'<div class="ts">Mis à jour à '+now+' · données simulées</div></div>'}
+  else if(H&&sub!==null&&sub<=3){crumb+='<span id="up">'+s[0]+'</span> › '+HO[sub-1];body='<div class="d"><h2>'+HO[sub-1]+'</h2><p class="sm" style="color:var(--t3)">Page à venir.</p></div>'}
+  else{crumb+=s[0];body='<div class="d"><h2>'+s[0]+'</h2>'+s[1].map(function(k){return '<div class="r"><span>'+k+'</span><span>'+v()+'</span></div>'}).join("")+'<div class="ts">Mis à jour à '+now+' · données simulées</div></div>'+(H?'<div class="grid" style="margin-top:12px">'+HO.map(function(o,i){return '<div class="t" role="button" tabindex="0" data-o="'+(i+1)+'"><h2>'+o+'</h2></div>'}).join("")+'</div>':'')}
   app.innerHTML='<div class="bar">'+crumb+'</div><div class="nav"><button class="btn" id="ret">‹ Retour</button></div>'+body;
   app.querySelectorAll("[data-o]").forEach(function(e){e.onclick=function(){go(cur,+e.dataset.o)}});var up=document.getElementById("up");if(up)up.onclick=function(){window.up(cur)};
   document.getElementById("back").onclick=function(){window.up(null)};document.getElementById("ret").onclick=function(){window.up(P&&sub!==null?cur:null)};
@@ -124,7 +125,7 @@ var _r=render;render=function(){if(typeof PS!=='undefined'&&PS)pClamp();var m0=d
 var sub=null;
 function H(i,o){return i===null?"":"#"+i+(o?"/"+o:"")}
 function chain(){var st=history.state;return st&&st.c?st.c.slice():[location.hash]}
-function show(){var p=location.hash.slice(1).split("/"),i=parseInt(p[0],10),o=parseInt(p[1],10);cur=(i>=0&&i<S.length)?i:null;sub=(cur!==null&&o>=1&&o<=9)?o:null;render()}
+function show(){var p=location.hash.slice(1).split("/"),i=parseInt(p[0],10),o=parseInt(p[1],10),M={4:1,5:2,8:3};if(i===0&&M[o]){location.replace("#1/"+M[o]);return}cur=(i>=0&&i<S.length)?i:null;sub=(cur!==null&&o>=1&&o<=9)?o:null;render()}
 function url(h){return h?h:location.pathname+location.search}
 function go(i,o){var h=H(i,o),c=chain();if(h===location.hash)return;var k=c.lastIndexOf(h);if(k>=0&&k<c.length-1){history.go(k-(c.length-1));return}c.push(h);history.pushState({c:c},"",url(h));show()}
 function side(i,o){var h=H(i,o),c=chain();if(c.length>1&&c[c.length-2]===h){history.back();return}c[c.length-1]=h;history.replaceState({c:c},"",url(h));show()}
