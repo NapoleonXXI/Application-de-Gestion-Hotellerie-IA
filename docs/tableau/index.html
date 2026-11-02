@@ -39,10 +39,10 @@ function render(){var now=new Date().toLocaleTimeString("fr-FR");
   if(P&&sub===null){crumb+=s[0];body='<div class="grid">'+OPT.map(function(o,i){return '<div class="t" role="button" tabindex="0" data-o="'+(i+1)+'"><h2>'+o+'</h2></div>'}).join("")+'</div>'}
   else if(P){crumb+='<span id="up">'+s[0]+'</span> › '+OPT[sub-1];title=sub===1?"Planning des réservations":OPT[sub-1];body='<div class="d">'+(sub===1?'<div class="ph"><div><h2>'+title+'</h2><div class="psub">'+pDesc()+'</div></div>'+pCtl()+'</div>':'<h2>'+title+'</h2>')+(sub===1?planning()+'<div class="ts">Données simulées</div>':'<p class="sm" style="color:var(--t3)">Page à venir.</p>')+'</div>'}
   else{crumb+=s[0];body='<div class="d"><h2>'+s[0]+'</h2>'+s[1].map(function(k){return '<div class="r"><span>'+k+'</span><span>'+v()+'</span></div>'}).join("")+'<div class="ts">Mis à jour à '+now+' · données simulées</div></div>'}
-  app.innerHTML='<div class="bar">'+crumb+'</div><div class="nav"><button class="btn" id="ret">‹ Retour</button><span><button class="btn" id="prev">‹</button> <button class="btn" id="next">›</button></span></div>'+body;
+  app.innerHTML='<div class="bar">'+crumb+'</div><div class="nav"><button class="btn" id="ret">‹ Retour</button></div>'+body;
   app.querySelectorAll("[data-o]").forEach(function(e){e.onclick=function(){go(cur,+e.dataset.o)}});var up=document.getElementById("up");if(up)up.onclick=function(){window.up(cur)};
   document.getElementById("back").onclick=function(){window.up(null)};document.getElementById("ret").onclick=function(){window.up(P&&sub!==null?cur:null)};
- if(P&&sub===1)pBind();document.getElementById("prev").onclick=function(){side(cur<=1?S.length-1:cur-1)};document.getElementById("next").onclick=function(){side(cur>=S.length-1?1:cur+1)}}}
+ if(P&&sub===1)pBind()}}
 
 var MN=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];function AB(i){return ["Janv.","Févr.","Mars","Avr.","Mai","Juin","Juil.","Août","Sept.","Oct.","Nov.","Déc."][i]}function Cap(x){return x.charAt(0).toUpperCase()+x.slice(1)}
 function d0(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate())}function addD(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x}function mon(d){d=d0(d);return addD(d,-((d.getDay()+6)%7))}
