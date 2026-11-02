@@ -18,8 +18,14 @@ function v(){return Math.floor(Math.random()*40)}
 function render(){var now=new Date().toLocaleTimeString("fr-FR");
  if(cur===null){app.innerHTML='<div class="bar">Tableau de bord · données simulées</div><div class="grid">'+S.map(function(s,i){return '<div class="t" data-i="'+i+'"><h2>'+s[0]+'</h2><p>'+s[1][0]+' : '+v()+'</p></div>'}).join("")+'</div>';
   app.querySelectorAll(".t").forEach(function(e){e.onclick=function(){go(+e.dataset.i)}})}
- else{var s=S[cur];app.innerHTML='<div class="bar"><span id="back">Tableau de bord</span> › '+s[0]+'</div><div class="nav"><button class="btn" id="ret">‹ Retour</button><span><button class="btn" id="prev">‹</button> <button class="btn" id="next">›</button></span></div><div class="d"><h2>'+s[0]+'</h2>'+(s[0]==="Planning des réservations"?planning():s[1].map(function(k){return '<div class="r"><span>'+k+'</span><span>'+v()+'</span></div>'}).join(""))+'<div class="ts">Mis à jour à '+now+' · données simulées</div></div>';
-  document.getElementById("back").onclick=document.getElementById("ret").onclick=function(){go(null)};document.getElementById("prev").onclick=function(){go((cur+S.length-1)%S.length)};document.getElementById("next").onclick=function(){go((cur+1)%S.length)}}}
+ else{var s=S[cur],P=s[0]==="Planning des réservations",OPT=["Planning des réservations","Modification du planning","Paramétrage du planning"],body,title=s[0],crumb='<span id="back">Tableau de bord</span> › ';
+  if(P&&sub===null){crumb+=s[0];body='<div class="grid">'+OPT.map(function(o,i){return '<div class="t" data-o="'+(i+1)+'"><h2>'+o+'</h2></div>'}).join("")+'</div>'}
+  else if(P){crumb+='<span id="up">'+s[0]+'</span> › '+OPT[sub-1];title=OPT[sub-1];body='<div class="d"><h2>'+title+'</h2>'+(sub===1?planning()+'<div class="ts">Données simulées</div>':'<p class="sm" style="color:var(--t3)">Page à venir.</p>')+'</div>'}
+  else{crumb+=s[0];body='<div class="d"><h2>'+s[0]+'</h2>'+s[1].map(function(k){return '<div class="r"><span>'+k+'</span><span>'+v()+'</span></div>'}).join("")+'<div class="ts">Mis à jour à '+now+' · données simulées</div></div>'}
+  app.innerHTML='<div class="bar">'+crumb+'</div><div class="nav"><button class="btn" id="ret">‹ Retour</button><span><button class="btn" id="prev">‹</button> <button class="btn" id="next">›</button></span></div>'+body;
+  app.querySelectorAll("[data-o]").forEach(function(e){e.onclick=function(){go(cur,+e.dataset.o)}});var up=document.getElementById("up");if(up)up.onclick=function(){go(cur)};
+  document.getElementById("back").onclick=function(){go(null)};document.getElementById("ret").onclick=function(){go(P&&sub!==null?cur:null)};
+ document.getElementById("prev").onclick=function(){go((cur+S.length-1)%S.length)};document.getElementById("next").onclick=function(){go((cur+1)%S.length)}}}
 
 var PL=null;function planning(){var D=29,i,j,days=[],t=new Date(2026,10,2),now0=new Date(),ti=-1;for(i=0;i<D;i++){var d=new Date(t);d.setDate(t.getDate()+i);if(d.toDateString()===now0.toDateString())ti=i;days.push(d.toLocaleDateString("fr-FR",{weekday:"short",day:"numeric"}))}
  if(!PL){var N=["Martin","Bernard","Dubois","Leroy","Moreau","Simon","Laurent","Michel","Garcia","Roux","Fournier","Girard"],R=[];for(i=1;i<=100;i++)R.push("Mobil-home "+i);N=N.concat(["Lefèvre","Mercier","Dupont","Lambert","Bonnet","François","Martinez","Legrand","Garnier","Faure","Rousseau","Blanc","Guerin","Muller","Henry","Roussel","Nicolas","Perrin","Morin","Mathieu"]);PL=R.map(function(r){var c=[],k=0;while(k<D){if(Math.random()<.3){c.push(["",1]);k++}else{var l=Math.min(2+Math.floor(Math.random()*6),D-k);c.push([N[Math.floor(Math.random()*N.length)],l]);k+=l}}return[r,c]})}
@@ -27,9 +33,9 @@ var PL=null;function planning(){var D=29,i,j,days=[],t=new Date(2026,10,2),now0=
  var h='<div class="plw"><table class="pl"><colgroup><col style="width:140px">'+days.map(function(){return '<col style="width:var(--cw)">'}).join("")+'</colgroup><tr><th class="lg"></th>'+days.map(function(d,i){return '<th class="dh'+(i===ti?' td':'')+'">'+d+'<div class="oc">'+Math.round(occ[i]*100/PL.length)+' %</div></th>'}).join("")+'</tr>';
  PL.forEach(function(r){var k=0;h+='<tr><th class="lg">'+r[0]+'</th>';r[1].forEach(function(g){var tc=(ti>=k&&ti<k+g[1])?' td':'';h+=g[0]?'<td colspan="'+g[1]+'" class="'+tc+'"><div class="bar2">'+g[0]+'</div></td>':'<td class="'+tc+'"></td>';k+=g[1]});h+='</tr>'});
  return h+'</table></div>'}
-var _r=render;render=function(){var ow=document.querySelector(".plw"),sx=ow?ow.scrollLeft:0,sy=ow?ow.scrollTop:0,same=ow&&cur===_lc;_r();_lc=cur;var nw=document.querySelector(".plw");if(nw&&same){nw.scrollLeft=sx;nw.scrollTop=sy}};var _lc=null;
-function go(i){location.hash=i===null?"":"#"+i}
-function fromHash(){var i=parseInt(location.hash.slice(1),10);cur=(i>=0&&i<S.length)?i:null;render()}
+var _r=render;render=function(){var ow=document.querySelector(".plw"),sx=ow?ow.scrollLeft:0,sy=ow?ow.scrollTop:0,same=ow&&(cur+"/"+sub)===_lc;_r();_lc=cur+"/"+sub;var nw=document.querySelector(".plw");if(nw&&same){nw.scrollLeft=sx;nw.scrollTop=sy}};var _lc=null;
+var sub=null;function go(i,o){location.hash=i===null?"":"#"+i+(o?"/"+o:"")}
+function fromHash(){var p=location.hash.slice(1).split("/"),i=parseInt(p[0],10),o=parseInt(p[1],10);cur=(i>=0&&i<S.length)?i:null;sub=(cur!==null&&o>=1&&o<=3)?o:null;render()}
 window.addEventListener("hashchange",fromHash);
 fromHash();setInterval(render,5000);
 </script></body></html>
