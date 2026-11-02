@@ -1,0 +1,100 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Application de Gestion Hôtellerie IA</title>
+<style>
+:root{--bg:#FFFFFF;--elev:#FFFFFF;--t1:#1A1A1A;--t3:#8A8A8A;--bd:#E4E4E4;--bds:#9A9A9A;--f2:#F0F0F0;--acc:transparent;--font:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#121212;--elev:#1E1E1E;--t1:#EDEDED;--t3:#8A8A8A;--bd:#333;--bds:#777;--f2:#262626;--acc:transparent}}
+html,body{margin:0;background:var(--bg);min-height:100%;-webkit-text-size-adjust:100%}
+#app{background:var(--bg);padding:20px 16px 120px;box-sizing:border-box;font-family:var(--font)}
+.sm{font-size:12px;color:var(--t3);font-family:var(--font)}
+.bar{position:sticky;top:0;background:var(--bg);padding:6px 0 14px;z-index:5;display:flex;flex-wrap:wrap;gap:4px;min-height:18px}
+.bar span{cursor:pointer}
+.rows{display:flex;flex-direction:column;gap:18px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch}
+.w{position:relative;display:flex}
+.b{cursor:pointer;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;padding:10px 14px;min-width:120px;max-width:260px;display:flex;align-items:center;border-radius:8px;border:1px solid var(--bd);background:transparent;color:var(--t1);font-size:14px;line-height:1.35;box-sizing:border-box}
+.b input{width:100%;border:none;outline:none;background:transparent;color:var(--t1);font:inherit}
+.dots{display:none;position:absolute;top:2px;right:6px;cursor:pointer;padding:0 4px}
+@media (hover:hover){.w:hover .dots{display:block}}.dots.show{display:block}
+.menu{position:absolute;top:100%;left:0;z-index:10;margin-top:4px;display:flex;flex-wrap:wrap;gap:2px;padding:4px;border-radius:6px;border:1px solid var(--bd);background:var(--elev)}
+.menu span{cursor:pointer;padding:2px 6px;white-space:nowrap}
+*{-webkit-tap-highlight-color:transparent}.b,.b:focus,.b input,.bar span,.menu span{outline:none}
+</style></head><body><div id="app"></div><script>
+/* TREE-DATA START (copie de secours) */
+var FALLBACK = {
+ "id": "racine",
+ "label": "Application de Gestion Hôtellerie IA",
+ "kids": []
+};
+/* TREE-DATA END */
+(function(){
+var KEY="arbre-hotellerie-ia-sel";
+var pick=null,PAL=[["Sauge","#DCE7DC"],["Menthe","#D8EDE6"],["Olive","#E6E8D2"],["Sable","#EFE7D8"],["Miel","#F5E7C6"],["Pêche","#F6DFD2"],["Poudré","#F2E0DF"],["Rose","#F3D9E3"],["Lavande","#E5E1EF"],["Lilas","#E9DCEF"],["Ciel","#DCE6EF"],["Bleu gris","#D9DEE6"],["Pierre","#E4E2DE"],["Argile","#E8D6CC"]];var COLK="hotia-couleurs",COL={};try{COL=JSON.parse(localStorage.getItem(COLK)||"{}")}catch(e){}function setCol(id,c){COL[id]=c;try{localStorage.setItem(COLK,JSON.stringify(COL))}catch(e){}}function colOf(n){return Object.prototype.hasOwnProperty.call(COL,n.id)?COL[n.id]:(n.couleur||"")}var tree=null,sel=null,hover=null,menu=null,edit=null,draft="",timer=null,lastTxt=null,pending=null;
+try{sel=localStorage.getItem(KEY)||null}catch(e){}
+var app=document.getElementById("app");
+function norm(n){n.kids=(n.kids||[]).map(norm);n.etat=n.etat||"aucun";return n}
+function pathTo(n,id){if(n.id===id)return[n];for(var i=0;i<n.kids.length;i++){var p=pathTo(n.kids[i],id);if(p)return[n].concat(p)}return null}
+function find(id){var p=pathTo(tree,id);return p?p[p.length-1]:null}
+function h(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function setSel(id){sel=id;try{id?localStorage.setItem(KEY,id):localStorage.removeItem(KEY)}catch(e){}}
+function clearAct(n){n.actuel=false;n.kids.forEach(clearAct)}
+function box(n,parent,onPath){
+ var on=onPath[n.id],last=n.id===sel,dead=n.etat==="impasse",quiet=!!n.discret&&!on;
+ var w=h("div","w");
+ var b=h("div","b");if(n.note)b.title=n.note;
+ b.style.borderStyle=n.sugg?"dashed":"solid";b.style.borderColor=on?"var(--bds)":"var(--bd)";
+ b.style.background=colOf(n)||(last?"var(--f2)":"transparent");
+ b.style.color=colOf(n)?"#222":(quiet?"var(--t3)":"var(--t1)");b.style.opacity=dead?.5:1;b.style.fontWeight=on?600:400;
+ b.addEventListener("click",function(){if(edit)return;menu=null;if(sel===n.id)setSel(parent?parent.id:null);else setSel(n.id);render()});
+ b.addEventListener("pointerdown",function(){timer=setTimeout(function(){menu=n.id;render()},550)});
+ ["pointerup","pointerleave"].forEach(function(t){b.addEventListener(t,function(){clearTimeout(timer)})});
+ b.addEventListener("contextmenu",function(e){e.preventDefault()});
+ if(edit===n.id){var inp=h("input");inp.value=draft;inp.placeholder="Nom";inp.addEventListener("click",function(e){e.stopPropagation()});
+  inp.addEventListener("input",function(){draft=inp.value});
+  var done=false;function save(ok){if(done)return;done=true;var v=draft.trim();if(ok&&v)n.label=v;edit=null;render();flush()}
+  inp.addEventListener("blur",function(){save(true)});inp.addEventListener("keydown",function(e){if(e.key==="Enter")save(true);if(e.key==="Escape")save(false)});
+  b.appendChild(inp);setTimeout(function(){inp.focus({preventScroll:true})},0)}
+ else{var s=h("span",null,n.label);if(dead)s.style.textDecoration="line-through";if(n.etat==="retenu"){var c=h("span",null," ✓");c.style.color="var(--t3)";s.appendChild(c)}b.appendChild(s)}
+ w.appendChild(b);
+ if(edit!==n.id){var d=h("span","sm dots"+(menu===n.id?" show":""),"⋯");d.addEventListener("click",function(e){e.stopPropagation();menu=menu===n.id?null:n.id;render()});w.appendChild(d)}
+ if(menu===n.id){var m=h("div","sm menu");function it(l,f){var x=h("span",null,l);x.addEventListener("click",function(e){e.stopPropagation();f();render();flush()});m.appendChild(x)}
+  if(pick===n.id){PAL.forEach(function(c){var x=h("span",null,"");x.title=c[0];x.style.cssText="display:inline-block;margin:2px;width:22px;height:22px;padding:0;border-radius:50%;border:1px solid var(--bd);background:"+c[1];x.addEventListener("click",function(e){e.stopPropagation();setCol(n.id,c[1]);n.couleur=c[1];pick=null;menu=null;render();flush()});m.appendChild(x)});it("Aucune",function(){setCol(n.id,"");delete n.couleur;pick=null;menu=null})}else{
+  it("Colorer",function(){pick=n.id});
+  it("Renommer",function(){menu=null;edit=n.id;draft=n.label});
+  it("Ajouter",function(){var id="u"+Date.now().toString(36);n.kids.push({id:id,label:"Nouvelle branche",etat:"aucun",kids:[]});setSel(n.id);menu=null;edit=id;draft=""});
+  it(dead?"Plus une impasse":"Impasse",function(){n.etat=dead?"aucun":"impasse";menu=null});
+  it(n.etat==="retenu"?"Plus retenu":"Retenu",function(){n.etat=n.etat==="retenu"?"aucun":"retenu";menu=null});
+  if(!n.actuel)it("Étape actuelle",function(){clearAct(tree);n.actuel=true;menu=null});
+  if(n.sugg)it("Garder",function(){n.sugg=false;menu=null});
+  if(parent)it("Supprimer",function(){parent.kids=parent.kids.filter(function(k){return k!==n});if(onPath[n.id])setSel(parent.id);menu=null});}
+  w.appendChild(m)}
+ return w}
+function render(){
+ var path=sel?(pathTo(tree,sel)||[]):[],onPath={};path.forEach(function(p){onPath[p.id]=1});
+ app.textContent="";
+ var bar=h("div","sm bar");path.forEach(function(p,i){var s=h("span",null,(i?"› ":"")+p.label);if(p.etat==="impasse")s.style.textDecoration="line-through";s.addEventListener("click",function(e){e.stopPropagation();setSel(p.id);render()});bar.appendChild(s)});
+ app.appendChild(bar);
+ var rows=h("div","rows");rows.addEventListener("click",function(e){e.stopPropagation()});
+ var rs=[{items:[tree],parent:null}];path.forEach(function(p){if(p.kids.length)rs.push({items:p.kids,parent:p})});
+ rs.forEach(function(r,i){var row=h("div","row");row.style.paddingLeft=Math.min(i,4)*12+"px";r.items.forEach(function(n){row.appendChild(box(n,r.parent,onPath))});rows.appendChild(row)});
+ app.appendChild(rows)}
+app.addEventListener("click",function(){if(menu){menu=null;pick=null;render()}});
+function apply(d){var old=sel?(pathTo(tree||{id:"",kids:[]},sel)||[]):[];tree=norm(d);
+ if(sel&&!find(sel)){var ns=null;for(var i=old.length-1;i>=0;i--){if(find(old[i].id)){ns=old[i].id;break}}setSel(ns===tree.id&&false?null:ns)}
+ render()}
+function busy(){return !!(edit||menu)}
+function flush(){if(pending&&!busy()){var t=pending;pending=null;lastTxt=t;apply(JSON.parse(t))}}
+var API="https://api.github.com/repos/NapoleonXXI/Application-de-Gestion-Hotellerie-IA/contents/docs/arbre/tree.json?ref=main",etag=null,slowUntil=0,tm=null;
+function got(t){if(t===lastTxt)return;JSON.parse(t);if(busy()){pending=t;return}lastTxt=t;pending=null;apply(JSON.parse(t))}
+function local(){return fetch("tree.json?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(got).catch(function(){if(!tree)apply(JSON.parse(JSON.stringify(FALLBACK)))})}
+function load(){var p;
+ if(Date.now()<slowUntil)p=local();
+ else{var hd={"Accept":"application/vnd.github.raw+json"};if(etag)hd["If-None-Match"]=etag;
+  p=fetch(API,{cache:"no-store",headers:hd}).then(function(r){
+   if(r.status===304)return;
+   if(r.status===403||r.status===429||!r.ok){slowUntil=Date.now()+5*60000;return local()}
+   etag=r.headers.get("ETag")||etag;return r.text().then(got)
+  }).catch(function(){slowUntil=Date.now()+5*60000;return local()})}
+ p.then(function(){},function(){}).then(function(){tm=setTimeout(load,Date.now()<slowUntil?30000:3000)})}
+load();
+window.arbreState=function(){return{sel:sel,path:(sel?(pathTo(tree,sel)||[]):[]).map(function(p){return p.id})}};
+})();
+</script></body></html>
