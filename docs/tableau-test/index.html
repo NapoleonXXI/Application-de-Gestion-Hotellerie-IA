@@ -28,7 +28,7 @@ table.plg{background-position-x:0!important}
 .plx{display:flex;align-items:flex-start;overflow:hidden}.pln{flex:0 0 140px;width:140px;overflow:hidden;box-shadow:1px 0 0 #E2E2E2;position:relative;z-index:2;background:var(--bg)}.plnt{width:140px}.plnt th.lg{position:static;padding-top:0;padding-bottom:0;box-sizing:border-box}.plx .plw{flex:1 1 auto;min-width:0;touch-action:pan-x pan-y;overscroll-behavior:none}.nhd{border-bottom:1px solid var(--bd);box-sizing:border-box}.plnc{overflow:hidden}
 html,body{overflow-x:hidden}
 .pl td.bk{background:transparent}
-:focus-visible{outline:2px solid #4A4A4A;outline-offset:2px}
+:focus-visible{outline:2px solid #4A4A4A;outline-offset:2px}[tabindex="-1"]:focus,[tabindex="-1"]:focus-visible{outline:none}
 /* scale(1.6) conservé : le calque fixe est proposé dans fix/zoom-gel, non repris ici. */
 .tb.tbz{z-index:6;min-width:120px;height:auto;line-height:14px;white-space:normal;padding:6px 18px 6px 8px;font-size:11px;background:#F2F2F2;box-shadow:0 4px 14px rgba(0,0,0,.14);transform:scale(1.6)}.tb.tbz{transition:transform .18s ease,box-shadow .18s ease}@media (prefers-reduced-motion:reduce){.tb.tbz{transition:none}}.tbz b{display:block;font-weight:600}.tbz s{position:absolute;top:2px;right:4px;text-decoration:none;font-size:10px;line-height:10px;color:#8A8A8A}.tbz i{position:absolute;right:6px;top:50%;margin-top:-7px;font-style:normal;color:#8A8A8A}</style></head><body><main id="app"></main><script>
 /* Frise janvier 2026 – janvier 2028, paquets de 28 jours.
@@ -172,7 +172,9 @@ function tlSync(node,q,r0,r1){
   for(i=kids.length-1;i>=0;i--){el=kids[i];idx=+el.dataset.i;x=L[idx];if(!x||x[2]<r0||x[2]>r1){if(el===ZB)zOff();el.remove()}else keep[idx]=1}
   for(j=0;j<L.length;j++){if(keep[j])continue;x=L[j];if(x[2]<r0||x[2]>r1)continue;html+=tlBar(q,j,x)}
   if(html)node.insertAdjacentHTML("beforeend",html);
- }else node.innerHTML=tlBars(q,r0,r1);
+ }else{var pw=node.dataset.w?node.dataset.w.split(","):null,p0=pw?+pw[0]:0,p1=pw?+pw[1]:-1;
+  if(pw&&p0>=r0&&p1<=r1&&p1>=p0){var h2="",k;for(k=0;k<L.length;k++){var y=L[k];if(y[2]>=r0&&y[2]<=r1&&(y[2]<p0||y[2]>p1))h2+=tlBar(q,k,y)}if(h2)node.insertAdjacentHTML("beforeend",h2)}
+  else node.innerHTML=tlBars(q,r0,r1)}
  node.dataset.w=mark;
 }
 function tlVirt(el,m){
@@ -189,7 +191,7 @@ function tlVirt(el,m){
  var rows=PL?PL.length:0, rowH=TL.RH||RH;
  var want0=Math.max(0,Math.floor(st/rowH)-8), want1=Math.min(Math.max(0,rows-1),Math.ceil((st+H)/rowH)+8);
  var r0=TL.r0, r1=TL.r1, dirty=0;
- if(r0==null||want0<r0||want1>r1||want0>r0+12||want1<r1-12){r0=Math.max(0,want0-4); r1=Math.min(Math.max(0,rows-1),want1+4); dirty=1}
+ if(r0==null){r0=Math.max(0,want0-8); r1=Math.min(Math.max(0,rows-1),want1+8); dirty=1}else if(want0<r0||want1>r1){r0=Math.min(r0,Math.max(0,want0-8)); r1=Math.max(r1,Math.min(Math.max(0,rows-1),want1+8)); dirty=1}
  if(ZB&&ZB.dataset&&ZB.dataset.r){var zr=+ZB.dataset.r; if(isFinite(zr)){if(zr<r0){r0=zr;dirty=1} if(zr>r1){r1=zr;dirty=1}}}
  TL.r0=r0; TL.r1=r1;
  tlDrop(TL.live,rl,rh,1); tlDrop(TL.hlive,rl,rh,0);
@@ -228,7 +230,7 @@ function tlBind(x,el){var nh=x.querySelector(".nhd"),head=x.querySelector(".tlh"
  vel=function(h,i){var n=performance.now(),q=h.filter(function(a){return n-a[2]<=100});if(q.length<2)return 0;var a=q[0],z=q[q.length-1];return z[2]>a[2]?(z[i]-a[i])/(z[2]-a[2]):0};
  el.addEventListener("touchstart",function(e){if(AN){cancelAnimationFrame(AN);AN=0}if(VA){cancelAnimationFrame(VA);VA=0}if(e.touches.length!==1){G=null;return}var t=e.touches[0];G={x:t.clientX,y:t.clientY,sl:el.scrollLeft,st:el.scrollTop,ax:0,h:[[t.clientX,t.clientY,performance.now()]]}},{passive:true});
  el.addEventListener("touchmove",function(e){if(e.cancelable)e.preventDefault();if(!G||e.touches.length!==1)return;var t=e.touches[0],dx=t.clientX-G.x,dy=t.clientY-G.y,n=performance.now();G.h.push([t.clientX,t.clientY,n]);while(G.h.length>2&&n-G.h[0][2]>150)G.h.shift();
-  if(!G.ax){if(Math.hypot(dx,dy)<10)return;var ag=Math.atan2(Math.abs(dy),Math.abs(dx))*180/Math.PI;G.ax=ag<=25?1:ag>=65?2:3;G.x=t.clientX;G.y=t.clientY;G.sl=el.scrollLeft;G.st=el.scrollTop;if(G.ax===1)G.l=lim();return}
+  if(!G.ax){if(Math.hypot(dx,dy)<10)return;var ag=Math.atan2(Math.abs(dy),Math.abs(dx))*180/Math.PI;G.ax=ag<=25?1:ag>=65?2:3;if(G.ax===2){el.scrollTop=G.st-dy;return}G.x=t.clientX;G.y=t.clientY;G.sl=el.scrollLeft;G.st=el.scrollTop;if(G.ax===1)G.l=lim();return}
   if(G.ax===1)el.scrollLeft=Math.max(G.l[0],Math.min(G.l[1],G.sl-(t.clientX-G.x)));else if(G.ax===2)el.scrollTop=G.st-(t.clientY-G.y)},{passive:false});
  var up=function(){var g=G;G=null;if(!g)return;if(g.ax===2){var vy=vel(g.h,1);if(Math.abs(vy)>.05)glide(vy);toNear();return}if(g.ax!==1){toNear();return}
   var sn=g.l[2],i0=near(sn,g.sl),v=vel(g.h,0),d=el.scrollLeft-sn[i0][1]*TL.cw,dir=0,pw=((sn[Math.min(i0+1,sn.length-1)][1]-sn[i0][1])||7)*TL.cw;if(Math.abs(v)>.25&&Math.abs(d)>10)dir=v<0?1:-1;else if(Math.abs(d)>pw*.5)dir=d>0?1:-1;var j=Math.max(0,Math.min(sn.length-1,i0+dir));an(sn[j][1]*TL.cw)};
