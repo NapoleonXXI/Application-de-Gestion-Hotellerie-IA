@@ -43,8 +43,8 @@ function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){retur
 function arm(e,fn){e.onclick=fn;e.onkeydown=function(ev){if(ev.key!=="Enter"&&ev.key!==" ")return;ev.preventDefault();fn.call(e,ev)}}
 var S=[["Planning & réservations",["Arrivées du jour","Départs du jour","Taux d'occupation (%)"]],["Hébergements",["Logements occupés","Logements libres","Logements à préparer"]],["Ménage",["Chambres à faire","Chambres faites","Agents en service"]],["Maintenance",["Interventions ouvertes","Interventions en cours","Interventions terminées"]],["Restauration",["Couverts réservés","Tables occupées","Commandes en cours"]],["Piscine et loisirs",["Personnes présentes","Température de l'eau (°C)","Animations du jour"]],["Sécurité",["Agents en poste","Alertes en cours","Rondes effectuées"]],["Accueil téléphonique et mails",["Appels en attente","Mails non lus","Demandes traitées"]],["RH",["Salariés présents","Absences du jour","Postes à pourvoir"]],["Législation",["Contrôles à venir","Documents à renouveler","Points de conformité à traiter"]]];
 var cur=null,app=document.getElementById("app");
-function v(){return Math.floor(Math.random()*40)}
-function render(){var now=new Date().toLocaleTimeString("fr-FR");
+var VI=0;function v(){VI++;return (VI*2654435761>>>0)%40}
+function render(){VI=0;var now=new Date().toLocaleTimeString("fr-FR");
  if(cur===null){app.innerHTML='<div class="bar">Tableau de bord · données simulées</div><div class="grid">'+S.map(function(s,i){return '<div class="t" role="button" tabindex="0" data-i="'+i+'"><h2>'+s[0]+'</h2><p>'+s[1][0]+' : '+v()+'</p></div>'}).join("")+'</div>';
   app.querySelectorAll(".t").forEach(function(e){arm(e,function(){var i=+e.dataset.i;i===0?go(0,1):go(i)})})}
  else{var s=S[cur],P=s[0]==="Planning & réservations",OPT=["Vue de planning","Modification du planning","Paramétrage du planning","Séjour","Client","Arrivée","Départ","Litige","Demande de réservation"],ORD=[1,9,6,7,3,2],H=s[0]==="Hébergements",HO={4:"Arrivée",5:"Départ",3:"Litige"},HN=[4,5,3],body,title=s[0],crumb='<span id="back">Tableau de bord</span> › ';
