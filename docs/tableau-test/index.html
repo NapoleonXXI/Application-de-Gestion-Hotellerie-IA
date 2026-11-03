@@ -261,7 +261,7 @@ function side(i,o){var h=H(i,o),c=chain();if(c.length>1&&c[c.length-2]===h){hist
 function up(i,o){var h=H(i,o),c=chain(),k=c.lastIndexOf(h);if(k>=0&&k<c.length-1){history.go(k-(c.length-1));return}var nc=[h];history.replaceState({c:nc},"",url(h));show()}
 function fromHash(){var h=location.hash,p=h.slice(1).split("/"),i=parseInt(p[0],10),o=parseInt(p[1],10);if(!(i>=0&&i<S.length))h="";else if(p.length>1&&!(i===0&&o>=1&&o<=8))h="#"+i;if(!history.state||!history.state.c){if(h){var c=[""];if(h.indexOf("/")>0)c.push(h.split("/")[0]);history.replaceState({c:[""]},"",url(""));for(var k=1;k<c.length;k++)history.pushState({c:c.slice(0,k+1)},"",url(c[k]));c.push(h);history.pushState({c:c},"",url(h))}else history.replaceState({c:[""]},"",url(""))}show()}
 window.addEventListener("popstate",show);
-var VZ=0;document.addEventListener("visibilitychange",function(){VZ=Date.now()});fromHash();setInterval(function(){if(document.hidden||Date.now()-VZ<2000||document.querySelector(".plw")||BZ||Date.now()-BT<800||(TL&&TL.node&&document.contains(TL.node)))return;render()},5000);
+var VZ=0;document.addEventListener("visibilitychange",function(){VZ=Date.now()});fromHash();
 
 function syncTitle(){var h=cur===null?null:app.querySelector(".ph h2, .d > h2, .sjh h2");var name=h&&h.textContent?h.textContent:"Tableau de bord";document.title=name+" · Application de Gestion Hôtellerie IA"}
 var ZB=null;
