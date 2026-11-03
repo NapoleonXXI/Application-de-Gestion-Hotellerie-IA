@@ -191,7 +191,7 @@ function tlVirt(el,m){
  var rows=PL?PL.length:0, rowH=TL.RH||RH;
  var want0=Math.max(0,Math.floor(st/rowH)-8), want1=Math.min(Math.max(0,rows-1),Math.ceil((st+H)/rowH)+8);
  var r0=TL.r0, r1=TL.r1, dirty=0;
- if(r0==null){r0=Math.max(0,want0-8); r1=Math.min(Math.max(0,rows-1),want1+8); dirty=1}else if(want0<r0||want1>r1){r0=Math.min(r0,Math.max(0,want0-8)); r1=Math.max(r1,Math.min(Math.max(0,rows-1),want1+8)); dirty=1}
+ if(r0!==0||r1!==Math.max(0,rows-1)){r0=0; r1=Math.max(0,rows-1); dirty=1}
  if(ZB&&ZB.dataset&&ZB.dataset.r){var zr=+ZB.dataset.r; if(isFinite(zr)){if(zr<r0){r0=zr;dirty=1} if(zr>r1){r1=zr;dirty=1}}}
  TL.r0=r0; TL.r1=r1;
  tlDrop(TL.live,rl,rh,1); tlDrop(TL.hlive,rl,rh,0);
@@ -291,4 +291,4 @@ function zTap(el){
 }
 function plWarm(){if(PL)return;var kick=function(){try{plInit()}catch(e){console.error(e);PL=null}};if(window.requestIdleCallback)requestIdleCallback(kick,{timeout:2500});else setTimeout(kick,300)}
 plWarm();
-</script><div id="vtag" aria-hidden="true" style="position:fixed;right:6px;bottom:4px;font-size:9px;color:#C4C4C4;pointer-events:none;z-index:1">test v3</div></body></html>
+</script><div id="vtag" aria-hidden="true" style="position:fixed;right:6px;bottom:4px;font-size:9px;color:#C4C4C4;pointer-events:none;z-index:1">test v4</div></body></html>
