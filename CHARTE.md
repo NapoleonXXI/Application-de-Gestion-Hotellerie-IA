@@ -30,7 +30,7 @@ La base est faite de blanc, de gris et d'encre. Le bleu, comme toute autre coule
 |---|---|---|
 | Fond | #FFFFFF | #121212 |
 | Encre (texte principal) | #1A1A1A | #EDEDED |
-| Texte secondaire | #5C5C5C ou #8A8A8A, en attente du choix de Napoléon | #ABABAB |
+| Texte secondaire | #8A8A8A | #ABABAB |
 | Bordure | #E4E4E4 | #333333 |
 | Remplissage léger | #F0F0F0 | #262626 |
 | Séparateurs de lignes | #EFEFEF | |
