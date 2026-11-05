@@ -78,7 +78,7 @@ html,body{overflow-x:hidden}
 .sjcd{background:rgba(255,255,255,.78);border-radius:10px;padding:12px 14px;min-width:0}
 .sjcd .lbl{font-size:11px;color:#5C5C5C;margin-bottom:5px;font-weight:500}
 .sjcd .val{font-size:16px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#1A1A1A}
-.sjcd .val.sm{font-size:14px}
+.sjcd .val.sm{font-size:14px}.sjcd .val .sjln{font-size:1.35em;font-weight:700;letter-spacing:-.02em}
 .sjcd.money .val{color:var(--sj-accent)}
 .sjcols{display:grid;grid-template-columns:1.15fr .85fr;gap:10px}
 @media (max-width:800px){.sjcols{grid-template-columns:1fr}}
@@ -398,7 +398,7 @@ var primary=sc==="sv"?"Enregistrer le départ":sc==="sr"?"Confirmer l'arrivée":
 var d='<button type="button" class="sjx" data-sjx="1" aria-label="Fermer">×</button>';
 d+='<div class="sjhd"><button type="button" class="sjcl" data-cn="1">'+esc(c.n)+(ci?" "+esc(ci.pr):"")+' <span>fiche client</span></button>'+(dt?'<div class="sjdt">'+dt+'</div>':'')+(stLabel?'<div class="sjstt">'+stLabel+'</div>':'')+'</div>';
 if(c.a!=null){d+='<div class="sjtl"><div class="sjtl-top"><b>Chronologie du séjour</b><span>Arrivée 16 h · Départ 10 h · balayer les jours</span></div><div class="sjdys" role="list">'+daysHtml+'</div>'+dayPanel+'</div>'}
-d+='<div class="sjg4"><div class="sjcd"><div class="lbl">Logement</div><div class="val">'+esc(loc||"—")+'</div></div><div class="sjcd"><div class="lbl">Nuits</div><div class="val">'+k+'</div></div><div class="sjcd"><div class="lbl">Occupants</div><div class="val sm">'+esc(occ)+'</div></div><div class="sjcd money"><div class="lbl">Montant TTC</div><div class="val">'+eur(all)+'</div></div></div>';
+d+='<div class="sjg4"><div class="sjcd"><div class="lbl">Logement</div><div class="val">'+(function(){if(!loc)return '—';var m=String(loc).match(/^(.*?)\s*(\d+)$/);return m?esc(m[1])+' <b class="sjln">'+esc(m[2])+'</b>':esc(loc)})()+'</div></div><div class="sjcd"><div class="lbl">Nuits</div><div class="val">'+k+'</div></div><div class="sjcd"><div class="lbl">Occupants</div><div class="val sm">'+esc(occ)+'</div></div><div class="sjcd money"><div class="lbl">Montant TTC</div><div class="val">'+eur(all)+'</div></div></div>';
 d+='<div class="sjcols"><div class="sjbx"><h3>Informations de séjour</h3>';
 if(c.a!=null){d+='<div class="sjrow"><span class="k">N° réservation</span><span class="v">'+rid+'</span></div><div class="sjrow"><span class="k">Canal</span><span class="v">'+canal+'</span></div><div class="sjrow"><span class="k">Arrivée prévue</span><span class="v">'+u.getDate()+' '+MC[u.getMonth()]+' · 16 h</span></div><div class="sjrow"><span class="k">Départ prévu</span><span class="v">'+w.getDate()+' '+MC[w.getMonth()]+' · 10 h</span></div><div class="sjrow"><span class="k">Véhicule</span><span class="v">'+plq+(function(){var m=String(loc).match(/(\d+)$/);return m?' · place '+m[1]:''})()+'</span></div><div class="sjrow"><span class="k">Taxe de séjour</span><span class="v">'+eur(tx)+' ('+np+' × '+k+' × 0,80 €)</span></div><div class="sjrow"><span class="k">Paiement</span><span class="v">Acompte '+eur(ac)+' · reste '+eur(reste)+'</span></div>'}
 d+='<div class="sus">'+(sl||'<span style="font-size:13px;color:#8A8A8A">Aucun supplément</span>')+'</div></div>';
