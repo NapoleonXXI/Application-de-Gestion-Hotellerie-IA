@@ -38,15 +38,15 @@ html,body{overflow-x:hidden}
 .dsj .sjp span.on::before,.dsj .sjp span.on::after{content:"";position:absolute;bottom:0;width:10px;height:10px;background:transparent;pointer-events:none}
 .dsj .sjp span.on::before{left:-10px;background:radial-gradient(circle at 0 0,transparent 9.5px,var(--pc,#F4F4F4) 10px)}
 .dsj .sjp span.on::after{right:-10px;background:radial-gradient(circle at 100% 0,transparent 9.5px,var(--pc,#F4F4F4) 10px)}
-.dsj .sjp span:not(.on){background:#fff;border:1px solid #D0D0D0;border-bottom:0;color:#8A8A8A}.dsj .sjp span+span{margin-left:-1px}.dsj .sjp span:first-child.on::before{display:none}.dsj .sjp:has(>span:first-child.on)+.sjpan{border-top-left-radius:0!important}
-.sjpan{margin-top:-1px;border:0;border-radius:12px;padding:20px 18px 18px;background:#F4F4F4}.sjpan.sv{background:#EAF6EC}.sjpan.sr{background:#FCEDEB}.sjpan .sjb{background:rgba(255,255,255,.7)}.dsj .sjpan.sj1,.dsj .sjp:has(>span:first-child.on)+.sjpan{border-top-left-radius:0!important}
+.dsj .sjp span:not(.on){background:#fff;border:1px solid #D0D0D0;border-bottom:0;color:#8A8A8A}.dsj .sjp span+span{margin-left:-1px}.dsj .sjp span:first-child.on::before{display:block;left:-1px;bottom:-13px;width:13px;height:14px;background:var(--pc,#F4F4F4);border-left:1px solid;border-left-color:inherit;z-index:2}
+.sjpan{margin-top:-1px;border:0;border-radius:12px;padding:20px 18px 18px;background:#F4F4F4}.sjpan.sv{background:#EAF6EC}.sjpan.sr{background:#FCEDEB}.sjpan .sjb{background:rgba(255,255,255,.7)}
 /* Tab/panel left edge continuity */
 .dsj .sjp{padding-left:0}
 .dsj .sjp span:first-child{margin-left:0}
 .dsj .sjp span.on{border:1px solid transparent;border-bottom:0}
 .dsj .sjpan{border:1px solid transparent;border-top-color:transparent}
-.dsj .sjpan.sj1{border-top-left-radius:0!important;border-left-color:rgba(0,0,0,.10);border-bottom-color:rgba(0,0,0,.06);border-right-color:rgba(0,0,0,.06)}
-.dsj .sjp span:first-child.on{border-left-color:rgba(0,0,0,.10);border-top-color:rgba(0,0,0,.06);border-right-color:rgba(0,0,0,.06);border-radius:10px 10px 0 0}
+.dsj .sjpan.sj1{border-left-color:rgba(0,0,0,.10);border-bottom-color:rgba(0,0,0,.06);border-right-color:rgba(0,0,0,.06)}
+.dsj .sjp span:first-child.on{z-index:2;border-left-color:rgba(0,0,0,.10);border-top-color:rgba(0,0,0,.06);border-right-color:rgba(0,0,0,.06);border-radius:10px 10px 0 0}
 .dsj .sjpan.sv.sj1,.dsj .sjp span.sv.on:first-child{border-left-color:rgba(30,107,82,.18);border-top-color:rgba(30,107,82,.10)}
 .dsj .sjpan.sr.sj1,.dsj .sjp span.sr.on:first-child{border-left-color:rgba(168,71,63,.20);border-top-color:rgba(168,71,63,.12)}
 .dsj .sjp span:first-child.on{box-shadow:0 2px 4px rgba(0,0,0,.07),0 8px 16px -6px rgba(0,0,0,.18),0 16px 32px -12px rgba(0,0,0,.14)}
