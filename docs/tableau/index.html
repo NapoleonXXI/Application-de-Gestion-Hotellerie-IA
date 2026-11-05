@@ -162,7 +162,7 @@ html,body{overflow-x:clip;overflow-y:visible;width:100%;min-width:0}html{min-hei
 .seg{display:inline-flex;background:#F0F0F0;border-radius:10px;padding:3px;gap:2px}.seg .btn{position:relative;border:0;background:transparent;border-radius:8px;padding:7px 14px;font-size:13px;font-weight:500;color:#5C5C5C;display:inline-flex;align-items:center}.seg .btn.on{background:#fff;color:#1A1A1A;font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.08),0 1px 6px rgba(0,0,0,.05)}.seg .pill{background:#E0E0E0;color:#5C5C5C}.seg .on .pill{background:#1A1A1A;color:#fff}.seg .btn+.btn::before{content:'';position:absolute;left:-1px;top:9px;bottom:9px;width:1px;background:#D0D0D0}.seg .on::before,.seg .on+.btn::before{display:none}.sjday{flex-basis:72px}
 .dsj .sjmore{gap:0!important;margin-top:0!important}.dsj .sjmore .sjrem3{gap:0}.dsj .sjmore .sjpan,.dsj .sjmore .sjpan.sjsub{border-radius:0!important;margin:0!important}.dsj .sjmore>.sjpan:last-child{border-radius:0 0 12px 12px!important}
 .sjsup .sjsc span{font-size:21px;line-height:1.2}.sjopts .sjemo{font-size:21px;line-height:1}.sjopts .sjlab{font-size:12px;line-height:1.2;font-weight:500;color:#5C5C5C;white-space:nowrap}
-.sjhd .sjid{display:flex;flex-direction:column;align-items:flex-start;min-width:0;gap:2px}.sjhd .sjdt{position:static;left:auto;transform:none;max-width:100%;text-align:left;font-size:16px;font-weight:700}
+.sjhd{margin-bottom:12px}.sjhd .sjid{display:flex;flex-direction:column;align-items:flex-start;min-width:0;gap:12px}.sjhd .sjdt{position:static;left:auto;transform:none;max-width:100%;text-align:left;font-size:16px;font-weight:500;line-height:1.25}
 .sjocc{font-size:14px;line-height:1}
 .dsj .sjp+.sjpan:has(+ .sjmore){border-bottom-left-radius:0!important;border-bottom-right-radius:0!important}
 .dsj .sjp{--sj-end:14px;overflow-y:clip;padding-right:var(--sj-end)}.dsj .sjp+.sjpan{margin-top:0}
@@ -184,7 +184,7 @@ html,body{overflow-x:clip;overflow-y:visible;width:100%;min-width:0}html{min-hei
 .sjcard:has(.sjwho) .sjinf,.sjcard:has(.sjwho) .sjoccrow{flex-shrink:0}
 .sjcard:has(.sjwho) .sjwho{flex:1;min-height:0;margin-bottom:0}
 .sjcard:has(.sjwho) .sjmid{flex:1;min-height:0}
-.sjcard:has(.sjwho) .sjplist{max-height:none;flex:0 1 auto;align-self:stretch;width:max-content;max-width:100%;min-width:0;min-height:0;overflow-x:hidden;overflow-y:auto;scrollbar-gutter:stable}
+.sjcard .sjinf{flex-wrap:nowrap}.sjcard .sjinf .sjseg:first-child,.sjcard .sjpayw{flex-shrink:0}.sjinf .sjseg.sjcap{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.sjcard:has(.sjwho) .sjplist{max-height:none;flex:0 1 auto;align-self:stretch;width:max-content;max-width:100%;min-width:min(100%,max-content);min-height:0;overflow-x:hidden;overflow-y:auto;scrollbar-gutter:stable}
 .sjsup .sjsc{background:transparent;border:0;border-radius:0;box-shadow:none;min-width:0;padding:0}
 </style></head><body><main id="app"></main><script>
 /* Frise janvier 2026 – janvier 2028, paquets de 28 jours.
@@ -493,7 +493,7 @@ var d='<button type="button" class="sjx" data-sjx="1" aria-label="Fermer">×</bu
 d+='<div class="sjhd"><div class="sjid"><button type="button" class="sjcl" data-cn="1">'+esc(c.n)+(ci?" "+esc(ci.pr):"")+'</button>'+(dt?'<div class="sjdt">Séjour d'+dt.slice(1)+'</div>':'')+'</div>'+(stLabel?'<div class="sjstt">'+stLabel+'</div>':'')+'</div>';
 var paid=sc!=="sr"&&sc!=="sv";if(paid){ac=all;reste=0}
 var lnum=(function(){if(!loc)return "—";var m=String(loc).match(/^(.*?)\s*(\d+)$/);return m?esc(m[1])+'&nbsp;<b>'+esc(m[2])+'</b>':'<b>'+esc(loc)+'</b>'})();
-d+='<div class="sjcard">';d+='<div class="sjinf"><div class="sjseg">'+lnum+'<span class="sjmu"> · '+esc(cat)+'</span></div><div class="sjseg sjcap"'+(rooms?'':' title="Il manque, pour ce logement, le nombre de chambres doubles, de chambres simples et de salles de bain."')+'>'+(rooms?esc(rooms):'Chambres doubles, chambres simples et salles de bain non renseignées')+'</div><div class="sjseg sjpayw"><span class="sjpay '+(reste>0?'due':'ok')+'">'+(reste>0?'Reste à payer '+eur(reste):eur(all)+' · Soldé')+'</span></div></div>';
+d+='<div class="sjcard">';d+='<div class="sjinf"><div class="sjseg">'+lnum+'<span class="sjmu"> · '+esc(cat)+'</span></div><div class="sjseg sjcap"'+(rooms?'':' title="Il manque, pour ce logement, le nombre de chambres doubles, de chambres simples et de salles de bain."')+'>'+(rooms?esc(rooms):'Non renseigné')+'</div><div class="sjseg sjpayw"><span class="sjpay '+(reste>0?'due':'ok')+'">'+(reste>0?'Reste à payer '+eur(reste):eur(all)+' · Soldé')+'</span></div></div>';
 d+='<div class="sjwho"><div class="sjoccrow"><span class="sjocc">'+esc(occ)+'</span>'+(c.a!=null?'<span class="sjplt">'+plq+'</span>':'')+'<span data-pe="1" class="sjpen" aria-label="Modifier les participants et la plaque"><svg width="11" height="11" viewBox="0 0 14 14"><path d="M9.5 2.5l2 2L5 11H3V9z" fill="none" stroke="#5A5A5A" stroke-width="1.3" stroke-linejoin="round"/></svg></span></div><div class="sjmid">'+pp+(allCh?'<div class="sjopts">'+allCh+'</div>':'')+'</div></div>';
 
 var rsv=u?addD(u,-(7+h%40)):null,rsvT=rsv?(rsv.getDate()+' '+MC[rsv.getMonth()]+' '+rsv.getFullYear()):'—';var refsHtml=c.a!=null?'<div class="sjrefs"><span>Réservé le <b>'+rsvT+'</b></span><span>Canal <b>'+canal+'</b></span><span>N° réservation <b>'+rid+'</b></span></div>':'';
