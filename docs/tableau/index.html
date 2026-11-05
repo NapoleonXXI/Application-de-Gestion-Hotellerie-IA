@@ -17,7 +17,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--t1);font-family:
 #app{min-height:100%;padding:16px;box-sizing:border-box;display:flex;flex-direction:column}
 .bar{font-size:12px;color:var(--t3);padding:4px 0 14px}.bar span{cursor:pointer}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;align-content:start}
-.t{border:0;border-radius:10px;padding:12px 14px;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;min-height:96px}
+.t{border:1px solid var(--bd);border-radius:10px;padding:12px 14px;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;min-height:96px}
 .t:active{background:var(--f2)}.t h2{margin:0;font-size:16px;font-weight:500}.t p{margin:0;font-size:13px;color:var(--t3)}
 .d{border:0;border-radius:10px;padding:18px;flex:1;position:relative}.d h2{margin:0 0 14px;font-weight:500}
 .r{display:flex;justify-content:space-between;padding:10px 0;border-top:1px solid var(--bd);font-size:15px}.r span:last-child{color:var(--t3)}
@@ -27,7 +27,7 @@ table.pl:not(.cdt) th.dh{background:linear-gradient(90deg,#ececec 1px,var(--bg) 
 table.pl:not(.cdt):not(.plnt){background:linear-gradient(90deg,#ececec 1px,transparent 1px) 140px 0/var(--cw) 100% repeat-x}
 table.plg{background-position-x:0!important}
 .plx{display:flex;align-items:flex-start;overflow:hidden}.pln{flex:0 0 140px;width:140px;overflow:hidden;box-shadow:1px 0 0 #E2E2E2;position:relative;z-index:2;background:var(--bg)}.plnt{width:140px}.plnt th.lg{position:static;padding-top:0;padding-bottom:0;box-sizing:border-box}.plx .plw{flex:1 1 auto;min-width:0;touch-action:pan-x pan-y;overscroll-behavior:none}.nhd{border-bottom:1px solid var(--bd);box-sizing:border-box}.tlx .nhd,.nhd{background:#fff;position:sticky}.tlx .nhd::before,.nhd::before{content:"";position:absolute;inset:0;border-radius:22px 0 0 0;background:repeating-linear-gradient(45deg,#E4E4E4 0 1px,#fff 1px 7px);pointer-events:none}.plnc{overflow:hidden}
-html,body{overflow-x:hidden}
+html,body{overflow-x:clip;overflow-y:visible}html{min-height:100%;height:auto}body{min-height:100%;height:auto}
 .pl td.bk{background:transparent}
 *{-webkit-tap-highlight-color:transparent}:focus,:focus:not(:focus-visible),[tabindex]:focus,h1:focus,h2:focus,h3:focus,div:focus,section:focus,main:focus,[tabindex="-1"]:focus-visible,h1:focus-visible,h2:focus-visible,h3:focus-visible{outline:none!important}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:1px solid #D6D6D6;outline-offset:1px}
 /* scale(1.6) conservé : le calque fixe est proposé dans fix/zoom-gel, non repris ici. */
