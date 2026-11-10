@@ -226,50 +226,53 @@ html,body{overflow-x:clip;overflow-y:visible;width:100%;width:100dvw;max-width:1
 .itdesk{display:flex;flex-direction:column;box-sizing:border-box}
 .itdesk>.sjp{flex:0 0 auto}
 .itdesk .sjpan.itfiche{display:block}
-.itbar.sjh{display:flex;align-items:center;gap:12px;margin:0 0 12px;background:#fff;border-radius:10px;padding:10px 14px;box-sizing:border-box}
-.itbar h2{margin:0;flex:1 1 auto;min-width:0;font-size:18px;font-weight:600;line-height:1.25;color:#1A1A1A;white-space:nowrap}
-.itbar h2 b{font-size:26px;font-weight:700;line-height:1;margin-left:4px}
-.itpass{flex:0 0 auto;border-radius:8px;padding:8px 14px;font-size:14px;font-weight:600;line-height:1.2;color:#fff;white-space:nowrap}
+.itframe{background:#fff;border-radius:12px;padding:14px 16px;box-sizing:border-box}
+.itline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-width:0}
+.itline h2{margin:0;flex:1 1 280px;min-width:0;font-size:18px;font-weight:600;line-height:1.25;color:#1A1A1A}
+.itline h2 b{font-size:26px;font-weight:700;line-height:1;margin:0 2px}
+.itstay{border:1px solid #1A1A1A;background:#fff;border-radius:8px;padding:6px 10px;font:inherit;font-size:13px;font-weight:700;color:#1A1A1A;cursor:pointer;white-space:nowrap}
+.itpass{flex:0 0 auto;border-radius:8px;padding:6px 10px;font-size:13px;font-weight:700;line-height:1.2;color:#fff;white-space:nowrap}
 .itpass.ok{background:#3E9B4F}
 .itpass.cond{background:#D23B3B}
-.itg{display:grid;grid-template-columns:minmax(240px,1fr) minmax(280px,1.15fr) minmax(210px,280px);gap:12px;align-items:start}
-.itcard{background:#fff;border-radius:12px;padding:14px 16px;min-width:0}
-.itg h3{margin:0 0 12px;font-size:16px;font-weight:600;line-height:1.3;color:#1A1A1A}
-.itk{margin:12px 0 4px;font-size:13px;line-height:1.35;color:#5C5C5C}
-.itcard>.itk:first-of-type{margin-top:0}
-.itv{font-size:16px;line-height:1.35;font-weight:600;color:#1A1A1A}
-.itxt{font-size:16px;line-height:1.5;color:#1A1A1A;white-space:pre-wrap;overflow-wrap:break-word}
-.itwho{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.itcard .sjcl{background:#fff;border:1px solid #E4E4E4}
-.itnp{font-size:15px;font-weight:600;color:#1A1A1A;white-space:nowrap}
-.itcard .sjdt{position:static;left:auto;transform:none;max-width:none;display:block;margin:8px 0 0;padding:0;text-align:left;font-size:15px;font-weight:500;line-height:1.35;color:#5C5C5C;white-space:normal;overflow:visible;pointer-events:none}
-.itnote{margin:0 0 2px;font-size:16px;font-weight:600;line-height:1.45;color:#1A1A1A}
-.itsign{margin:0 0 12px;font-size:14px;line-height:1.35;color:#5C5C5C}
-.itphrow{display:flex;gap:10px;align-items:stretch;margin-top:8px}
-.itbox{flex:1 1 0;min-width:0;min-height:92px;background:#E4E4E4;border-radius:8px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8px;overflow:hidden}
-.itbox .itk{margin:0 0 4px}
-.itbox b{font-size:13px;font-weight:600;line-height:1.3;color:#1A1A1A;overflow-wrap:anywhere}
-.itbox img{width:100%;height:72px;object-fit:cover;border-radius:6px;display:block}
-.itch{padding-top:14px;min-width:0}
-.itlog{position:relative;margin:0;padding:0 0 0 16px}
-.itlog::before{content:"";position:absolute;left:3px;top:6px;bottom:6px;width:1px;background:#B5B5B5}
-.itev{position:relative;margin:0 0 14px}
-.itev i{position:absolute;left:-16px;top:5px;width:8px;height:8px;border-radius:50%;background:#1A1A1A}
-.itwhen{margin:0 0 4px;font-size:13px;line-height:1.3;color:#5C5C5C}
-.ittag{display:inline-block;max-width:100%;background:#fff;border-radius:8px;padding:8px 10px;font-size:14px;line-height:1.35;color:#1A1A1A;box-sizing:border-box}
+.ittech{display:inline-flex;align-items:center;gap:6px;background:#E8872A;color:#fff;border-radius:8px;padding:6px 10px;font-size:13px;font-weight:700;white-space:nowrap}
+.ittech svg{display:block;flex:0 0 auto}
+.itask{margin:12px 0 0;font-size:15px;line-height:1.5;color:#1A1A1A;white-space:pre-wrap;overflow-wrap:break-word}
+.itchrono{margin-top:14px;width:100%;min-width:0}
+.itchrono h3{margin:0 0 10px;font-size:16px;font-weight:600;line-height:1.3;color:#1A1A1A}
+.itlog{position:relative;margin:0;padding:0 0 0 18px}
+.itlog::before{content:"";position:absolute;left:4px;top:10px;bottom:10px;width:1px;background:#C4C4C4}
+.itstep{position:relative;margin:0 0 10px;min-width:0}
+.itstep>i{position:absolute;left:-18px;top:16px;width:8px;height:8px;border-radius:50%;background:#1A1A1A}
+.itbubble{background:#fff;border-radius:10px;padding:10px 12px;min-width:0}
+.itbubble p{margin:0;font-size:15px;line-height:1.45;color:#1A1A1A;overflow-wrap:break-word}
+.itmeta{margin:4px 0 0;font-size:13px;line-height:1.35;color:#5C5C5C}
+.itphotos{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-top:10px}
+.itshot{width:148px;max-width:100%;flex:0 0 148px;min-width:0}
+.itshot span{display:block;font-size:12px;line-height:1.3;color:#5C5C5C;margin:0 0 4px}
+.itshot img{width:148px;max-width:100%;height:100px;object-fit:cover;background:#E4E4E4;border-radius:8px;display:block}
+.itmat{width:96px;flex:0 0 96px;max-width:100%}
+.itmat span{display:block;font-size:12px;line-height:1.3;color:#5C5C5C;margin:0 0 4px}
+.itmat b{display:flex;min-height:72px;align-items:center;justify-content:center;background:#fff;border:1px solid #E4E4E4;border-radius:8px;padding:6px;font-size:12px;font-weight:600;line-height:1.3;text-align:center;color:#1A1A1A;overflow-wrap:anywhere}
+.sjtitle{margin:2px 0 12px;text-align:center;font-size:17px;font-weight:700;line-height:1.25;color:#1A1A1A}
+.sjheadrow{display:flex;align-items:center;gap:10px;min-width:0;margin:0 0 8px}
+.sjheadrow>.sjcl{flex:0 0 auto}
+.sjheadrow>.sjtl{flex:1 1 auto;min-width:0;margin:0}
+.sjheadrow>.sjstt{flex:0 0 auto;margin-left:0;align-self:center}
+.sjtl-inline .sjtl-top{display:none}
+.sjpan>.sjrem3{margin-top:12px}
 @media (max-width:640px){
-.itbar h2{white-space:normal}
-.itg{grid-template-columns:1fr}
-.itch{padding-top:0}
+.itline h2{flex-basis:100%}
+.itshot{flex-basis:calc(50% - 6px);width:auto}
+.itshot img{width:100%}
 }
 @media (prefers-color-scheme:dark){
-.itbar,.itcard,.ittag{background:#1A1A1A}
-.itbar h2,.itg h3,.itv,.itxt,.itnote,.itnp,.ittag,.itbox b{color:#EDEDED}
-.itk,.itsign,.itwhen,.itcard .sjdt{color:#ABABAB}
-.itbox{background:#2A2A2A}
-.itcard .sjcl{background:#121212;color:#EDEDED;border-color:#333}
-.itev i{background:#EDEDED}
+.itframe,.itbubble,.itmat b,.itstay{background:#1A1A1A;color:#EDEDED}
+.itline h2,.itask,.itbubble p,.itchrono h3,.sjtitle,.itmat b{color:#EDEDED}
+.itmeta,.itshot span,.itmat span{color:#ABABAB}
+.itstay{border-color:#EDEDED}
+.itmat b{border-color:#333}
 .itlog::before{background:#555}
+.itstep>i{background:#EDEDED}
 }
 </style></head><body><main id="app"></main><script>
 /* Frise janvier 2026 – janvier 2028, paquets de 28 jours.
@@ -321,13 +324,13 @@ function render(){VI=0;lwFit();var now=new Date().toLocaleTimeString("fr-FR");
   var bk=document.getElementById("back");if(bk)bk.onclick=function(){window.up(null)};var rt=document.getElementById("ret");if(rt)rt.onclick=function(){window.up(null)};
  if(P&&sub===1)pBind();app.querySelectorAll("[data-loc]").forEach(function(lc){lc.onclick=function(ev){ev.stopPropagation();var c=SJ[+lc.dataset.loc];if(c&&c.a!=null)sjLoc(c)}});app.querySelectorAll("[data-sdy]").forEach(function(b){b.onclick=function(ev){ev.stopPropagation();var q=+b.dataset.sdy;SDY=SDY===q?null:q;render()}});app.querySelectorAll("[data-pin]").forEach(function(b){var tm=0;function arm(){clearTimeout(tm);tm=setTimeout(function(){b.classList.add("hold");var c=SJ[SC]||SJ[0],tit=b.dataset.iv||"Intervention",day=+b.dataset.ivday,id=(c&&c.id?c.id:((c&&c.n)||"")+"|"+day)+"|"+tit,ex=ITPIN.some(function(x){return x.id===id});if(!ex){ITPIN.unshift({id:id,t:tit,n:c?c.n:"",l:c?c.l:"",a:c&&c.a!=null?c.a:null,day:day,ts:Date.now()});if(ITPIN.length>40)ITPIN.length=40;itPinSave()}sjToast(ex?"Déjà dans Interventions techniques":"Épinglé dans Interventions techniques");setTimeout(function(){b.classList.remove("hold")},180)},550)}function clr(){clearTimeout(tm)}b.addEventListener("pointerdown",function(e){if(e.button&&e.button!==0)return;arm()});["pointerup","pointerleave","pointercancel"].forEach(function(ev){b.addEventListener(ev,clr)});b.addEventListener("click",function(e){e.preventDefault();e.stopPropagation()})});(function(){var sc=app.querySelector(".sjtl-sc"),el=app.querySelector(".sjdys");if(!sc||!el)return;function sync(){var sl=el.scrollLeft,max=el.scrollWidth-el.clientWidth-1;sc.classList.toggle("can-l",sl>2);sc.classList.toggle("can-r",max>2&&sl<max)}el.addEventListener("scroll",sync,{passive:true});window.addEventListener("resize",sync);requestAnimationFrame(sync)})();app.querySelectorAll("[data-chl]").forEach(function(b){b.onclick=function(){}});app.querySelectorAll("[data-pri]").forEach(function(b){b.onclick=function(){}});app.querySelectorAll("[data-pe]").forEach(function(e){e.onclick=function(){SJE=1;render()}});app.querySelectorAll("[data-pq]").forEach(function(e){e.onclick=function(){SJE=0;render()}});app.querySelectorAll("[data-ce]").forEach(function(e){e.onclick=function(){CLE=+e.dataset.ce;render()}});if(P&&sub===9){app.querySelectorAll("[data-dr]").forEach(function(e){e.onclick=function(){DRI=+e.dataset.dr;render()}});var drb=app.querySelector("[data-drb]");if(drb)drb.onclick=function(){DRI=null;render()};var drc=app.querySelector("[data-drc]");if(drc)drc.onclick=function(){clOpen(drc.dataset.drc)};}if(P&&(sub===4||sub===5)){var K=sub===4?"sj":"cl",LS=sub===4?SJ:CL;app.querySelectorAll("[data-"+K+"]").forEach(function(e){var lt=0,tm=0;e.onclick=function(ev){var i=+e.dataset[K];var cur2=i;if(ev.target.closest&&ev.target.closest("[data-tx]")){LS.splice(i,1);cur2=sub===4?SC:CC;if(cur2>=i)cur2=Math.max(0,cur2-1);cur2=Math.min(cur2,Math.max(0,LS.length-1))}if(sub===4){if(ev.target.closest&&ev.target.closest("[data-tx]")){if(SOP===i)SOP=-1;else if(SOP>i)SOP--}else{if(SC!==cur2)SDY=null;SOP=SOP===i?-1:i}SC=cur2}else CC=cur2;render()}});
 app.querySelectorAll("[data-sjx]").forEach(function(b){b.onclick=function(){var i=SC;SJ.splice(i,1);if(SOP===i)SOP=-1;else if(SOP>i)SOP--;SC=Math.max(0,Math.min(i,SJ.length-1));render()}});app.querySelectorAll("[data-clx]").forEach(function(b){b.onclick=function(){CL.splice(CC,1);CC=Math.max(0,Math.min(CC,CL.length-1));render()}});var cn=app.querySelector("[data-cn]");if(cn)cn.onclick=function(){var c=SJ[SC]||SJ[0];if(c)clOpen(stCli(c.n,c.l,c.a))}
-app.querySelectorAll("[data-cs]").forEach(function(e){e.onclick=function(){var x=clientInfo(CL[CC]);if(x){var y=x.st[+e.dataset.cs];sjAdd(x.n,y.l,y.a,y.k)}}})}if(s[0]==="Maintenance"){app.querySelectorAll(".sjp [data-sj]").forEach(function(e){e.onclick=function(ev){var i=+e.dataset.sj,L=itList();if(ev.target.closest&&ev.target.closest("[data-tx]")){var x=L[i];if(x)ITHIDE[x.id]=1;L.splice(i,1);if(ITC>i)ITC--;if(ITC>=L.length)ITC=Math.max(0,L.length-1);ITDY=null}else{if(ITC!==i)ITDY=null;ITC=i}render()}});app.querySelectorAll("[data-idy]").forEach(function(b){b.onclick=function(ev){ev.stopPropagation();var q=+b.dataset.idy;ITDY=ITDY===q?null:q;render()}});var ib=app.querySelector(".itfiche .sjcl");if(ib)ib.onclick=function(){var x=itList()[ITC];if(!x)return;var st=itStay(x);if(st)sjAdd(st.n,st.l,st.a,st.k)}}}
+app.querySelectorAll("[data-cs]").forEach(function(e){e.onclick=function(){var x=clientInfo(CL[CC]);if(x){var y=x.st[+e.dataset.cs];sjAdd(x.n,y.l,y.a,y.k)}}})}if(s[0]==="Maintenance"){app.querySelectorAll(".sjp [data-sj]").forEach(function(e){e.onclick=function(ev){var i=+e.dataset.sj,L=itList();if(ev.target.closest&&ev.target.closest("[data-tx]")){var x=L[i];if(x)ITHIDE[x.id]=1;L.splice(i,1);if(ITC>i)ITC--;if(ITC>=L.length)ITC=Math.max(0,L.length-1);ITDY=null}else{if(ITC!==i)ITDY=null;ITC=i}render()}});app.querySelectorAll("[data-idy]").forEach(function(b){b.onclick=function(ev){ev.stopPropagation();var q=+b.dataset.idy;ITDY=ITDY===q?null:q;render()}});var ib=app.querySelector(".itfiche .itstay");if(ib)ib.onclick=function(){var x=itList()[ITC];if(!x)return;var st=itStay(x);if(st)sjAdd(st.n,st.l,st.a,st.k)}}}
 
 var MN=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];function AB(i){return ["Janv.","Févr.","Mars","Avr.","Mai","Juin","Juil.","Août","Sept.","Oct.","Nov.","Déc."][i]}function Cap(x){return x.charAt(0).toUpperCase()+x.slice(1)}
 function sCls(a,k){var T=Math.round((d0(new Date())-d0(E0))/864e5);return a+k<=T?"":a<=T?" sv":" sr"}function d0(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate())}function addD(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x}function mon(d){d=d0(d);return addD(d,-((d.getDay()+6)%7))}
 var PS=pDef(),PK=null;try{(function(){var raw=localStorage.getItem("planPeriode");if(!raw||raw.length>2000)return;var o=JSON.parse(raw),A0=2026*12,A1=2028*12,I=function(x){return typeof x==="number"&&isFinite(x)&&Math.floor(x)===x};if(!o||typeof o!=="object"||["semaine","mois","plage"].indexOf(o.m)<0)return;if(!I(o.a)||o.a<A0||o.a>A1||!I(o.w)||o.w<+new Date(2023,11,25)||o.w>+new Date(2028,11,31)||new Date(o.w).getDay()!==1||!I(o.r0)||!I(o.r1)||o.r0<A0||o.r1>A1||o.r1-o.r0<1||o.r1-o.r0>11)return;PS={m:o.m,w:o.w,a:o.a,r0:o.r0,r1:o.r1}})()}catch(e){PS=pDef()}
 var TOF=0,SLK=0.5,SLV=1.2;function pSave(){TOF=0;try{localStorage.setItem("planPeriode",JSON.stringify(PS))}catch(e){}}
-function pDef(){var t=new Date();return{m:"mois",w:+mon(t),a:t.getFullYear()*12+t.getMonth(),r0:t.getFullYear()*12+5,r1:t.getFullYear()*12+7}}var BZ=0,BT=0;["pointerdown","touchstart","mousedown"].forEach(function(t){document.addEventListener(t,function(){BZ=1;BT=Date.now()},{capture:true,passive:true})});["pointerup","pointercancel","touchend","touchcancel","mouseup"].forEach(function(t){document.addEventListener(t,function(e){BZ=e&&e.touches&&e.touches.length?1:0;BT=Date.now()},{capture:true,passive:true})});setInterval(function(){if(BZ&&Date.now()-BT>2500)BZ=0},500);window.gReset=function(){BZ=0;try{if(TL&&TL.reset)TL.reset()}catch(_){}};["blur","pagehide","pageshow","hashchange","orientationchange"].forEach(function(t){window.addEventListener(t,gReset)});document.addEventListener("visibilitychange",gReset);document.addEventListener("touchcancel",gReset,{capture:true,passive:true});document.addEventListener("scroll",function(){BT=Date.now()},{capture:true,passive:true});function plInit(){if(PL)return;var N=["Martin","Bernard","Dubois","Leroy","Moreau","Simon","Laurent","Michel","Garcia","Roux","Fournier","Girard","Lefèvre","Mercier","Dupont","Lambert","Bonnet","François","Martinez","Legrand","Garnier","Faure","Rousseau","Blanc","Guerin","Muller","Henry","Roussel","Nicolas","Perrin","Morin","Mathieu"].map(function(x){return x.toUpperCase()});var out=[],i,R,st,k,o,L,q,l;for(i=1;i<=NHOUSES;i++){R=MB(i*2654435761^0x9e3779b9);st=[];k=-Math.floor(R()*12);while(k<DAYN){o=DEM(Math.max(k,0));L=o>.6?3.5+R()*3:1.5+R()*3;q=Math.min(.95,o/((1-o)*L));if(R()>=q){k+=1;continue}l=Math.max(1,Math.round(-L*Math.log(1-R()*.95)));if(k+l>DAY0)st.push([Math.max(k,0),k+l-Math.max(k,0),N[Math.floor(R()*N.length)]]);k+=l;if(R()<.35)k+=1}out.push(["Mobil-home "+i,st])}PLA=out;PL=out}
+function pDef(){var t=new Date();return{m:"mois",w:+mon(t),a:t.getFullYear()*12+t.getMonth(),r0:t.getFullYear()*12+5,r1:t.getFullYear()*12+7}}var BZ=0,BT=0;["pointerdown","touchstart","mousedown"].forEach(function(t){document.addEventListener(t,function(){BZ=1;BT=Date.now()},{capture:true,passive:true})});["pointerup","pointercancel","touchend","touchcancel","mouseup"].forEach(function(t){document.addEventListener(t,function(e){BZ=e&&e.touches&&e.touches.length?1:0;BT=Date.now()},{capture:true,passive:true})});setInterval(function(){if(BZ&&Date.now()-BT>2500)BZ=0},500);window.gReset=function(){BZ=0;try{if(TL&&TL.reset)TL.reset()}catch(_){}};["blur","pagehide","pageshow","hashchange","orientationchange"].forEach(function(t){window.addEventListener(t,gReset)});document.addEventListener("visibilitychange",gReset);document.addEventListener("touchcancel",gReset,{capture:true,passive:true});document.addEventListener("scroll",function(){BT=Date.now()},{capture:true,passive:true});function plInit(){if(PL)return;var N=["Martin","Bernard","Dubois","Leroy","Moreau","Simon","Laurent","Michel","Garcia","Roux","Fournier","Girard","Lefèvre","Mercier","Dupont","Lambert","Bonnet","François","Martinez","Legrand","Garnier","Faure","Rousseau","Blanc","Guerin","Muller","Henry","Roussel","Nicolas","Perrin","Morin","Mathieu"].map(function(x){return x.toUpperCase()});var out=[],i,R,st,k,o,L,q,l;for(i=1;i<=NHOUSES;i++){R=MB(i*2654435761^0x9e3779b9);st=[];k=-Math.floor(R()*12);while(k<DAYN){o=DEM(Math.max(k,0));L=o>.6?3.5+R()*3:1.5+R()*3;q=Math.min(.95,o/((1-o)*L));if(R()>=q){k+=1;continue}l=Math.max(1,Math.round(-L*Math.log(1-R()*.95)));if(k+l>DAY0)st.push([Math.max(k,0),k+l-Math.max(k,0),N[Math.floor(R()*N.length)]]);k+=l;if(R()<.35)k+=1}out.push(["Mobil-home "+i,st])}PLA=out;PL=out;itSeedStays()}
 var PLA=null,PCAT=-1,MHC=[["Bora-Bora",2,1],["Zanzibar",3,1],["Tahiti",4,2],["Bali",5,2],["Maldives",6,3],["Seychelles",8,3]];function mhCat(l){return hs(String(l))%6}function mhRoomText(d,s,b){function n(v,one,many){return v+" "+(v>1?many:one)}var p=[];if(d>0)p.push(n(d,"chambre double","chambres doubles"));if(s>0)p.push(n(s,"chambre simple","chambres simples"));if(b>0)p.push(n(b,"salle de bains","salles de bains"));return p.join(" · ")}/* Démo fictive, stable par mobil-home : doubles + simples = chambres MHC[2], 2×doubles + simples ≤ couchages MHC[1]. Pas une donnée d'hôtel réel. */function mhDemoRooms(loc){var m=MHC[mhCat(String(loc||""))]||MHC[0],T=m[2]|0,C=m[1]|0,maxD=Math.max(0,Math.min(T,C-T)),h=hs(String(loc||"mh")),d=maxD?h%(maxD+1):0,bHi=T<=1?1:Math.min(2,T);return [d,T-d,1+(bHi>1?(h>>>4)%bHi:0)]}/* Démo fictive de linge, stable par séjour. Pas une donnée d'hôtel réel. */function mhLinenParts(key){var h=hs(String(key)),dd=h%4,ds=(h>>>2)%3,kt=(h>>>5)%4;if(!(dd||ds||kt))kt=1;var p=[];if(dd)p.push(dd+" × drap double");if(ds)p.push(ds+" × drap simple");if(kt)p.push(kt+" × kit serviettes");return p}
 var PRo=null;function pRange(){if(PRo)return PRo;if(PS.m==="semaine"){var a=new Date(PS.w);return[a,addD(a,7)]}if(PS.m==="mois")return[new Date(Math.floor(PS.a/12),PS.a%12,1),new Date(Math.floor((PS.a+1)/12),(PS.a+1)%12,1)];return[new Date(Math.floor(PS.r0/12),PS.r0%12,1),new Date(Math.floor((PS.r1+1)/12),(PS.r1+1)%12,1)]}
 function pLabel(){var r=pRange(),a=r[0];if(PS.m==="plage"){var b=new Date(Math.floor(PS.r1/12),PS.r1%12,1);return '<span style="font-size:13.5px">'+AB(a.getMonth())+" → "+AB(b.getMonth())+" "+b.getFullYear()+'</span>'}if(PS.m==="semaine"){var z=addD(a,6);var f=function(d){var m=MN[d.getMonth()];return d.getDate()+" "+(m.length>4?AB(d.getMonth()).toLowerCase():m)+" "+d.getFullYear()},t=a.getFullYear()!==z.getFullYear()?"Du "+a.getDate()+" "+MN[a.getMonth()]+" "+a.getFullYear()+"<br>au "+z.getDate()+" "+MN[z.getMonth()]+" "+z.getFullYear():a.getMonth()!==z.getMonth()?"Du "+a.getDate()+" "+MN[a.getMonth()]+"<br>au "+z.getDate()+" "+MN[z.getMonth()]+" "+z.getFullYear():"Du "+a.getDate()+" au "+z.getDate()+"<br>"+MN[z.getMonth()]+" "+z.getFullYear();return '<span style="display:block;font-size:var(--wfs,14px);line-height:16px">'+t+'</span>'}var m=a;return Cap(MN[m.getMonth()])+" "+m.getFullYear()}
@@ -597,7 +600,9 @@ var ac=Math.round(all*0.3*100)/100,reste=Math.round((all-ac)*100)/100;
 var loc=c.l||"",mh=MHC[mhCat(loc)],cat=mh[0],rooms=(c&&isFinite(+c.chD)&&isFinite(+c.chS)&&isFinite(+c.sdb)?mhRoomText(+c.chD,+c.chS,+c.sdb):(function(){var f=mhDemoRooms(loc);return mhRoomText(f[0],f[1],f[2])})());
 var primary=sc==="sv"?"Enregistrer le départ":sc==="sr"?"Confirmer l'arrivée":"Clôturer";
 var panCls="sjpan"+(SC===0?" sj1":"");
-var d='<div class="sjhd"><div class="sjid"><button type="button" class="sjcl" data-cn="1">'+esc(c.n)+(ci?" "+esc(ci.pr):"")+'</button>'+(dt?'<div class="sjdt">Séjour d'+dt.slice(1)+'</div>':'')+'</div>'+(stLabel?'<div class="sjstt">'+stLabel+'</div>':'')+'</div>';
+var whoBtn=esc(c.n)+(ci?" "+esc(ci.pr):"");
+var strip=c.a!=null?'<div class="sjtl sjtl-inline"><div class="sjtl-sc"><span class="sjtl-ch sjtl-ch-l" aria-hidden="true">‹</span><div class="sjdys" role="list">'+daysHtml+'</div><span class="sjtl-ch sjtl-ch-r" aria-hidden="true">›</span></div></div>':'';
+var d=(dt?'<h2 class="sjtitle">Séjour d'+dt.slice(1)+'</h2>':'')+'<div class="sjheadrow"><button type="button" class="sjcl" data-cn="1">'+whoBtn+'</button>'+strip+(stLabel?'<div class="sjstt">'+stLabel+'</div>':'')+'</div>'+(dayPanel||'');
 var paid=sc!=="sr"&&sc!=="sv";if(paid){ac=all;reste=0}
 var lnum=(function(){if(!loc)return "—";var m=String(loc).match(/^(.*?)\s*(\d+)$/);return m?esc(m[1])+'&nbsp;<b>'+esc(m[2])+'</b>':'<b>'+esc(loc)+'</b>'})();
 d+='<div class="sjcard">';d+='<div class="sjinf"><div class="sjseg">'+lnum+'</div><div class="sjseg sjcap"><span class="sjmu">'+esc(cat)+'</span>'+(rooms?' · '+esc(rooms):'')+'</div><div class="sjseg sjpayw"><span class="sjpay '+(reste>0?'due':'ok')+'">'+(reste>0?'Reste à payer '+eur(reste):eur(all)+' · Soldé')+'</span></div></div>';
@@ -605,41 +610,70 @@ var men=hasMen?'<span class="sjtag sjtag-m">Ménage fin de séjour</span>':'',li
 
 var rsv=u?addD(u,-(7+h%40)):null,rsvT=rsv?(rsv.getDate()+' '+MC[rsv.getMonth()]+' '+rsv.getFullYear()):'—';var refsHtml=c.a!=null?'<div class="sjrefs"><span>Réservé le <b>'+rsvT+'</b></span><span>Canal <b>'+canal+'</b></span><span>N° réservation <b>'+rid+'</b></span></div>':'';
 d+='</div>';
-if(c.a!=null){d+='<div class="sjtl"><div class="sjtl-top"><b>Chronologie du séjour</b></div><div class="sjtl-sc"><span class="sjtl-ch sjtl-ch-l" aria-hidden="true">‹</span><div class="sjdys" role="list">'+daysHtml+'</div><span class="sjtl-ch sjtl-ch-r" aria-hidden="true">›</span></div>'+dayPanel+'</div>'}
-var below='<div class="sjmore">'+'<div class="sjrem3"><div class="sjsub"><h3 class="sjsub-h sjsub-h2">Demandes client</h3><div class="sjnote sjnote-cl sjdq">« '+esc(RC[h%RC.length])+' »</div></div><div class="sjsub"><h3 class="sjsub-h sjsub-h2">Remarques établissement</h3><div class="sjnote sjnote-box">'+esc(RE[(h>>>4)%RE.length])+'</div></div></div>'+'<div class="sjsub"><div class="sjrow sjfin sjfm"><span class="k">Hébergement · '+k+' nuit'+(k>1?'s':'')+' × '+(78+h%5)+' €</span><span class="v">'+eur(hb)+'</span></div>'+(finEx?'<div class="sjrow sjfin sjfg"><span class="k">Options et suppléments</span></div>'+finEx:'')+'<div class="sjrow sjfin"><span class="k">Taxe de séjour · '+k+' nuit'+(k>1?'s':'')+' × '+np+' pers. × 0,80 €</span><span class="v">'+eur(tx)+'</span></div><div class="sjrow sjtotl sjfin"><span class="k">Total TTC</span><span class="v money">'+eur(all)+'</span></div>'+refsHtml+'</div></div>';
+d+='<div class="sjrem3"><div class="sjsub"><h3 class="sjsub-h sjsub-h2">Demande client</h3><div class="sjnote sjnote-cl sjdq">« '+esc(RC[h%RC.length])+' »</div></div><div class="sjsub"><h3 class="sjsub-h sjsub-h2">Remarque établissement</h3><div class="sjnote sjnote-box">'+esc(RE[(h>>>4)%RE.length])+'</div></div></div>';
+var below='<div class="sjmore"><div class="sjsub"><div class="sjrow sjfin sjfm"><span class="k">Hébergement · '+k+' nuit'+(k>1?'s':'')+' × '+(78+h%5)+' €</span><span class="v">'+eur(hb)+'</span></div>'+(finEx?'<div class="sjrow sjfin sjfg"><span class="k">Options et suppléments</span></div>'+finEx:'')+'<div class="sjrow sjfin"><span class="k">Taxe de séjour · '+k+' nuit'+(k>1?'s':'')+' × '+np+' pers. × 0,80 €</span><span class="v">'+eur(tx)+'</span></div><div class="sjrow sjtotl sjfin"><span class="k">Total TTC</span><span class="v money">'+eur(all)+'</span></div>'+refsHtml+'</div></div>';
 return '<div class="'+panCls+'">'+d+below+'</div>'}
+function itOff(y,m,d){return Math.round((d0(new Date(y,m-1,d))-d0(E0))/864e5)}
+function itSeedStays(){if(!PL||itSeedStays.done)return;itSeedStays.done=1;[[75,"SIMON",2026,10,30,2],[22,"MOREAU",2026,10,22,5],[14,"MARTIN",2026,11,8,6],[8,"BERNARD",2026,11,6,5],[41,"GARCIA",2026,10,28,4],[12,"LEROY",2026,11,9,4],[3,"DUBOIS",2026,10,15,4]].forEach(function(r){var house=PL[r[0]-1];if(!house)return;var a=itOff(r[2],r[3],r[4]),k=r[5];house[1]=house[1].filter(function(g){return g[0]+g[1]<=a||g[0]>=a+k});house[1].push([a,k,r[1]]);house[1].sort(function(x,y){return x[0]-y[0]})})}
+function itPhoto(kind){var bg=kind==="client"?"#D5E3F5":kind==="accueil"?"#F6E4C4":"#E3EDD8";var shape=kind==="client"?'<rect x="78" y="28" width="84" height="104" rx="4" fill="#fff" stroke="#1A1A1A" stroke-width="3"/><circle cx="120" cy="70" r="7" fill="none" stroke="#1A1A1A" stroke-width="3"/>':kind==="accueil"?'<rect x="46" y="62" width="148" height="40" rx="4" fill="#fff" stroke="#1A1A1A" stroke-width="3"/><circle cx="70" cy="82" r="8" fill="none" stroke="#1A1A1A" stroke-width="3"/>':'<circle cx="120" cy="78" r="28" fill="none" stroke="#1A1A1A" stroke-width="4"/><rect x="108" y="66" width="24" height="24" fill="#1A1A1A"/>';var svg='<svg xmlns="http://www.w3.org/2000/svg" width="240" height="160" viewBox="0 0 240 160"><rect width="240" height="160" fill="'+bg+'"/>'+shape+'</svg>';return "data:image/svg+xml,"+encodeURIComponent(svg)}
+function itPhLabel(k){return k==="client"?"Photo client":k==="accueil"?"Photo réception":"Photo technicien"}
 var ITO=null,ITC=0,ITDY=null,ITHIDE={};
-function itList(){var T=Math.round((d0(new Date())-d0(E0))/864e5);if(!ITO){ITO=[
-{id:"dem-ouv",t:"Fuite d'eau",st:"ouv",l:"Tahiti 14",n:"MARTIN",a:T-1,k:2,trade:"Plomberie",part:"Joint siphon",ask:"De l’eau au sol sous le lavabo, signalée à l’arrivée.",cr:"Diagnostic non fait."},
-{id:"dem-enc",t:"Chauffage",st:"enc",l:"Maldives 6",n:"BERNARD",a:T-2,k:4,trade:"Chauffage",part:"Thermostat",ask:"Le chauffage ne démarre plus depuis hier soir.",cr:"Thermostat remplacé. Essai en cours sur 24 h."},
-{id:"dem-ter",t:"Serrure bloquée",st:"ter",l:"Bali 22",n:"SIMON",a:T-10,k:1,trade:"Serrurerie",part:"Cylindre",ask:"Impossible de fermer la porte à clé.",cr:"Cylindre changé. Clés remises à l’accueil."}
-]}var pins=Array.isArray(ITPIN)?ITPIN:[];if(!Array.isArray(ITPIN)&&!itList.w){itList.w=1;setTimeout(function(){itList.w=0;if(cur!=null&&S[cur]&&S[cur][0]==="Maintenance")render()},0)}pins.forEach(function(p){if(!p||ITHIDE[p.id]||ITO.some(function(y){return y.id===p.id}))return;ITO.push({id:p.id,t:p.t||"Intervention",st:"ouv",l:p.l||"",n:p.n||"",a:p.a!=null?p.a+(+p.day||0):T,k:0,trade:"Technique",part:"",ask:p.t||"",cr:"Épinglée depuis la fiche séjour.",pin:1})});if(ITC>=ITO.length)ITC=Math.max(0,ITO.length-1);return ITO}
+function itList(){itSeedStays();var T=Math.round((d0(new Date())-d0(E0))/864e5);if(!ITO){function rec(o){o.a=itOff(o.sy,o.sm,o.sd);o.k=o.sk;o.l="Mobil-home "+o.mh;o.log.forEach(function(e){e.a=itOff(e.y,e.m,e.d)});return o}
+ITO=[
+rec({id:"ser-75",t:"Serrure bloquée",st:"ter",pass:"ok",mh:75,n:"SIMON",sy:2026,sm:10,sd:30,sk:2,tech:"Emma",part:"Cylindre européen",ask:"Impossible de fermer la porte d'entrée à clé : le cylindre tourne dans le vide et la gâche ne retient plus le pêne. Le vantail est maintenu par le verrou de nuit en attendant le passage.",log:[
+{y:2026,m:10,d:31,hm:"08:40",tx:"Signalement client"},
+{y:2026,m:10,d:31,hm:"14:50",by:"Julien",tx:"Cylindre hors service : le barillet tourne sans entraîner le pêne. Porte maintenue par le verrou de nuit."},
+{y:2026,m:11,d:1,hm:"09:25",by:"Camille",tx:"Cylindre européen de même entraxe préparé et posé avec le jeu de clés."},
+{y:2026,m:11,d:1,hm:"11:50",by:"Nora",tx:"Cylindre remplacé, gâche recadrée. Essais d'ouverture et de fermeture concluants."},
+{y:2026,m:11,d:1,hm:"14:10",by:"Lucas",tx:"Contrôle du jeu et des trois tours : fermeture franche."},
+{y:2026,m:11,d:1,hm:"15:30",by:"Emma",tx:"Jeu de clés remis à l'accueil. Porte opérationnelle.",photos:["client","tech"]}
+]}),
+rec({id:"chauf-22",t:"Chauffage",st:"enc",pass:"cond",mh:22,n:"MOREAU",sy:2026,sm:10,sd:22,sk:5,tech:"Lucas",part:"Thermostat",ask:"Le chauffage du séjour souffle de l'air froid depuis l'arrivée, même avec le réglage au maximum.",log:[
+{y:2026,m:10,d:23,hm:"09:05",tx:"Signalement client"},
+{y:2026,m:10,d:23,hm:"11:20",by:"Emma",tx:"Soufflerie active, air froid. Filtre encrassé, sonde à contrôler."},
+{y:2026,m:10,d:24,hm:"08:40",by:"Lucas",tx:"Sonde remplacée. Cycle de chauffe relancé, température encore instable.",photos:["accueil","tech"]}
+]}),
+rec({id:"fuite-14",t:"Fuite d'eau",st:"ouv",pass:"cond",mh:14,n:"MARTIN",sy:2026,sm:11,sd:8,sk:6,tech:"Camille",part:"Joint siphon",ask:"De l'eau au sol sous le lavabo depuis l'arrivée. Le siphon goutte dès qu'on tire de l'eau.",log:[
+{y:2026,m:11,d:8,hm:"18:15",tx:"Signalement client",photos:["client"]},
+{y:2026,m:11,d:9,hm:"09:10",by:"Camille",tx:"Siphon desserré, joint écrasé. Pièce commandée, bac posé en attendant."}
+]}),
+rec({id:"volet-8",t:"Volet coincé",st:"enc",pass:"ok",mh:8,n:"BERNARD",sy:2026,sm:11,sd:6,sk:5,tech:"Nora",part:"Sangle",ask:"Le volet de la chambre ne descend plus qu'à moitié et la manivelle force.",log:[
+{y:2026,m:11,d:7,hm:"10:00",tx:"Signalement client"},
+{y:2026,m:11,d:7,hm:"15:05",by:"Julien",tx:"Tablier voilé, sangle effilochée. Volet laissé ouvert pour la nuit."},
+{y:2026,m:11,d:8,hm:"09:30",by:"Nora",tx:"Sangle changée, coulisses graissées. Descente encore un peu dure.",photos:["tech"]}
+]}),
+rec({id:"prise-41",t:"Prise HS",st:"ter",pass:"ok",mh:41,n:"GARCIA",sy:2026,sm:10,sd:28,sk:4,tech:"Julien",part:"Prise 16 A",ask:"La prise à côté du lit ne donne plus de courant. Le disjoncteur de la chambre tient.",log:[
+{y:2026,m:10,d:29,hm:"08:20",tx:"Signalement client"},
+{y:2026,m:10,d:29,hm:"13:40",by:"Julien",tx:"Prise hors service, fils desserrés dans le boîtier."},
+{y:2026,m:10,d:29,hm:"16:05",by:"Julien",tx:"Prise 16 A remplacée. Courant rétabli, test lampe concluant.",photos:["tech","accueil"]}
+]}),
+rec({id:"rob-12",t:"Robinet cuisine",st:"enc",pass:"cond",mh:12,n:"LEROY",sy:2026,sm:11,sd:9,sk:4,tech:"Emma",part:"Cartouche",ask:"Le robinet de l'évier goutte en position fermée et la commande dure.",log:[
+{y:2026,m:11,d:9,hm:"19:40",tx:"Signalement client"},
+{y:2026,m:11,d:10,hm:"08:55",by:"Nora",tx:"Cartouche grippée. Arrivée d'eau réduite en attendant la pièce.",photos:["client","accueil"]},
+{y:2026,m:11,d:10,hm:"14:15",by:"Emma",tx:"Cartouche reçue. Remplacement prévu en fin de journée."}
+]}),
+rec({id:"clim-3",t:"Clim défectueuse",st:"ter",pass:"ok",mh:3,n:"DUBOIS",sy:2026,sm:10,sd:15,sk:4,tech:"Lucas",part:"Condensateur",ask:"La climatisation du séjour ne démarre plus et sent le chaud.",log:[
+{y:2026,m:10,d:16,hm:"11:00",tx:"Signalement client"},
+{y:2026,m:10,d:16,hm:"16:20",by:"Camille",tx:"Groupe extérieur muet. Condensateur de démarrage hors service."},
+{y:2026,m:10,d:17,hm:"10:45",by:"Lucas",tx:"Condensateur remplacé. Soufflage froid rétabli.",photos:["tech"]}
+]})
+]}var pins=Array.isArray(ITPIN)?ITPIN:[];if(!Array.isArray(ITPIN)&&!itList.w){itList.w=1;setTimeout(function(){itList.w=0;if(cur!=null&&S[cur]&&S[cur][0]==="Maintenance")render()},0)}pins.forEach(function(p){if(!p||ITHIDE[p.id]||ITO.some(function(y){return y.id===p.id}))return;ITO.push({id:p.id,t:p.t||"Intervention",st:"ouv",pass:"cond",l:p.l||"",n:p.n||"",a:p.a!=null?p.a+(+p.day||0):T,k:0,tech:"",part:"",ask:p.t||"",log:[{a:p.a!=null?p.a+(+p.day||0):T,hm:"09:00",tx:"Signalement client"}]})});if(ITC>=ITO.length)ITC=Math.max(0,ITO.length-1);return ITO}
 function itMode(){return null}
 function itTitle(){return "Intervention technique"}
-function itEmpty(){return sub===3?"Aucune intervention en cours.":sub===4?"Aucune intervention terminée.":"Aucune intervention ouverte."}
-function itFirst(){var L=itList(),m=itMode(),i;for(i=0;i<L.length;i++)if(!m||L[i].st===m)return i;return 0}
-function itHas(){var L=itList(),m=itMode(),i;if(!L.length)return false;if(!m)return true;for(i=0;i<L.length;i++)if(L[i].st===m)return true;return false}
-function itSync(){var L=itList(),m=itMode(),i;if(!m||!L.length)return;if(L[ITC]&&L[ITC].st===m)return;for(i=0;i<L.length;i++)if(L[i].st===m){if(ITC!==i)ITDY=null;ITC=i;return}}
-function itPills(){var L=itList(),m=itMode(),c=L[ITC]||L[0],h="",n=0;if(!L.length)return "";L.forEach(function(x,i){if(m&&x.st!==m)return;n++;var u=x.a!=null?addD(E0,x.a):null,w=x.a!=null?addD(E0,x.a+(x.k||0)):null,when=u?(x.k?u.getDate()+" → "+w.getDate()+" "+MN[w.getMonth()].slice(0,3)+".":u.getDate()+" "+MN[u.getMonth()].slice(0,3)+"."):"";h+='<span data-sj="'+i+'" class="sp'+(x===c?' on':'')+'"><em>'+esc(x.t)+(when?' · '+when:'')+'</em><a data-tx="1" aria-label="Fermer"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2L10 10M10 2L2 10" stroke="#5A5A5A" stroke-width="1.6" stroke-linecap="round"/></svg></a></span>'});if(!n)return "";return '<div class="sjp">'+h+'</div>'}
-function itPh(id){if(!itPh.m)itPh.m={};var k=String(id||""),m=itPh.m;if(!m[k])m[k]={cl:[],te:[]};return m[k]}
-function itStay(x){plInit();var name=String(x.n||"").toUpperCase(),best=null,i,j,g,house,covers,dist;for(i=0;i<PL.length;i++){house=PL[i];for(j=0;j<house[1].length;j++){g=house[1][j];if(g[2]!==name)continue;covers=x.a!=null&&g[0]<=x.a&&x.a<g[0]+g[1];dist=x.a==null?0:Math.min(Math.abs(g[0]-x.a),Math.abs(g[0]+g[1]-x.a));if(!best||(covers&&!best.covers)||(!covers&&!best.covers&&dist<best.dist))best={n:g[2],l:house[0],a:g[0],k:g[1],covers:covers,dist:dist}}}return best}
-function itPrenom(s){s=String(s||"").trim();return s?s.split(/\s+/)[0]:""}
-function itDu(a,k){var u=addD(E0,a),w=addD(E0,a+k),A=u.getMonth()===w.getMonth()&&u.getFullYear()===w.getFullYear()?String(u.getDate()):u.getDate()+" "+MN[u.getMonth()]+(u.getFullYear()!==w.getFullYear()?" "+u.getFullYear():"");return "Séjour du "+A+" au "+w.getDate()+" "+MN[w.getMonth()]+" "+w.getFullYear()}
-function itSig(d){return d.getDate()+" "+AB(d.getMonth()).toLowerCase()+" "+d.getFullYear()}
-function itPass(x){return x.st==="ouv"?"cond":"ok"}
-function itNotes(x){if(Array.isArray(x.notes)&&x.notes.length)return x.notes;if(x.cr)return [{tx:x.cr,by:itPrenom(x.by||"")}];return []}
-function itLog(x){if(Array.isArray(x.log)&&x.log.length)return x.log;var ev=[];if(x.a!=null)ev.push({a:x.a,hm:"",tx:"Signalement client"});return ev}
-function itPics(list){if(!list||!list.length)return "";return list.map(function(u){return '<img alt="" src="'+esc(u)+'">'}).join("")}
-function itFiche(){var L=itList();if(!L.length)return "";var x=L[ITC]||L[0],st=itStay(x),u=x.a!=null?addD(E0,x.a):null,house=st?st.l:(x.l||""),hm=String(house).match(/^(.*?)(\d+)\s*$/),title=esc(x.t||"Intervention"),pass=itPass(x),who=x.n||"",pr="",np="",ph=itPh(x.id),notes=itNotes(x),log=itLog(x);
-if(hm)title+=" – "+esc(hm[1].replace(/\s+$/,""))+" <b>"+esc(hm[2])+"</b>";else if(house)title+=" – "+esc(house);
-if(st){try{var ci=clientInfo(stCli(st.n,st.l,st.a));if(ci&&ci.pr)pr=ci.pr}catch(e){}var npp=1+(hs(st.n+"|"+st.l+"|"+st.a+"|p")%5);np=npp+" personne"+(npp>1?"s":"")}
-if(who)who=esc(who)+(pr?" "+esc(pr):"");
-var bar='<div class="itbar sjh"><h2>'+title+'</h2><span class="itpass '+pass+'">'+(pass==="cond"?"Passage sous conditions":"Passage OK")+'</span></div>';
-var left='<section class="itcard" aria-label="Signalement"><h3>Signalement</h3><div class="itwho"><button type="button" class="sjcl">'+(who||"Non renseigné")+'</button>'+(np?'<span class="itnp">'+esc(np)+'</span>':'')+'</div>'+(st?'<div class="sjdt">'+esc(itDu(st.a,st.k))+'</div>':'')+'<div class="itk">Intervention signalée</div><div class="itv">'+(u?esc(itSig(u)):"Non renseignée")+'</div><div class="itk">Commentaire complet</div><div class="itxt">'+(x.ask?esc(x.ask):"Non renseigné")+'</div><div class="itk">Photo client</div><div class="itbox">'+itPics(ph.cl)+'</div></section>';
-var mid='<section class="itcard" aria-label="Dossier technique"><h3>Dossier technique</h3><div class="itk">Commentaire technique</div>'+(notes.length?notes.map(function(n){var by=itPrenom(n.by);return '<p class="itnote">'+esc(n.tx||"")+'</p>'+(by?'<p class="itsign">— '+esc(by)+'</p>':'')}).join(""):'<p class="itnote">Non renseigné</p>')+'<div class="itphrow"><div class="itbox"><div class="itk">Photos technicien</div>'+itPics(ph.te)+'</div><div class="itbox"><div class="itk">Matériel utilisé</div>'+(x.part?'<b>'+esc(x.part)+'</b>':'')+'</div></div></section>';
-var rail=log.map(function(e){var d=addD(E0,e.a),when=d.getDate()+" "+AB(d.getMonth()).toLowerCase()+(e.hm?" · "+e.hm:"");return '<div class="itev"><i aria-hidden="true"></i><p class="itwhen">'+esc(when)+'</p><span class="ittag">'+esc(e.tx||"")+'</span></div>'}).join("")||'<p class="itwhen">Aucun événement</p>';
-var right='<aside class="itch" aria-label="Chronologie"><h3>Chronologie</h3><div class="itlog">'+rail+'</div></aside>';
-return '<div class="sjpan itfiche'+(ITC===itFirst()?' sj1':'')+'">'+bar+'<div class="itg">'+left+mid+right+'</div></div>'}
+function itEmpty(){return "Aucune intervention ouverte."}
+function itFirst(){var L=itList(),i;for(i=0;i<L.length;i++)return i;return 0}
+function itHas(){return itList().length>0}
+function itSync(){}
+function itPills(){var L=itList(),c=L[ITC]||L[0],h="";if(!L.length)return "";L.forEach(function(x,i){var u=x.a!=null?addD(E0,x.a):null,w=x.a!=null?addD(E0,x.a+(x.k||0)):null,when=u?(x.k?u.getDate()+" → "+w.getDate()+" "+MN[w.getMonth()].slice(0,3)+".":u.getDate()+" "+MN[u.getMonth()].slice(0,3)+"."):"";h+='<span data-sj="'+i+'" class="sp'+(x===c?' on':'')+'"><em>'+esc(x.t)+(when?' · '+when:'')+'</em><a data-tx="1" aria-label="Fermer"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2L10 10M10 2L2 10" stroke="#5A5A5A" stroke-width="1.6" stroke-linecap="round"/></svg></a></span>'});return '<div class="sjp">'+h+'</div>'}
+function itStay(x){itSeedStays();if(x&&x.a!=null&&x.l&&x.n)return {n:x.n,l:x.l,a:x.a,k:x.k||0};return null}
+function itChip(x){var u=addD(E0,x.a),w=addD(E0,x.a+(x.k||0));return x.n+" · "+u.getDate()+" → "+w.getDate()+" "+AB(w.getMonth()).toLowerCase()}
+function itMeta(e){var d=addD(E0,e.a),s=(e.by?e.by+" · ":"")+d.getDate()+" "+AB(d.getMonth()).toLowerCase()+" · "+(e.hm||"");return s.replace(/\s·\s$/,"").replace(/·\s·/,"·")}
+var ITWRENCH='<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M22.7 19.3l-6.3-6.3a6 6 0 0 1-7.8-7.8l3.1 3.1 2.2-2.2-3.1-3.1a6 6 0 0 1 7.8 7.8l6.3 6.3a1.5 1.5 0 0 1-2.2 2.2z"/></svg>';
+function itFiche(){var L=itList();if(!L.length)return "";var x=L[ITC]||L[0],pass=x.pass==="cond"?"cond":"ok",hm=String(x.l||"").match(/^(.*?)(\d+)\s*$/),title=hm?esc(hm[1].replace(/\s+$/,""))+" <b>"+esc(hm[2])+"</b> – "+esc(x.t||"Intervention"):esc((x.l?x.l+" – ":"")+(x.t||"Intervention"));
+var line='<div class="itline"><h2>'+title+'</h2>'+(x.n&&x.a!=null?'<button type="button" class="itstay">'+esc(itChip(x))+'</button>':'')+'<span class="itpass '+pass+'">'+(pass==="cond"?"Passage sous conditions":"Passage OK")+'</span>'+(x.tech?'<span class="ittech">'+ITWRENCH+esc(x.tech)+'</span>':'')+'</div>';
+var frame='<div class="itframe">'+line+'<p class="itask">'+esc(x.ask||"")+'</p></div>';
+var steps=(x.log||[]).map(function(e){var pics=(e.photos||[]).map(function(k){return '<div class="itshot"><span>'+esc(itPhLabel(k))+'</span><img alt="'+esc(itPhLabel(k))+'" src="'+itPhoto(k)+'"></div>'}).join("");var mat=(pics&&x.part)?'<div class="itmat"><span>Matériel utilisé</span><b>'+esc(x.part)+'</b></div>':'';return '<div class="itstep"><i aria-hidden="true"></i><div class="itbubble"><p>'+esc(e.tx||"")+'</p><p class="itmeta">'+esc(itMeta(e))+'</p>'+(pics?'<div class="itphotos">'+pics+mat+'</div>':'')+'</div></div>'}).join("");
+return '<div class="sjpan itfiche'+(ITC===itFirst()?' sj1':'')+'">'+frame+'<section class="itchrono" aria-label="Chronologie"><h3>Chronologie</h3><div class="itlog">'+steps+'</div></section></div>'}
 function sjLoc(c){var u=addD(E0,c.a);PS.m="semaine";PS.w=+mon(u);PS.a=u.getFullYear()*12+u.getMonth();PK=null;pClamp();pSave();var ap=document.getElementById("app"),sh=function(){ap.style.visibility=""};ap.style.visibility="hidden";go(0,1);var n=0,f=function(){var el=document.querySelector(".tlx .plw");if(!el||!PL){if(++n<20)setTimeout(f,50);else sh();return}var r=-1;PL.some(function(x,i){if(x[0]===c.l){r=i;return true}});if(r>=0)el.scrollTop=Math.max(0,r*RH-el.clientHeight/3+RH);setTimeout(function(){var b=[].find.call(document.querySelectorAll('.tb'),function(t){return t.dataset.z===c.a+','+c.k});if(!b){sh();return}var q=el.getBoundingClientRect(),br=b.getBoundingClientRect(),dx=(br.left+br.right)/2-(q.left+LW+(q.width-LW)/2);if(TL&&TL.cw)TOF+=Math.round(dx/TL.cw);el.scrollLeft+=dx;el.scrollTop+=(br.top+br.bottom)/2-(q.top+q.height*0.42);requestAnimationFrame(sh)},60)};setTimeout(f,0)}
 function sjDP(x,i,nm){var u=addD(E0,x.a),w=addD(E0,x.a+x.k),L=x.l||"";return '<span class="cst'+sCls(x.a,x.k)+'" style="flex:0 0 auto;padding:6px 10px"><b style="font-size:14px;margin-right:8px">'+esc(nm||x.n)+'</b>'+u.getDate()+' '+MN[u.getMonth()]+(u.getFullYear()!==w.getFullYear()?' '+u.getFullYear():'')+' → '+w.getDate()+' '+MN[w.getMonth()]+' '+w.getFullYear()+'</span><span class="sjmh">'+esc(L.replace(/\s*\d+$/,""))+' <b>'+esc((L.match(/\d+$/)||[""])[0])+'</b></span>'}
 var SOP=-1,SDY=null,ITPIN=(function(){try{return JSON.parse(localStorage.getItem("itPin")||"[]")}catch(e){return []}})();function itPinSave(){try{localStorage.setItem("itPin",JSON.stringify(ITPIN))}catch(e){}}function sjToast(m){var el=document.getElementById("sjtoast");if(!el){el=document.createElement("div");el.id="sjtoast";el.className="sjtoast";document.body.appendChild(el)}el.textContent=m;el.classList.add("on");clearTimeout(el._t);el._t=setTimeout(function(){el.classList.remove("on")},1600)};function sjTL(x,i){return ""}function sjAcc(){if(!SJ.length)return sjPage();var X='<svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2L10 10M10 2L2 10" stroke="#5A5A5A" stroke-width="1.6" stroke-linecap="round"/></svg>';return '<div class="sjst">'+SJ.map(function(x,i){var o=i===SOP;return '<div class="sjrw'+(o?' op':'')+'" data-sj="'+i+'"><span class="sjht">'+esc(x.n)+(x.a!=null?' · '+addD(E0,x.a).getDate()+' → '+addD(E0,x.a+x.k).getDate()+' '+MN[addD(E0,x.a+x.k).getMonth()].slice(0,3)+'.':'')+'</span><a data-tx="1" aria-label="Fermer">'+X+'</a></div>'+(o?(SC=i,sjPage()):'')}).join("")+'</div>'}
