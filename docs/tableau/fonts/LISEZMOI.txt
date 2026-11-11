@@ -1,0 +1,6 @@
+Polices des maquettes validées (fiche séjour v10, fiche client v6, fiche intervention v6),
+converties en WOFF2 depuis les fichiers Google Fonts :
+- Geist (Vercel) — SIL Open Font License 1.1
+- IBM Plex Sans, IBM Plex Mono (IBM) — SIL Open Font License 1.1
+- Source Sans 3 (Adobe) — SIL Open Font License 1.1
+Licence : https://openfontlicense.org
