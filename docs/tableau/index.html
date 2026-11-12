@@ -572,15 +572,37 @@ html,body{overflow-x:clip;overflow-y:visible;width:100%;width:100dvw;max-width:1
 .mqI .ctx{font-family: Geist, Inter, sans-serif; font-size: 13px; font-weight: 400; color: #5C5C5C; line-height: 1.35; margin: 2px 0 0;}
 /* MQ-CSS:fin */
 /* Vues : une ligne par client (client | séjour | intervention), colonnes 360 px alignées en haut. */
-.vues .vrows{display:flex;flex-direction:column;align-items:flex-start;gap:28px;overflow-x:auto;padding:4px 0 12px;max-width:100%}
+.vues .vrows{display:flex;flex-direction:row;align-items:flex-start;gap:16px;overflow-x:auto;padding:4px 0 12px;max-width:100%}
 .vues .vrow{display:flex;flex-direction:column;align-items:flex-start;gap:16px;flex:0 0 auto}
-.vues .vcol{flex:0 0 360px;width:360px;min-width:0}
+.vues .vcol{flex:0 0 auto;width:360px;min-width:0;position:relative}
+/* Colonnes Vues : croix de fermeture, boutons +, fonds par type de fiche. */
+.vues .vclose{position:absolute;top:8px;right:8px;width:20px;height:20px;padding:0;border:0;border-radius:6px;background:none;color:#9A9A9A;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2}
+.vues .vclose svg{width:9px;height:9px}
+.vues .vclose:hover{background:rgba(0,0,0,.06);color:#1A1A1A}
+.vues .vcol-client .vclose{color:#BDBDBD}
+.vues .vcol-client .vclose:hover{background:rgba(255,255,255,.12);color:#fff}
+.vues .vcol-client .vpick~.vclose{color:#9A9A9A}
+.vues .mqC .vpen{right:34px}
+.vues .vplus{align-self:center;display:flex;flex-direction:column;gap:8px;flex:0 0 auto}
+.vues .mqI .card{background:#FDF0E3}
+.vues .mqS .card{background:#EAF5EC}
+.vues .mqC .card{background:#3A3A3A;border-color:#3A3A3A}
+.vues .mqC .id-line .fn{color:#FFFFFF}
+.vues .mqC .id-line .gn{color:#D9D9D9}
+.vues .mqC .coords p,.vues .mqC .cmh,.vues .mqC .cmo,.vues .mqC .chev,.vues .mqC .pchev{color:#C4C4C4}
+.vues .mqC .cmh{text-decoration-color:#5A5A5A}
+.vues .mqC .cdates,.vues .mqC .cunit{color:#EDEDED}
+.vues .mqC .rule{background:#555555}
+.vues .mqC .vpen{color:#C4C4C4}
+.vues .mqC .vpen:hover{background:#4A4A4A;color:#fff}
+.vues .mqC .vced label span{color:#D9D9D9}
 .vues .vcol>.s9tabs{margin:0 0 6px;gap:4px}
 .vues .vcol>.s9tabs .s9tab{border-bottom:1px solid #E4E4E4;border-radius:7px;max-width:180px}
 .vues .vcol>.s9tabs .s9tab.on{height:24px;margin-bottom:0;border-color:#D0D0D0}
 .vues .vcol-client.vflash .mqC .card{animation:vfl .9s ease}
 @keyframes vfl{0%{box-shadow:0 0 0 3px rgba(26,26,26,.18)}100%{box-shadow:0 0 0 0 rgba(26,26,26,0)}}
-.vues .vadd{width:36px;height:36px;border-radius:50%;border:1px solid #D0D0D0;background:#fff;color:#5C5C5C;font:400 20px/1 Geist,Inter,sans-serif;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;padding:0}
+.vues .vadd{height:36px;border-radius:18px;border:1px solid #D0D0D0;background:#fff;color:#5C5C5C;font:500 13px/1 Geist,Inter,sans-serif;display:flex;align-items:center;justify-content:flex-start;gap:8px;cursor:pointer;flex:0 0 auto;padding:0 14px 0 10px}
+.vues .vadd b{font-weight:400;font-size:20px;line-height:1;width:16px;text-align:center}
 .vues .vadd:hover{color:#1A1A1A;border-color:#9A9A9A}
 .vues .vpick{background:#fff;border:1px solid #E4E4E4;border-radius:10px;padding:16px;font-family:Geist,Inter,sans-serif}
 .vues .vpick input{width:100%;box-sizing:border-box;font:inherit;font-size:13px;padding:8px 10px;border:1px solid #E4E4E4;border-radius:8px;outline:none;background:#fff;color:#1A1A1A}
@@ -1349,31 +1371,37 @@ return '<div class="mqI"><article class="card fiche"><div class="pad"><div class
 var VW=(function(){try{var o=JSON.parse(localStorage.getItem("vues")||"null");if(o&&Array.isArray(o.r))return o}catch(e){}return {r:[]}})(),VFOC=null;
 function vSave(){try{localStorage.setItem("vues",JSON.stringify(VW))}catch(e){}}
 function vRow(cid){for(var i=0;i<VW.r.length;i++)if(VW.r[i].c===cid)return i;return -1}
-function vNewRow(cid){VW.r.push({c:cid,s:[],sc:0,e:0,q:""});return VW.r.length-1}
+function vNewRow(cid,m){VW.r.push({c:cid,s:[],sc:0,e:0,q:"",m:m||"c"});return VW.r.length-1}
 function vShow(i){VFOC=i;vSave();if(!(cur===0&&sub===4))go(0,4);render()}
 function vOpenCl(cid){var i=vRow(cid);if(i<0)i=vNewRow(cid);vShow(i)}
-function vAddSt(i,n,l,a,k){var R=VW.r[i],id=n+"|"+l+"|"+a,j=-1;R.s.forEach(function(y,q){if(y.n+"|"+y.l+"|"+y.a===id)j=q});if(j<0){R.s.push({n:n,l:l,a:a,k:k,i:[],ic:0});R.s.sort(function(p,q){return (p.a==null?1e9:p.a)-(q.a==null?1e9:q.a)});R.s.forEach(function(y,q){if(y.n+"|"+y.l+"|"+y.a===id)j=q})}R.sc=j;return j}
-function vOpenSt(n,l,a,k){var cid=stCli(n,l,a),i=vRow(cid);if(i<0)i=vNewRow(cid);vAddSt(i,n,l,a,k);vShow(i)}
-function vAddIv(i,j,id){var S=VW.r[i]&&VW.r[i].s[j];if(!S)return;var q=S.i.indexOf(id);if(q<0){S.i.push(id);q=S.i.length-1}S.ic=q;VW.r[i].sc=j}
-function vOpenIv(id){var x=itList().filter(function(y){return y.id===id})[0];if(!x)return;var st=itStay(x);if(!st){sjToast("Intervention sans séjour associé");return}var cid=stCli(st.n,st.l,st.a),i=vRow(cid);if(i<0)i=vNewRow(cid);var j=vAddSt(i,st.n,st.l,st.a,st.k);vAddIv(i,j,id);vShow(i)}
+function vAddSt(i,n,l,a,k){var R=VW.r[i],id=n+"|"+l+"|"+a,f=-1;VW.r.forEach(function(Q,p){if(Q.s[0]&&Q.s[0].n+"|"+Q.s[0].l+"|"+Q.s[0].a===id)f=p});if(f>=0){VFOC=f;return [f,0]}
+if(R.s.length){i=vNewRow(R.c);R=VW.r[i]}R.s=[{n:n,l:l,a:a,k:k,i:[],ic:0}];R.sc=0;VFOC=i;return [i,0]}
+function vOpenSt(n,l,a,k){var cid=stCli(n,l,a),i=-1;VW.r.forEach(function(Q,p){if(i<0&&Q.c===cid&&!Q.s.length)i=p});if(i<0)i=vNewRow(cid);var r=vAddSt(i,n,l,a,k);vShow(r[0])}
+function vAddIv(i,j,id){var S=VW.r[i]&&VW.r[i].s[0];if(!S)return;S.i=[id];S.ic=0;VW.r[i].sc=0}
+function vOpenIv(id){var x=itList().filter(function(y){return y.id===id})[0];if(!x)return;var st=itStay(x);if(!st){sjToast("Intervention sans séjour associé");return}var cid=stCli(st.n,st.l,st.a),i=-1;VW.r.forEach(function(Q,p){if(i<0&&Q.c===cid&&!Q.s.length)i=p});if(i<0)i=vNewRow(cid);var r=vAddSt(i,st.n,st.l,st.a,st.k);vAddIv(r[0],0,id);vShow(r[0])}
+/* Anciennes lignes enregistrées (plusieurs séjours ou interventions) : une colonne par séjour, une intervention par colonne. */
+function vNorm(){var o=[];VW.r.forEach(function(R){if(R.s&&R.s.length>1){var c=Math.min(R.sc|0,R.s.length-1);R.s.forEach(function(S,j){var T={c:R.c,s:[S],sc:0,e:j===c?R.e:0,q:"",m:"c"};if(S.i&&S.i.length>1){S.i=[S.i[Math.min(S.ic|0,S.i.length-1)]];S.ic=0}o.push(T)})}else{if(R.s&&R.s[0]&&R.s[0].i&&R.s[0].i.length>1){var S=R.s[0];S.i=[S.i[Math.min(S.ic|0,S.i.length-1)]];S.ic=0}o.push(R)}});VW.r=o}
 function vTab(lab,on,attrs,x){return '<span class="s9tab'+(on?' on':'')+'" role="tab" aria-selected="'+on+'" title="'+esc(lab)+'" '+attrs+'><em><b>'+esc(lab)+'</b></em><a data-vx="'+x+'" aria-label="Fermer">'+MQV.x+'</a></span>'}
-function vPick(i,R){var q=(R.q||"").trim().toLowerCase(),L=[];if(q){sqB();for(var k=0;k<SQ.length&&L.length<8;k++){var x=SQ[k];if(x.q.indexOf(q)>=0||(x.c&&x.c.toLowerCase().indexOf(q)>=0))L.push(x)}}
-return '<div class="vpick"><input type="search" data-vq="'+i+'" placeholder="Rechercher un client (nom, prénom, n° client)" value="'+esc(R.q||"")+'" autocomplete="off" aria-label="Rechercher un client"><div class="vpl">'+(q?(L.length?L.map(function(x){return '<button type="button" data-vpk="'+esc(x.id)+'" data-vr="'+i+'"><b>'+esc(x.n)+'</b> '+esc(x.pr)+'<span>'+esc(x.c||"")+'</span></button>'}).join(''):'<p>Aucun client trouvé.</p>'):'<p>Saisissez un nom pour choisir le client de cette ligne.</p>')+'</div></div>'}
+function vPick(i,R){var q=(R.q||"").trim().toLowerCase(),m=R.m||"c",L=[],ph=m==="s"?"Rechercher un séjour (nom, prénom, mobil-home)":m==="i"?"Rechercher une intervention (titre, nom, mobil-home)":"Rechercher un client (nom, prénom, n° client)",h="";
+if(q){sqB();if(m==="c"){for(var k=0;k<SQ.length&&L.length<8;k++){var x=SQ[k];if(x.q.indexOf(q)>=0||(x.c&&x.c.toLowerCase().indexOf(q)>=0))L.push(x)}h=L.map(function(x){return '<button type="button" data-vpk="'+esc(x.id)+'" data-vr="'+i+'"><b>'+esc(x.n)+'</b> '+esc(x.pr)+'<span>'+esc(x.c||"")+'</span></button>'}).join('')}
+else if(m==="s"){var MC=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];for(var k=0;k<SQ.length&&L.length<8;k++){var x=SQ[k];x.st.forEach(function(y){if(L.length<8&&y.a!=null&&(x.q.indexOf(q)>=0||String(y.l).toLowerCase().indexOf(q)>=0))L.push([x,y])})}h=L.map(function(z){var x=z[0],y=z[1],u=addD(E0,y.a),w=addD(E0,y.a+y.k);return '<button type="button" data-vps="'+esc(x.n+"|"+y.l+"|"+y.a+"|"+y.k)+'" data-vr="'+i+'"><b>'+esc(x.n)+'</b> '+esc(x.pr)+'<span>'+esc(String(y.l).replace("Mobil-home","MH"))+' · '+u.getDate()+' '+MC[u.getMonth()]+' → '+w.getDate()+' '+MC[w.getMonth()]+' '+w.getFullYear()+'</span></button>'}).join('')}
+else{itList().forEach(function(x){if(L.length<8&&((x.t||"")+" "+(x.n||"")+" "+(x.l||"")).toLowerCase().indexOf(q)>=0)L.push(x)});h=L.map(function(x){return '<button type="button" data-vpi="'+esc(x.id)+'" data-vr="'+i+'"><b>'+esc(x.t||"Intervention")+'</b> '+esc(x.n||"")+'<span>'+esc(String(x.l||"").replace("Mobil-home","MH"))+'</span></button>'}).join('')}}
+return '<div class="vpick"><input type="search" data-vq="'+i+'" placeholder="'+ph+'" value="'+esc(R.q||"")+'" autocomplete="off" aria-label="'+ph+'"><div class="vpl">'+(q?(h||'<p>Aucun résultat.</p>'):'<p>Saisissez un nom pour choisir '+(m==="s"?"le séjour":m==="i"?"l'intervention":"le client")+' de cette colonne.</p>')+'</div></div>'}
 function vRowHtml(i){var R=VW.r[i],ci=R.c?clientInfo(R.c):null,h='<section class="vrow'+(VFOC===i?' vfoc':'')+'" data-vrow="'+i+'">';
-h+='<div class="vcol vcol-client"><div class="s9tabs" role="tablist">'+vTab(ci?ci.n+" "+ci.pr:"Nouvelle ligne",true,'data-vr="'+i+'"',"r"+i)+'</div>'+(ci?clMq(R.c,i,R.e):vPick(i,R))+'</div>';
-if(ci&&R.s.length){var j=Math.min(R.sc|0,R.s.length-1),S=R.s[j];R.sc=j;
-h+='<div class="vcol vcol-sejour"><div class="s9tabs" role="tablist">'+R.s.map(function(y,q){var u=y.a!=null?addD(E0,y.a):null,w=y.a!=null?addD(E0,y.a+y.k):null,MC=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];return vTab(u?u.getDate()+(u.getMonth()!==w.getMonth()?' '+MC[u.getMonth()]:'')+' → '+w.getDate()+' '+MC[w.getMonth()]+' '+w.getFullYear():(y.l||y.n),q===j,'data-vst="'+q+'" data-vr="'+i+'"',"s"+i+"_"+q)}).join('')+'</div>'+sjMq(S,i,j)+'</div>';
-var L=itList();S.i=S.i.filter(function(id){return L.some(function(y){return y.id===id})});
-if(S.i.length){var c=Math.min(S.ic|0,S.i.length-1),X=S.i.map(function(id){return L.filter(function(y){return y.id===id})[0]});S.ic=c;
-h+='<div class="vcol vcol-intervention"><div class="s9tabs" role="tablist">'+X.map(function(x,q){return vTab(x.t,q===c,'data-vit="'+q+'" data-vr="'+i+'"',"i"+i+"_"+q)}).join('')+'</div>'+itMq(X[c])+'</div>'}}
+h+='<div class="vcol vcol-client">'+(ci?clMq(R.c,i,R.e):vPick(i,R))+'<button type="button" class="vclose" data-vx="r'+i+'" aria-label="Fermer" title="Fermer">'+MQV.x+'</button></div>';
+if(ci&&R.s.length){var S=R.s[0];R.sc=0;
+h+='<div class="vcol vcol-sejour">'+sjMq(S,i,0)+'<button type="button" class="vclose" data-vx="r'+i+'" aria-label="Fermer" title="Fermer">'+MQV.x+'</button></div>';
+var L=itList();S.i=(S.i||[]).filter(function(id){return L.some(function(y){return y.id===id})});
+if(S.i.length){var x=L.filter(function(y){return y.id===S.i[0]})[0];S.ic=0;
+h+='<div class="vcol vcol-intervention">'+itMq(x)+'<button type="button" class="vclose" data-vx="i'+i+'_0" aria-label="Fermer" title="Fermer">'+MQV.x+'</button></div>'}}
 return h+'</section>'}
-function vPage(search){VW.r=VW.r.filter(function(R){return R.c==null||clientInfo(R.c)});if(!VW.r.length)vNewRow(null);
-return '<div class="d vues"><div class="sjh"><h2>Vues</h2>'+search+'</div><div class="vrows">'+VW.r.map(function(R,i){return vRowHtml(i)}).join('')+'<button type="button" class="vadd" data-vadd="1" aria-label="Ajouter une ligne" title="Ajouter une ligne">+</button></div></div>'}
+function vPage(search){VW.r=VW.r.filter(function(R){return R.c==null||clientInfo(R.c)});vNorm();
+return '<div class="d vues"><div class="sjh"><h2>Vues</h2>'+search+'</div><div class="vrows">'+VW.r.map(function(R,i){return vRowHtml(i)}).join('')+'<div class="vplus" role="group" aria-label="Ouvrir une fiche"><button type="button" class="vadd" data-vadd="c" aria-label="Ajouter une fiche client" title="Ajouter une fiche client"><b>+</b>Client</button><button type="button" class="vadd" data-vadd="s" aria-label="Ajouter une fiche séjour" title="Ajouter une fiche séjour"><b>+</b>Séjour</button><button type="button" class="vadd" data-vadd="i" aria-label="Ajouter une fiche intervention" title="Ajouter une fiche intervention"><b>+</b>Intervention</button></div></div></div>'}
 function vBind(){var A=app;function rr(e){return +e.dataset.vr}
-A.querySelectorAll("[data-vx]").forEach(function(b){b.onclick=function(ev){ev.stopPropagation();var t=b.dataset.vx,m=t.slice(1).split("_").map(Number),R=VW.r[m[0]];if(!R)return;if(t[0]==="r"){VW.r.splice(m[0],1);VFOC=null}else if(t[0]==="s"){R.s.splice(m[1],1);if(R.sc>=R.s.length)R.sc=Math.max(0,R.s.length-1);else if(R.sc>m[1])R.sc--}else{var S=R.s[R.sc|0];if(S){S.i.splice(m[1],1);if(S.ic>=S.i.length)S.ic=Math.max(0,S.i.length-1);else if(S.ic>m[1])S.ic--}}vSave();render()}});
+A.querySelectorAll("[data-vx]").forEach(function(b){b.onclick=function(ev){ev.stopPropagation();var t=b.dataset.vx,m=t.slice(1).split("_").map(Number),R=VW.r[m[0]];if(!R)return;if(t[0]==="r"){VW.r.splice(m[0],1);VFOC=null}else if(t[0]==="i"){var S0=R.s[0];if(S0){S0.i=[];S0.ic=0}}else if(t[0]==="s"){R.s.splice(m[1],1);if(R.sc>=R.s.length)R.sc=Math.max(0,R.s.length-1);else if(R.sc>m[1])R.sc--}else{var S=R.s[R.sc|0];if(S){S.i.splice(m[1],1);if(S.ic>=S.i.length)S.ic=Math.max(0,S.i.length-1);else if(S.ic>m[1])S.ic--}}vSave();render()}});
 A.querySelectorAll("[data-vst]").forEach(function(b){b.onclick=function(){VW.r[rr(b)].sc=+b.dataset.vst;vSave();render()}});
 A.querySelectorAll("[data-vit]").forEach(function(b){b.onclick=function(){var R=VW.r[rr(b)],S=R.s[R.sc|0];if(S)S.ic=+b.dataset.vit;vSave();render()}});
-A.querySelectorAll(".vues [data-vs]").forEach(function(b){function op(){var i=rr(b),R=VW.r[i],x=clientInfo(R.c),y=x&&x.st[+b.dataset.vs];if(!y)return;vAddSt(i,x.n,y.l,y.a,y.k);VFOC=i;vSave();render();vScroll(i,"sejour")}b.onclick=op;b.onkeydown=function(e){if(e.key==="Enter")op()}});
+A.querySelectorAll(".vues [data-vs]").forEach(function(b){function op(){var i=rr(b),R=VW.r[i],x=clientInfo(R.c),y=x&&x.st[+b.dataset.vs];if(!y)return;var r=vAddSt(i,x.n,y.l,y.a,y.k);vSave();render();vScroll(r[0],"sejour")}b.onclick=op;b.onkeydown=function(e){if(e.key==="Enter")op()}});
 A.querySelectorAll(".vues [data-vcn]").forEach(function(b){b.onclick=function(){var i=+b.dataset.vcn;vScroll(i,"client");var c=A.querySelector('[data-vrow="'+i+'"] .vcol-client');if(c){c.classList.remove("vflash");void c.offsetWidth;c.classList.add("vflash")}}});
 A.querySelectorAll(".vues [data-vio]").forEach(function(b){b.onclick=function(ev){ev.stopPropagation();var x=itList()[+b.dataset.vio];if(!x)return;vAddIv(rr(b),+b.dataset.vj,x.id);vSave();render();vScroll(rr(b),"intervention")}});
 A.querySelectorAll(".vues [data-vev]").forEach(function(b){b.onclick=function(ev){ev.stopPropagation();var i=rr(b),j=+b.dataset.vj,S=VW.r[i].s[j],q=+b.dataset.vev,IV=["Fuite d'eau salle de bain","Problème de chauffage","Clim défectueuse","Serrure bloquée","Prise électrique HS"],tit=IV[hs(S.n+"|"+S.a+"|iv"+q)%IV.length],id=S.n+"|"+S.l+"|"+S.a+"|"+tit;
@@ -1381,7 +1409,9 @@ if(!ITPIN.some(function(x){return x.id===id})){ITPIN.unshift({id:id,t:tit,n:S.n,
 A.querySelectorAll(".vues [data-vce]").forEach(function(b){function f(){var i=rr(b);if(b.classList.contains("sv")){var R=VW.r[i],p=A.querySelector('[data-vcm="'+i+'"]');if(R&&R.c&&p)clCmSave(R.c,p.textContent.trim())}VW.r[i].e=+b.dataset.vce;vSave();render()}b.onclick=f;b.onkeydown=function(e){if(e.key==="Enter")f()}});
 A.querySelectorAll(".vues [data-vq]").forEach(function(inp){inp.oninput=function(){var i=+inp.dataset.vq,p=inp.selectionStart;VW.r[i].q=inp.value;render();var n=A.querySelector('[data-vq="'+i+'"]');if(n){n.focus();try{n.setSelectionRange(p,p)}catch(e){}}}});
 A.querySelectorAll(".vues [data-vpk]").forEach(function(b){b.onclick=function(){var i=rr(b),id=b.dataset.vpk,k=vRow(id);if(k>=0&&k!==i){VW.r.splice(i,1);VFOC=k>i?k-1:k}else{VW.r[i].c=id;VW.r[i].q="";VFOC=i}vSave();render()}});
-var ad=A.querySelector(".vues [data-vadd]");if(ad)ad.onclick=function(){var i=vNewRow(null);VFOC=i;vSave();render();var n=A.querySelector('[data-vq="'+i+'"]');if(n){n.focus();n.scrollIntoView({block:"nearest"})}};
+A.querySelectorAll(".vues [data-vps]").forEach(function(b){b.onclick=function(){var i=rr(b),z=b.dataset.vps.split("|"),n=z[0],l=z[1],a=+z[2],k=+z[3],R=VW.r[i];VW.r.splice(i,1);vOpenSt(n,l,a,k)}});
+A.querySelectorAll(".vues [data-vpi]").forEach(function(b){b.onclick=function(){var i=rr(b);VW.r.splice(i,1);vOpenIv(b.dataset.vpi)}});
+A.querySelectorAll(".vues [data-vadd]").forEach(function(ad){ad.onclick=function(){var i=vNewRow(null,ad.dataset.vadd);VFOC=i;vSave();render();var n=A.querySelector('[data-vq="'+i+'"]');if(n){n.focus();vScroll(i,"client")}}});
 A.querySelectorAll(".vues input.vfile").forEach(function(inp){inp.onchange=function(){var f=inp.files&&inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(){IT_PH[inp.dataset.itid+"|"+inp.dataset.itph]=r.result;render()};r.readAsDataURL(f)}});
 mqAlign();sbBars();pastBind();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(app.querySelector('.mqS,.mqI'))mqAlign()});if(VFOC!=null){var i=VFOC;VFOC=null;setTimeout(function(){var e=A.querySelector('[data-vrow="'+i+'"]');if(e&&e.scrollIntoView)e.scrollIntoView({block:"nearest"})},0)}}
 /* v11g : bords droits de Soldé, de la plaque et des icônes sur celui de l'état du séjour ; haut de Soldé sur le haut des lettres de « 2 adultes · 1 enfant » (même calcul que la maquette). */
