@@ -1415,7 +1415,7 @@ function vHzFit(f){var b2=f.querySelector('.hzb2'),fb=b2&&b2.querySelector('.fri
  var dz=fr.querySelectorAll('.day');if(fr.classList.contains('sb-list')&&dz.length>7){fr.style.maxHeight='';fr.style.maxHeight=(dz[6].getBoundingClientRect().bottom-dz[0].getBoundingClientRect().top)+'px'}}
 function vHzApply(){if(!VHZ)return;if(!window.__mqW){window.__mqW=1;var _m=mqAlign;mqAlign=function(){_m();vHzScale(true)}}app.querySelectorAll('.vues.vh .vcol-sejour .mqS .fiche').forEach(function(f){mqAlign();vHzSj(f)});app.querySelectorAll('.vues.vh .vcol-intervention .mqI .fiche').forEach(vHzIt);vHzItH();vHzSize()}
 /* 1024–1439 px : la fiche horizontale garde sa mise en page (4 blocs côte à côte) et est mise à l'échelle sur la largeur disponible, à la hauteur de la fiche client. */
-function vHzR(){var w=document.documentElement.clientWidth;return VHZ&&w>=1024&&w<1440}
+function vHzR(){return false}
 function vHzSize(){if(!vHzR())return;app.querySelectorAll('.vues.vh .vrow').forEach(function(r){var c=r.querySelector('.vcol-client .card');if(!c)return;var ch=c.getBoundingClientRect().height;
  [['.vcol-sejour','.mqS'],['.vcol-intervention','.mqI']].forEach(function(q){var v=r.querySelector(q[0]),m=v&&v.querySelector(q[1]);if(!m)return;var aw=v.clientWidth;if(q[0]==='.vcol-intervention')v.style.height=ch+'px';
   m.style.transform='';m.style.width='2400px';var f=m.querySelector('.fiche'),dw=aw;
@@ -1579,30 +1579,38 @@ f.onsubmit=function(e){e.preventDefault();if(!profil){m.textContent="Choisis un 
 :is(#it-h,.vues.vh .vcol-intervention) .mqI .chrono.sb-list{overflow-y:auto;scrollbar-width:none;overscroll-behavior:contain;min-height:0}
 :is(#it-h,.vues.vh .vcol-intervention) .mqI .chrono.sb-list::-webkit-scrollbar{display:none}
 :is(#it-h,.vues.vh .vcol-intervention) .clab,:is(#it-h,.vues.vh .vcol-intervention) .cwhen{white-space:nowrap}
-/* 1024–1439 px (iPad) : fiche client 300 px ; fiche horizontale à l'échelle, 4 blocs côte à côte, hauteur de la fiche client. ≥ 1440 px inchangé. */
+/* 1024–1439 px (iPad), maquette v1h : fiche client 260 px, fiche séjour horizontale fluide (4 blocs côte à côte, taille réelle) à la hauteur de la fiche client, puis fiche intervention horizontale ; défilement horizontal de la ligne si besoin. */
 @media (min-width:1024px) and (max-width:1439px){
-.vues.vh .vrows{grid-template-columns:300px minmax(0,1fr)!important}
-.vues.vh .vrows>.vrow>.vcol.vcol-client{width:300px}
+.vues.vh .vrows{grid-template-columns:260px minmax(700px,1fr) auto!important;overflow-x:auto;scrollbar-width:none}
+.vues.vh .vrows::-webkit-scrollbar{display:none}
+.vues.vh .vrows>.vrow>.vcol.vcol-client{width:260px}
 .vues.vh .mqC .fiche{width:100%}
-.vues.vh .vrows>.vrow>.vcol.vcol-sejour,.vues.vh .vrows>.vrow>.vcol.vcol-intervention{position:relative;min-width:0}
-.vues.vh .vrows>.vrow>.vcol>.mqS,.vues.vh .vrows>.vrow>.vcol>.mqI{position:absolute;left:0;top:0;transform-origin:0 0;display:flex;flex-direction:column}
-.vues.vh .vrows>.vrow>.vcol>.mqS>.card,.vues.vh .vcol-intervention .mqI .card,.vues.vh .vcol-intervention .mqI .fiche{flex:1 1 auto;width:auto;max-width:none;height:auto}
-.vh .mqS .fiche.hz .hz-left{width:min-content}
-.vh .mqS .fiche.hz .client-top{flex-wrap:nowrap}
+.vues.vh .vrows>.vrow>.vcol.vcol-sejour{position:relative;min-width:700px}
+.vues.vh .vrows>.vrow>.vcol>.mqS{position:static;transform:none!important;width:100%!important;height:100%!important;display:flex;flex-direction:column}
+.vues.vh .vrows>.vrow>.vcol>.mqS>.card{flex:1 1 auto;width:100%;max-width:none;height:100%;overflow:hidden}
+.vh .mqS .fiche.hz{font-size:12px}
+.vh .mqS .fiche.hz .client{padding:16px 16px 0}
+.vh .mqS .fiche.hz .hz-left{flex:0 0 210px;width:210px}
+.vh .mqS .fiche.hz .hz-left .hz-blocks{padding:14px 0 16px 16px}
+.vh .mqS .fiche.hz .client-top{flex-wrap:wrap}
 .vh .mqS .fiche.hz .typo{white-space:normal}
 .vh .mqS .fiche.hz .client-top .pill.stt,.vh .mqS .fiche.hz .part-right .pill.pay{transform:none!important}
 .vh .mqS .fiche.hz .part-right{margin-top:0!important}
-.vh .mqS .fiche.hz .part-split{display:flex;flex-wrap:wrap;justify-content:space-between;column-gap:12px;row-gap:8px}
-.vh .mqS .fiche.hz .part-left{flex:0 0 auto}
-.vh .mqS .fiche.hz .linen{display:flex;flex-wrap:wrap}
-.vh .mqS .fiche.hz .hzb1{justify-content:space-between}
-.vh .mqS .fiche.hz .hzb1>*{margin:0!important}
-.vh .mqS .fiche.hz .hz-right{grid-template-columns:max-content minmax(170px,1fr) max-content;column-gap:20px}
-.vh .mqS .fiche.hz .dsub{padding-left:14px}
-.vh .mqS .fiche.hz .frise-band.hz7 .day{height:41px}
-.vh .mqS .fiche.hz .fin{justify-content:space-between}
-.vh .mqS .fiche.hz .fin .fline.total{margin-top:0}
-:is(#it-h,.vues.vh .vcol-intervention) .h-b3{flex:1 1 394px;width:auto;min-width:0}
+.vh .mqS .fiche.hz .part-split{display:flex;flex-wrap:wrap;justify-content:space-between;column-gap:8px;row-gap:6px}
+.vh .mqS .fiche.hz .hzb1{justify-content:flex-start}
+.vh .mqS .fiche.hz .hzb1>*{margin:0 0 8px!important}
+.vh .mqS .fiche.hz .hz-right{grid-template-columns:max-content minmax(130px,1fr) minmax(170px,1.2fr);column-gap:16px;padding:18px 16px}
+.vh .mqS .fiche.hz .hzb2{justify-content:flex-start}
+.vh .mqS .fiche.hz .frise-band.hz7 .day{height:min(var(--hz7h),40px)}
+.vh .mqS .fiche.hz .dsub{padding-left:12px}
+.vh .mqS .fiche.hz .notes{gap:10px}
+.vh .mqS .fiche.hz .notes .ask{flex:1 1 0;justify-content:flex-start}
+.vh .mqS .fiche.hz .fin .fline{gap:8px}
+.vh .mqS .fiche.hz .fin .fline.total{margin-top:auto}
+.vues.vh .vrows>.vrow>.vcol.vcol-intervention{position:relative;min-width:640px}
+.vues.vh .vcol-intervention .mqI{position:static;transform:none!important;width:100%!important;height:100%!important}
+:is(#it-h,.vues.vh .vcol-intervention) .mqI .card,:is(#it-h,.vues.vh .vcol-intervention) .mqI .fiche{width:100%;max-width:none;height:100%}
+:is(#it-h,.vues.vh .vcol-intervention) .h-b3{flex:1 1 300px;width:auto;min-width:0}
 }
 </style>
 </body></html>
