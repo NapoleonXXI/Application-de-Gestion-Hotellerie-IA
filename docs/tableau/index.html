@@ -1390,7 +1390,7 @@ return '<div class="d vues"><div class="sjh"><h2>Vues</h2>'+search+'</div><div c
 /* Vues ordinateur : fiche client à gauche, fiche séjour horizontale à droite, une ligne par client, boutons + sous la fiche client.
    Seulement si la largeur le permet (fiche client 360 + fiche séjour 1032 + marges = 1440 px) ; sinon colonnes verticales. */
 var VHZ=false,VHZ3=false,VHG=[];function vHzI(R){return !!(R.c&&R.s.length&&R.s[0].i&&R.s[0].i.length)}
-function vHzW(){var w=1440;VW.r.forEach(function(R){});return w}
+function vHzW(){var w=1024;VW.r.forEach(function(R){});return w}
 function vHzOk(){return VW.r.length>0&&document.documentElement.clientWidth>=vHzW()}
 addEventListener("resize",function(){if(typeof cur!=="undefined"&&cur===0&&sub===4&&(vHzOk()!==VHZ||(VHZ&&(document.documentElement.clientWidth>=2488&&VW.r.some(vHzI))!==VHZ3)))render()});
 function vHzSj(f){if(f.classList.contains('hz'))return;
@@ -1414,7 +1414,7 @@ function vHzSj(f){if(f.classList.contains('hz'))return;
 function vHzFit(f){var b2=f.querySelector('.hzb2'),fb=b2&&b2.querySelector('.frise-band.hz7');if(!fb)return;var fr=fb.querySelector('.frise');for(var n=0;n<3;n++){var h=b2.getBoundingClientRect().height/7;if(Math.abs(parseFloat(b2.style.getPropertyValue('--hz7h'))-h)<0.001)break;b2.style.setProperty('--hz7h',h+'px')}
  var dz=fr.querySelectorAll('.day');if(fr.classList.contains('sb-list')&&dz.length>7){fr.style.maxHeight='';fr.style.maxHeight=(dz[6].getBoundingClientRect().bottom-dz[0].getBoundingClientRect().top)+'px'}}
 function vHzApply(){if(!VHZ)return;app.querySelectorAll('.vues.vh .vcol-sejour .mqS .fiche').forEach(function(f){mqAlign();vHzSj(f)});app.querySelectorAll('.vues.vh .vcol-intervention .mqI .fiche').forEach(vHzIt);vHzItH()}
-function vHzItH(){if(VHZ&&!VHZ3)app.querySelectorAll('.vues.vh .vrow').forEach(function(r){var it=r.querySelector('.vcol-intervention'),c=r.querySelector('.vcol-client .card');if(it&&c)it.style.height=c.getBoundingClientRect().height+'px'})}
+function vHzItH(){if(VHZ&&!VHZ3)app.querySelectorAll('.vues.vh .vrow').forEach(function(r){var it=r.querySelector('.vcol-intervention'),c=r.querySelector('.vcol-client .card');if(it&&c)it.style.minHeight=c.getBoundingClientRect().height+'px'})}
 /* Fiche intervention horizontale (maquette v1g), à droite de la fiche séjour : 3 blocs (unité, séjour, description | photos | chronologie). */
 function vHzIt(fiche){if(fiche.querySelector('.h-pad'))return;var pad=fiche.querySelector('.pad')||fiche,head=pad.querySelector('.it-head'),unit=pad.querySelector('.unit-row'),sl=pad.querySelector('.stay-line'),ask=pad.querySelector('.ask'),ph=pad.querySelector('.ph-grid'),ch=pad.querySelector('.chrono-sec');
  function el(c){var d=document.createElement('div');d.className=c;return d}function bar(){var b=el('h-vbar');b.setAttribute('aria-hidden','true');return b}
@@ -1540,6 +1540,20 @@ f.onsubmit=function(e){e.preventDefault();if(!profil){m.textContent="Choisis un 
 .vh .mqS .fiche.hz .hz-left{display:flex;flex-direction:column;flex:0 0 auto;min-width:0}
 .vh .mqS .fiche.hz .hz-left .hz-blocks{grid-template-columns:max-content;padding-right:0}
 .vh .mqS .fiche.hz .hz-right{flex:1 1 auto;min-width:0;display:grid;grid-template-columns:max-content minmax(0,1fr) max-content;column-gap:var(--hzcg,24px);padding:var(--hzpv,36px) 22px var(--hzpv,36px) 24px;align-items:stretch}
+/* iPad et ordinateur (≥ 1024 px) : fiche client fixe, fiche horizontale fluide, textes à la ligne. */
+.vh .mqS .fiche.hz .hz-left{flex:0 1 auto;min-width:clamp(220px,34%,308px)}
+.vh .mqS .fiche.hz .client-top{flex-wrap:wrap;row-gap:6px}
+.vh .mqS .fiche.hz .hz-left .hz-blocks{grid-template-columns:minmax(0,max-content)}
+.vh .mqS .fiche.hz .hz-right{grid-template-columns:minmax(min-content,max-content) minmax(min-content,1fr) minmax(min-content,max-content);column-gap:clamp(14px,1.7vw,24px)}
+.vh .mqS .fiche.hz .typo{white-space:normal;overflow:visible;text-overflow:clip}
+.vh .mqS .fiche.hz .unit-label,.vh .mqS .fiche.hz .plist span,.vh .mqS .fiche.hz .fline .lab{white-space:normal}
+.vh .mqS .fiche.hz .fline{gap:10px}
+.vh .mqS .fiche.hz .book-line{flex-wrap:wrap;white-space:normal;gap:2px 12px}
+.vh .mqS .fiche.hz .part-split{display:flex;flex-wrap:wrap;justify-content:space-between;column-gap:12px;row-gap:8px}
+.vh .mqS .fiche.hz .part-left{flex:1 0 auto}
+.vh .mqS .fiche.hz .linen{grid-template-columns:repeat(auto-fill,minmax(0,max-content));flex-wrap:wrap}
+@media (max-width:1439px){.vh .mqS .fiche.hz .client-top .pill.stt,.vh .mqS .fiche.hz .part-right .pill.pay{transform:none!important}.vh .mqS .fiche.hz .part-right{margin-top:0!important}.vh .mqS .fiche.hz .linen{display:flex;flex-wrap:wrap}}
+@media (max-width:1179px){.vh .mqS .fiche.hz .hz-right{grid-template-columns:max-content minmax(0,1fr);row-gap:20px}.vh .mqS .fiche.hz .hzb4{grid-column:1 / -1}}
 /* Fiche intervention horizontale (maquette v1g). */
 .vues.vh .vrows>.vrow>.vcol.vcol-intervention{position:relative;width:auto;min-width:0}
 .vues.vh .vcol-intervention .mqI{position:absolute;top:0;left:0}
@@ -1570,5 +1584,15 @@ f.onsubmit=function(e){e.preventDefault();if(!profil){m.textContent="Choisis un 
 :is(#it-h,.vues.vh .vcol-intervention) .mqI .chrono.sb-list{overflow-y:auto;scrollbar-width:none;overscroll-behavior:contain;min-height:0}
 :is(#it-h,.vues.vh .vcol-intervention) .mqI .chrono.sb-list::-webkit-scrollbar{display:none}
 :is(#it-h,.vues.vh .vcol-intervention) .clab,:is(#it-h,.vues.vh .vcol-intervention) .cwhen{white-space:nowrap}
+/* Fiche intervention horizontale fluide (≥ 1024 px). */
+:is(#it-h,.vues.vh .vcol-intervention) .mqI{position:static;width:auto;height:auto;flex:1 1 auto;display:flex;flex-direction:column}
+:is(#it-h,.vues.vh .vcol-intervention) .mqI .card,:is(#it-h,.vues.vh .vcol-intervention) .mqI .fiche{width:auto;max-width:none;height:auto;flex:1 1 auto;display:flex;flex-direction:column}
+:is(#it-h,.vues.vh .vcol-intervention) .h-pad{height:auto;flex:1 1 auto}
+:is(#it-h,.vues.vh .vcol-intervention) .h-b1{flex:300 1 0;width:auto}
+:is(#it-h,.vues.vh .vcol-intervention) .h-b2{flex:96 1 0;width:auto;min-width:64px}
+:is(#it-h,.vues.vh .vcol-intervention) .h-b3{flex:524 1 0;width:auto}
+:is(#it-h,.vues.vh .vcol-intervention) .unit-row,:is(#it-h,.vues.vh .vcol-intervention) .stay-line,:is(#it-h,.vues.vh .vcol-intervention) .crow{flex-wrap:wrap;row-gap:4px}
+:is(#it-h,.vues.vh .vcol-intervention) .clab,:is(#it-h,.vues.vh .vcol-intervention) .cwhen{white-space:normal}
+:is(#it-h,.vues.vh .vcol-intervention) .ph-col .sec-h{white-space:normal}
 </style>
 </body></html>
