@@ -1390,7 +1390,7 @@ return '<div class="d vues"><div class="sjh"><h2>Vues</h2>'+search+'</div><div c
 /* Vues ordinateur : fiche client à gauche, fiche séjour horizontale à droite, une ligne par client, boutons + sous la fiche client.
    Seulement si la largeur le permet (fiche client 360 + fiche séjour 1032 + marges = 1440 px) ; sinon colonnes verticales. */
 var VHZ=false,VHZ3=false,VHG=[];function vHzI(R){return !!(R.c&&R.s.length&&R.s[0].i&&R.s[0].i.length)}
-function vHzW(){var w=1024;VW.r.forEach(function(R){});return w}
+function vHzW(){var w=1440;VW.r.forEach(function(R){});return w}
 function vHzOk(){return VW.r.length>0&&document.documentElement.clientWidth>=vHzW()}
 addEventListener("resize",function(){if(typeof cur!=="undefined"&&cur===0&&sub===4&&(vHzOk()!==VHZ||(VHZ&&(document.documentElement.clientWidth>=2488&&VW.r.some(vHzI))!==VHZ3)))render()});
 function vHzSj(f){if(f.classList.contains('hz'))return;
@@ -1413,16 +1413,7 @@ function vHzSj(f){if(f.classList.contains('hz'))return;
 /* Chronologie : 7 jours dans la hauteur du bloc ; au-delà, défilement avec la barre de l'app (sbw / sbbar). */
 function vHzFit(f){var b2=f.querySelector('.hzb2'),fb=b2&&b2.querySelector('.frise-band.hz7');if(!fb)return;var fr=fb.querySelector('.frise');for(var n=0;n<3;n++){var h=b2.getBoundingClientRect().height/7;if(Math.abs(parseFloat(b2.style.getPropertyValue('--hz7h'))-h)<0.001)break;b2.style.setProperty('--hz7h',h+'px')}
  var dz=fr.querySelectorAll('.day');if(fr.classList.contains('sb-list')&&dz.length>7){fr.style.maxHeight='';fr.style.maxHeight=(dz[6].getBoundingClientRect().bottom-dz[0].getBoundingClientRect().top)+'px'}}
-function vHzApply(){if(!VHZ)return;if(!window.__mqW){window.__mqW=1;var _m=mqAlign;mqAlign=function(){_m();vHzScale(true)}}app.querySelectorAll('.vues.vh .vcol-sejour .mqS .fiche').forEach(function(f){mqAlign();vHzSj(f)});app.querySelectorAll('.vues.vh .vcol-intervention .mqI .fiche').forEach(vHzIt);vHzItH();vHzSize()}
-/* 1024–1439 px : la fiche horizontale garde sa mise en page (4 blocs côte à côte) et est mise à l'échelle sur la largeur disponible, à la hauteur de la fiche client. */
-function vHzR(){return false}
-function vHzSize(){if(!vHzR())return;app.querySelectorAll('.vues.vh .vrow').forEach(function(r){var c=r.querySelector('.vcol-client .card');if(!c)return;var ch=c.getBoundingClientRect().height;
- [['.vcol-sejour','.mqS'],['.vcol-intervention','.mqI']].forEach(function(q){var v=r.querySelector(q[0]),m=v&&v.querySelector(q[1]);if(!m)return;var aw=v.clientWidth;if(q[0]==='.vcol-intervention')v.style.height=ch+'px';
-  m.style.transform='';m.style.width='2400px';var f=m.querySelector('.fiche'),dw=aw;
-  if(f&&f.classList.contains('hz')){var L=f.querySelector('.hz-left'),b2=f.querySelector('.hzb2'),b4=f.querySelector('.hzb4');dw=L.getBoundingClientRect().width+46+b2.getBoundingClientRect().width+170+b4.getBoundingClientRect().width+40}
-  else if(f&&f.querySelector('.h-pad'))dw=900;
-  var z=Math.min(1,aw/dw),Lw=Math.max(dw,aw);m.style.width=(Lw)+'px';m.style.height=(ch/z)+'px';m.dataset.z=z})})}
-function vHzScale(on){if(!vHzR())return;app.querySelectorAll('.vues.vh .vrow .mqS[data-z],.vues.vh .vrow .mqI[data-z]').forEach(function(m){m.style.transform=on&&+m.dataset.z<1?'scale('+m.dataset.z+')':''})}
+function vHzApply(){if(!VHZ)return;app.querySelectorAll('.vues.vh .vcol-sejour .mqS .fiche').forEach(function(f){mqAlign();vHzSj(f)});app.querySelectorAll('.vues.vh .vcol-intervention .mqI .fiche').forEach(vHzIt);vHzItH()}
 function vHzItH(){if(VHZ&&!VHZ3)app.querySelectorAll('.vues.vh .vrow').forEach(function(r){var it=r.querySelector('.vcol-intervention'),c=r.querySelector('.vcol-client .card');if(it&&c)it.style.height=c.getBoundingClientRect().height+'px'})}
 /* Fiche intervention horizontale (maquette v1g), à droite de la fiche séjour : 3 blocs (unité, séjour, description | photos | chronologie). */
 function vHzIt(fiche){if(fiche.querySelector('.h-pad'))return;var pad=fiche.querySelector('.pad')||fiche,head=pad.querySelector('.it-head'),unit=pad.querySelector('.unit-row'),sl=pad.querySelector('.stay-line'),ask=pad.querySelector('.ask'),ph=pad.querySelector('.ph-grid'),ch=pad.querySelector('.chrono-sec');
@@ -1448,7 +1439,7 @@ A.querySelectorAll(".vues [data-vadd]").forEach(function(ad){ad.onclick=function
 A.querySelectorAll(".vues input.vfile").forEach(function(inp){inp.onchange=function(){var f=inp.files&&inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(){IT_PH[inp.dataset.itid+"|"+inp.dataset.itph]=r.result;render()};r.readAsDataURL(f)}});
 vHzApply();mqAlign();sbBars();if(VHZ)app.querySelectorAll('.vues.vh .vcol-intervention .sbbar').forEach(function(b){var l=b.parentNode.querySelector('.chrono');if(l&&l.scrollHeight>l.clientHeight+0.5)b.classList.add('on')});pastBind();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(app.querySelector('.mqS,.mqI'))mqAlign()});if(VFOC!=null){var i=VFOC;VFOC=null;setTimeout(function(){var e=A.querySelector('[data-vrow="'+i+'"] .vcol');if(e&&e.scrollIntoView)e.scrollIntoView({block:"nearest"})},0)}}
 /* v11g : bords droits de Soldé, de la plaque et des icônes sur celui de l'état du séjour ; haut de Soldé sur le haut des lettres de « 2 adultes · 1 enfant » (même calcul que la maquette). */
-function mqAlign(){vHzScale(false);if(VHZ){app.querySelectorAll('.vues.vh .mqS .fiche.hz').forEach(vHzFit);vHzItH()}app.querySelectorAll(".mqI .chrono").forEach(function(c){var ln=c.querySelector(".chrono-line"),d=c.querySelectorAll(".cstep .dot");if(!ln)return;if(d.length<2){ln.style.height="0px";return}var cr=c.getBoundingClientRect(),a=d[0].getBoundingClientRect(),z=d[d.length-1].getBoundingClientRect(),y0=(a.top+a.bottom)/2-cr.top+c.scrollTop,y1=(z.top+z.bottom)/2-cr.top+c.scrollTop;ln.style.left=((a.left+a.right)/2-cr.left-0.5)+"px";ln.style.top=y0+"px";ln.style.height=(y1-y0)+"px"});app.querySelectorAll(".mqS .fiche").forEach(function(f){var fr=f.querySelector(".frise"),dots=fr?fr.querySelectorAll(".day .dot"):[],mb=fr&&fr.querySelector(".mq-bar");if(mb&&dots.length>1){var R0=fr.getBoundingClientRect(),a=dots[0].getBoundingClientRect(),z=dots[dots.length-1].getBoundingClientRect(),c0=(a.top+a.bottom)/2-R0.top,c1=(z.top+z.bottom)/2-R0.top;mb.style.top=c0+"px";mb.style.bottom="auto";mb.style.height=(c1-c0)+"px"}else if(mb)mb.style.display="none";var pay=f.querySelector(".part-right .pill.pay"),pr=f.querySelector(".part-right"),occ=f.querySelector(".occ"),nb=f.querySelector(".client-top .client-btn"),dt=f.querySelector(".client-top .pill.stt");
+function mqAlign(){if(VHZ){app.querySelectorAll('.vues.vh .mqS .fiche.hz').forEach(vHzFit);vHzItH()}app.querySelectorAll(".mqI .chrono").forEach(function(c){var ln=c.querySelector(".chrono-line"),d=c.querySelectorAll(".cstep .dot");if(!ln)return;if(d.length<2){ln.style.height="0px";return}var cr=c.getBoundingClientRect(),a=d[0].getBoundingClientRect(),z=d[d.length-1].getBoundingClientRect(),y0=(a.top+a.bottom)/2-cr.top+c.scrollTop,y1=(z.top+z.bottom)/2-cr.top+c.scrollTop;ln.style.left=((a.left+a.right)/2-cr.left-0.5)+"px";ln.style.top=y0+"px";ln.style.height=(y1-y0)+"px"});app.querySelectorAll(".mqS .fiche").forEach(function(f){var fr=f.querySelector(".frise"),dots=fr?fr.querySelectorAll(".day .dot"):[],mb=fr&&fr.querySelector(".mq-bar");if(mb&&dots.length>1){var R0=fr.getBoundingClientRect(),a=dots[0].getBoundingClientRect(),z=dots[dots.length-1].getBoundingClientRect(),c0=(a.top+a.bottom)/2-R0.top,c1=(z.top+z.bottom)/2-R0.top;mb.style.top=c0+"px";mb.style.bottom="auto";mb.style.height=(c1-c0)+"px"}else if(mb)mb.style.display="none";var pay=f.querySelector(".part-right .pill.pay"),pr=f.querySelector(".part-right"),occ=f.querySelector(".occ"),nb=f.querySelector(".client-top .client-btn"),dt=f.querySelector(".client-top .pill.stt");
 /* v12b. Ligne de base du texte d'un élément (sonde inline). */
 function bl(el){var w=document.createElement("span"),p=document.createElement("span");w.style.cssText="display:inline;position:static;margin:0;padding:0;border:0;";p.style.cssText="display:inline-block;width:0;height:0;vertical-align:baseline;overflow:hidden;margin:0;padding:0;border:0;";while(el.firstChild)w.appendChild(el.firstChild);w.appendChild(p);el.appendChild(w);var y=p.getBoundingClientRect().bottom;w.removeChild(p);while(w.firstChild)el.insertBefore(w.firstChild,w);el.removeChild(w);return y}
 function fs(el){return parseFloat(getComputedStyle(el).fontSize)}
@@ -1579,38 +1570,5 @@ f.onsubmit=function(e){e.preventDefault();if(!profil){m.textContent="Choisis un 
 :is(#it-h,.vues.vh .vcol-intervention) .mqI .chrono.sb-list{overflow-y:auto;scrollbar-width:none;overscroll-behavior:contain;min-height:0}
 :is(#it-h,.vues.vh .vcol-intervention) .mqI .chrono.sb-list::-webkit-scrollbar{display:none}
 :is(#it-h,.vues.vh .vcol-intervention) .clab,:is(#it-h,.vues.vh .vcol-intervention) .cwhen{white-space:nowrap}
-/* 1024–1439 px (iPad), maquette v1h : fiche client 260 px, fiche séjour horizontale fluide (4 blocs côte à côte, taille réelle) à la hauteur de la fiche client, puis fiche intervention horizontale ; défilement horizontal de la ligne si besoin. */
-@media (min-width:1024px) and (max-width:1439px){
-.vues.vh .vrows{grid-template-columns:260px minmax(700px,1fr) auto!important;overflow-x:auto;scrollbar-width:none}
-.vues.vh .vrows::-webkit-scrollbar{display:none}
-.vues.vh .vrows>.vrow>.vcol.vcol-client{width:260px}
-.vues.vh .mqC .fiche{width:100%}
-.vues.vh .vrows>.vrow>.vcol.vcol-sejour{position:relative;min-width:700px}
-.vues.vh .vrows>.vrow>.vcol>.mqS{position:static;transform:none!important;width:100%!important;height:100%!important;display:flex;flex-direction:column}
-.vues.vh .vrows>.vrow>.vcol>.mqS>.card{flex:1 1 auto;width:100%;max-width:none;height:100%;overflow:hidden}
-.vh .mqS .fiche.hz{font-size:12px}
-.vh .mqS .fiche.hz .client{padding:16px 16px 0}
-.vh .mqS .fiche.hz .hz-left{flex:0 0 210px;width:210px}
-.vh .mqS .fiche.hz .hz-left .hz-blocks{padding:14px 0 16px 16px}
-.vh .mqS .fiche.hz .client-top{flex-wrap:wrap}
-.vh .mqS .fiche.hz .typo{white-space:normal}
-.vh .mqS .fiche.hz .client-top .pill.stt,.vh .mqS .fiche.hz .part-right .pill.pay{transform:none!important}
-.vh .mqS .fiche.hz .part-right{margin-top:0!important}
-.vh .mqS .fiche.hz .part-split{display:flex;flex-wrap:wrap;justify-content:space-between;column-gap:8px;row-gap:6px}
-.vh .mqS .fiche.hz .hzb1{justify-content:flex-start}
-.vh .mqS .fiche.hz .hzb1>*{margin:0 0 8px!important}
-.vh .mqS .fiche.hz .hz-right{grid-template-columns:max-content minmax(130px,1fr) minmax(170px,1.2fr);column-gap:16px;padding:18px 16px}
-.vh .mqS .fiche.hz .hzb2{justify-content:flex-start}
-.vh .mqS .fiche.hz .frise-band.hz7 .day{height:min(var(--hz7h),40px)}
-.vh .mqS .fiche.hz .dsub{padding-left:12px}
-.vh .mqS .fiche.hz .notes{gap:10px}
-.vh .mqS .fiche.hz .notes .ask{flex:1 1 0;justify-content:flex-start}
-.vh .mqS .fiche.hz .fin .fline{gap:8px}
-.vh .mqS .fiche.hz .fin .fline.total{margin-top:auto}
-.vues.vh .vrows>.vrow>.vcol.vcol-intervention{position:relative;min-width:640px}
-.vues.vh .vcol-intervention .mqI{position:static;transform:none!important;width:100%!important;height:100%!important}
-:is(#it-h,.vues.vh .vcol-intervention) .mqI .card,:is(#it-h,.vues.vh .vcol-intervention) .mqI .fiche{width:100%;max-width:none;height:100%}
-:is(#it-h,.vues.vh .vcol-intervention) .h-b3{flex:1 1 300px;width:auto;min-width:0}
-}
 </style>
 </body></html>
