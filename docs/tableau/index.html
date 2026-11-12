@@ -595,7 +595,10 @@ html,body{overflow-x:clip;overflow-y:visible;width:100%;width:100dvw;max-width:1
 .mqI .vfile{display:none}
 .mqI .ph.vph{overflow:hidden}
 .mqI .ph.vph img{width:100%;height:100%;object-fit:cover;display:block}
-.mqS .client-top{width:fit-content;min-width:289.38px;max-width:100%}
+.mqS .client-top{width:100%;min-width:0;max-width:100%;justify-content:space-between;gap:12px}
+/* v12b : nom épinglé à gauche (passe sur deux lignes si besoin, jamais tronqué), dates épinglées au bord droit du contenu. */
+.mqS .client-top .btn.client-btn{flex:0 1 auto;min-width:0;height:auto;min-height:36px;padding:4px 8px;white-space:normal;overflow-wrap:anywhere}
+.mqS .client-top .pill.stt{margin-left:auto}
 /* Participants : 3 lignes visibles, au-delà défilement vertical avec une barre fine gris foncé juste à droite des noms. */
 .mqS .plwrap{position:relative;display:block;width:max-content;padding-right:9px}
 .mqS .plist.plist-scroll{max-height:calc(3 * 13px * 1.35 + 8px);overflow-y:auto;scrollbar-width:none;overscroll-behavior:contain}
@@ -616,7 +619,22 @@ html,body{overflow-x:clip;overflow-y:visible;width:100%;width:100dvw;max-width:1
 .mqC .cpast:not(.po) .pbody{display:none}
 .mqC .pbody{overflow:hidden}
 .mqS .part-right{align-items:flex-end}
-.mqS .part-split{grid-template-columns:minmax(0,1fr) auto}
+.mqS .part-split{grid-template-columns:minmax(0,1fr) minmax(max-content,1fr)}
+/* v12b : plaque + options dans des cercles, sous les participants. */
+.mqS .plate-line{display:flex;align-items:center;justify-content:flex-start;width:100%;min-height:26px;margin-top:12px}
+.mqS .plate-line .plt{position:relative;gap:5px;height:22px;padding:0 6px 0 5px;border:0;border-radius:8px;background:#fff;font-size:11px;font-weight:400;line-height:1;color:#5C5C5C}
+.mqS .plate-line .plt .plt-ring{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;overflow:visible}
+.mqS .opt-circles{display:flex;align-items:center;gap:17.8px;margin-left:auto}
+.mqS .opt-circle{position:relative;display:inline-flex;align-items:center;justify-content:center;flex:0 0 26px;width:26px;height:26px}
+.mqS .opt-circle .opt-ring{position:absolute;left:0;top:0;width:26px;height:26px;pointer-events:none;display:block}
+.mqS .opt-circle .opt-glyph{position:relative;display:block;width:16px;height:16px;flex:0 0 auto}
+/* Typologie longue (ex. Seychelles · 1 chambre double · 2 chambres simples · 1 salle de bains) : passe à la ligne au lieu de déborder de la carte. */
+.mqS .fiche .typo{white-space:normal;max-width:100%}
+/* Fiche intervention : « Mobil-home » et son numéro identiques à la fiche séjour (19 px / 600 / interligne 19 px ; 22 px / 700 / 22 px). */
+.mqI .unit-label{font-weight:600}
+.i7r2 .s9mh{line-height:1}
+.i7r2 .s9mhl{font-family:"IBM Plex Sans",Inter,sans-serif;font-size:19px;font-weight:600;line-height:19px;color:#5C5C5C;letter-spacing:normal}
+.i7r2 .s9mhn{font-family:"IBM Plex Sans",Inter,sans-serif;font-size:22px;font-weight:700;line-height:22px;color:#1A1A1A;letter-spacing:-0.01em}
 .mqS .fiche .part-plate{align-items:flex-end}
 .mqS .fiche .part-plate .opt-icos{width:auto;justify-content:flex-end;gap:calc(37px / 3)}
 .mqS .pill.pay.due{background:#FCEDEB;color:#A8473F;border-color:#F3D9D6}
@@ -1147,6 +1165,7 @@ document.addEventListener("pointerup",function(){if(!P0)return;var p=P0,d=Date.n
 var MQV={bike:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5C5C5C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="17.5" r="3.2"/><circle cx="17.5" cy="17.5" r="3.2"/><path d="M6.5 17.5 10.2 8.2h3.2"/><path d="M9.8 8.5 13.6 17.5"/><path d="M12.2 12h5.2L15 17.5"/><path d="M13.4 8.2h3.4"/></svg>',
 broom:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5C5C5C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18.8 3.8 11 13.6"/><path d="M8 13.2h7"/><path d="M8.2 13.2v1.6h6.6v-1.6"/><path d="M8.4 14.8 5.4 21"/><path d="M10.4 14.8 8.6 21"/><path d="M12.3 14.8 12 21"/><path d="M14.2 14.8 15.6 21"/></svg>',
 grill:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5C5C5C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v1.5"/><path d="M7.5 8.5c0-2.3 2-4 4.5-4s4.5 1.7 4.5 4"/><path d="M7.5 8.5h9"/><path d="M5 11.5h14"/><path d="M6.2 11.5c.4 4.6 2.8 7.5 5.8 7.5s5.4-2.9 5.8-7.5"/><path d="M9 19l-1.4 3"/><path d="M15 19l1.4 3"/><path d="M12 19v3"/></svg>',
+baby:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5C5C5C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M15 12h.01"/><path d="M19.38 6.813A9 9 0 0 1 20.8 10.2a2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/><path d="M9 12h.01"/></svg>',
 paw:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5C5C5C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg>',
 plate:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5C5C5C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7" width="19" height="10" rx="2"/><circle cx="5.3" cy="12" r="0.7"/><circle cx="18.7" cy="12" r="0.7"/><path d="M8 10.4h8"/><path d="M8 13.6h5"/></svg>',
 chev:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>',
@@ -1182,10 +1201,10 @@ var whoBtn=esc(c.n)+(ci?" "+esc(ci.pr):""),stc=sc==="sv"?"en-cours":sc==="sr"?"a
 var dpill=u?u.getDate()+(u.getMonth()!==w.getMonth()?' '+MC[u.getMonth()]:'')+' → '+w.getDate()+' '+MC[w.getMonth()]:'';
 var rsv=u?addD(u,-(7+h%40)):null,rsvT=rsv?(rsv.getDate()+' '+MC[rsv.getMonth()]+' '+rsv.getFullYear()):'—';
 var lin=OPI.some(function(o){return o.q===2})?mhLinenParts(c.n+"|"+c.a+"|linge"):[];
-var IO=[3,4,1,0],ico=OPI.filter(function(o){return IO.indexOf(o.q)>=0}).sort(function(p,q){return IO.indexOf(p.q)-IO.indexOf(q.q)}).map(function(o){var t=o.q===3?"Forfait ménage":o.q===1?"Location barbecue":o.q===4?"Animal de compagnie":SU[o.q][2];return '<span class="opt-ico" title="'+esc(t)+'" aria-label="'+esc(t)+'">'+mqIco(o.q)+'</span>'}).join('');
+var IO=[3,4,1,0,6],ico=OPI.filter(function(o){return IO.indexOf(o.q)>=0}).sort(function(p,q){return IO.indexOf(p.q)-IO.indexOf(q.q)}).map(function(o){var t=o.q===3?"Forfait ménage":o.q===1?"Location barbecue":o.q===4?"Animal de compagnie":o.q===6?"Kit bébé":SU[o.q][2];return '<span class="opt-circle" title="'+esc(t)+'" aria-label="'+esc(t)+'"><svg class="opt-ring" width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="13" cy="13" r="12.4166666667" stroke="#5C5C5C" stroke-width="1.1666666667"/></svg>'+(o.q===6?MQV.baby:mqIco(o.q)).replace('<svg ','<svg class="opt-glyph" ')+'</span>'}).join('');
 var pay='<span class="pill pay'+(reste>0?' due':'')+'">'+(reste>0?'Reste à payer '+eur(reste):eur(all)+' · Soldé')+'</span>';
-var d='<div class="client"><div class="client-top"><span class="btn client-btn" role="button" tabindex="0" data-vcn="'+r+'">'+whoBtn+'</span>'+(dpill?'<span class="pill stt">'+dpill+'</span>':'')+(stLabel?'<span class="st-txt '+stc+'">'+esc(stLabel)+'</span>':'')+'</div><div class="rule"></div>';
-d+='<div class="part-split"><div class="part-left"><div class="occ">'+esc(occ)+'</div>'+(ppA.length+ppK.length>3?'<div class="plwrap"><div class="plist plist-scroll">'+ppA.concat(ppK).join('')+'</div><span class="plbar" aria-hidden="true"><i></i></span></div>':'<div class="plist">'+ppA.concat(ppK).join('')+'</div>')+'</div><div class="part-right">'+pay+((c.a!=null||ico)?'<div class="part-plate">'+(c.a!=null?'<span class="plt">'+MQV.plate+plq+'</span>':'')+(ico?'<span class="opt-icos">'+ico+'</span>':'')+'</div>':'')+'</div></div>';
+var d='<div class="client"><div class="client-top"><span class="btn client-btn" role="button" tabindex="0" data-vcn="'+r+'">'+whoBtn+'</span>'+(dpill?'<span class="pill stt">'+dpill+'</span>':'')+'</div><div class="rule"></div>';
+d+='<div class="part-split"><div class="part-left"><div class="occ">'+esc(occ)+'</div>'+(ppA.length+ppK.length>3?'<div class="plwrap"><div class="plist plist-scroll">'+ppA.concat(ppK).join('')+'</div><span class="plbar" aria-hidden="true"><i></i></span></div>':'<div class="plist">'+ppA.concat(ppK).join('')+'</div>')+'</div><div class="part-right">'+pay+'</div></div>'+((c.a!=null||ico)?'<div class="plate-line">'+(c.a!=null?'<span class="plt"><svg class="plt-ring" aria-hidden="true" fill="none"></svg>'+MQV.plate+plq+'</span>':'')+(ico?'<span class="opt-circles">'+ico+'</span>':'')+'</div>':'');
 d+='</div><div class="rule"></div><section class="main"><div class="unithead"><div class="unit">'+mqUnit(loc)+'</div><div class="typo">'+esc(cat)+(rooms?' · '+esc(rooms):'')+'</div></div>';
 if(lin.length)d+='<div class="linen">'+lin.map(function(t){return '<span class="ltag">'+esc(t)+'</span>'}).join('')+'</div>';
 if(c.a!=null){var dh='';for(var q=0;q<=k;q++){var dd=addD(u,q),di=c.a+q,iv=IVD[q],ev=!iv&&(di<=TQ)&&(hs(c.n+"|"+c.a+"|ev"+q)%5===0),sub=q===0?"arrivée":q===k?"départ":"—";
@@ -1264,10 +1283,18 @@ var ad=A.querySelector(".vues [data-vadd]");if(ad)ad.onclick=function(){var i=vN
 A.querySelectorAll(".vues input.vfile").forEach(function(inp){inp.onchange=function(){var f=inp.files&&inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(){IT_PH[inp.dataset.itid+"|"+inp.dataset.itph]=r.result;render()};r.readAsDataURL(f)}});
 mqAlign();sbBars();pastBind();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(app.querySelector('.mqS'))mqAlign()});if(VFOC!=null){var i=VFOC;VFOC=null;setTimeout(function(){var e=A.querySelector('[data-vrow="'+i+'"]');if(e&&e.scrollIntoView)e.scrollIntoView({block:"nearest"})},0)}}
 /* v11g : bords droits de Soldé, de la plaque et des icônes sur celui de l'état du séjour ; haut de Soldé sur le haut des lettres de « 2 adultes · 1 enfant » (même calcul que la maquette). */
-function mqAlign(){app.querySelectorAll(".mqS .fiche").forEach(function(f){var fr=f.querySelector(".frise"),dots=fr?fr.querySelectorAll(".day .dot"):[],mb=fr&&fr.querySelector(".mq-bar");if(mb&&dots.length>1){var R0=fr.getBoundingClientRect(),a=dots[0].getBoundingClientRect(),z=dots[dots.length-1].getBoundingClientRect(),c0=(a.top+a.bottom)/2-R0.top,c1=(z.top+z.bottom)/2-R0.top;mb.style.top=c0+"px";mb.style.bottom="auto";mb.style.height=(c1-c0)+"px"}else if(mb)mb.style.display="none";var st=f.querySelector(".st-txt"),pay=f.querySelector(".part-right .pill.pay"),wrap=f.querySelector(".part-plate"),pr=f.querySelector(".part-right"),occ=f.querySelector(".occ");if(!pay||!pr||!occ)return;
-/* Bord droit commun = bord droit de la ligne du haut v11g (289,38 px depuis le bord gauche du contenu), même quand un statut long déborde. */var ct=f.querySelector(".client-top"),edge=ct?ct.getBoundingClientRect().left+(parseFloat(getComputedStyle(ct).minWidth)||289.38):pr.getBoundingClientRect().right,inset=Math.max(0,pr.getBoundingClientRect().right-edge)+"px";[wrap,pay].forEach(function(e){if(!e)return;e.style.marginLeft="auto";e.style.marginRight=inset});pay.style.alignSelf="flex-end";pay.style.flex="0 0 auto";
-var w=document.createElement("span"),p=document.createElement("span");w.style.cssText="display:inline;position:static;margin:0;padding:0;border:0;";p.style.cssText="display:inline-block;width:0;height:0;vertical-align:baseline;overflow:hidden;margin:0;padding:0;border:0;";while(occ.firstChild)w.appendChild(occ.firstChild);w.appendChild(p);occ.appendChild(w);var base=p.getBoundingClientRect().bottom;w.removeChild(p);while(w.firstChild)occ.insertBefore(w.firstChild,w);occ.removeChild(w);
-var top=base-698/1000*parseFloat(getComputedStyle(occ).fontSize),ap=0;pr.style.marginTop="0px";for(var i=0;i<3;i++){ap+=top-pay.getBoundingClientRect().top;pr.style.marginTop=ap+"px"}})}
+function mqAlign(){app.querySelectorAll(".mqS .fiche").forEach(function(f){var fr=f.querySelector(".frise"),dots=fr?fr.querySelectorAll(".day .dot"):[],mb=fr&&fr.querySelector(".mq-bar");if(mb&&dots.length>1){var R0=fr.getBoundingClientRect(),a=dots[0].getBoundingClientRect(),z=dots[dots.length-1].getBoundingClientRect(),c0=(a.top+a.bottom)/2-R0.top,c1=(z.top+z.bottom)/2-R0.top;mb.style.top=c0+"px";mb.style.bottom="auto";mb.style.height=(c1-c0)+"px"}else if(mb)mb.style.display="none";var pay=f.querySelector(".part-right .pill.pay"),pr=f.querySelector(".part-right"),occ=f.querySelector(".occ"),nb=f.querySelector(".client-top .client-btn"),dt=f.querySelector(".client-top .pill.stt");
+/* v12b. Ligne de base du texte d'un élément (sonde inline). */
+function bl(el){var w=document.createElement("span"),p=document.createElement("span");w.style.cssText="display:inline;position:static;margin:0;padding:0;border:0;";p.style.cssText="display:inline-block;width:0;height:0;vertical-align:baseline;overflow:hidden;margin:0;padding:0;border:0;";while(el.firstChild)w.appendChild(el.firstChild);w.appendChild(p);el.appendChild(w);var y=p.getBoundingClientRect().bottom;w.removeChild(p);while(w.firstChild)el.insertBefore(w.firstChild,w);el.removeChild(w);return y}
+function fs(el){return parseFloat(getComputedStyle(el).fontSize)}
+/* Dates : centre des capitales aligné sur celui du nom (IBM Plex Sans 698, Geist 710) quand le nom tient sur une ligne. */
+if(nb&&dt){dt.style.transform="none";if(nb.getBoundingClientRect().height<=36.5){var cN=bl(nb)-698/1000*fs(nb)/2,dy=0;for(var i=0;i<3;i++){dy+=cN-(bl(dt)-710/1000*fs(dt)/2);dt.style.transform="translateY("+dy+"px)"}}}
+/* Soldé / Reste à payer : bord droit sur le bord droit du contenu, centre du texte sur celui de « 2 adultes · 1 enfant » (Source Sans 3 660). */
+if(pay&&pr&&occ){pay.style.marginLeft="auto";pay.style.marginRight="0px";pay.style.alignSelf="flex-end";pay.style.flex="0 0 auto";var cO=bl(occ)-698/1000*fs(occ)/2,ap=0;pr.style.marginTop="0px";for(var k=0;k<3;k++){ap+=cO-(bl(pay)-660/1000*fs(pay)/2);pr.style.marginTop=ap+"px"}}
+/* Plaque : contour 0,75 px dessiné en SVG (comme la maquette). */
+var pl=f.querySelector(".plate-line .plt"),ring=pl&&pl.querySelector(".plt-ring");if(ring){var R=pl.getBoundingClientRect(),sw=0.75,W=R.width,H=R.height;ring.setAttribute("viewBox","0 0 "+W+" "+H);ring.setAttribute("width",W);ring.setAttribute("height",H);ring.innerHTML='<rect x="'+sw/2+'" y="'+sw/2+'" width="'+Math.max(0,W-sw)+'" height="'+Math.max(0,H-sw)+'" rx="8" ry="8" fill="none" stroke="#E4E4E4" stroke-width="'+sw+'"/>'}
+/* Cercles d'options : placés comme dans la maquette (left absolu, pas fixe 26 + 17,8 px), le dernier sur le bord droit du contenu. */
+var ln=f.querySelector(".plate-line"),cs=ln?ln.querySelectorAll(".opt-circle"):[];if(cs.length){var LW=ln.getBoundingClientRect().width,n=cs.length;ln.style.position="relative";ln.style.height="26px";Array.prototype.forEach.call(cs,function(c,i){c.style.position="absolute";c.style.top="0px";c.style.margin="0";c.style.left=(LW-(n-i)*43.8+17.8)+"px"})}})}
 /* Barre de défilement fine (participants, rubriques client) : visible seulement pendant le défilement, curseur borné à sa piste. */
 function sbFit(){app.querySelectorAll(".mqC .sb-list").forEach(function(l){var rows=l.querySelectorAll(".stay-row");if(rows.length<=3)return;var r3=rows[2],st=r3.closest(".stay"),pb=st&&r3===st.querySelector(".stay-row:last-child")?parseFloat(getComputedStyle(st).paddingBottom)||0:0;l.style.maxHeight=(r3.getBoundingClientRect().bottom-l.getBoundingClientRect().top+l.scrollTop+pb)+"px"})}
 function sbBars(){sbFit();app.querySelectorAll(".mqS .plwrap,.mqC .sbw").forEach(function(w){var l=w.querySelector(".plist,.stays"),bar=w.querySelector(".plbar,.sbbar"),t=bar.querySelector("i"),tm=0,drag=0;
