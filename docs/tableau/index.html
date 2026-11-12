@@ -595,14 +595,7 @@ html,body{overflow-x:clip;overflow-y:visible;width:100%;width:100dvw;max-width:1
 .mqI .vfile{display:none}
 .mqI .ph.vph{overflow:hidden}
 .mqI .ph.vph img{width:100%;height:100%;object-fit:cover;display:block}
-.mqS .client-top{width:100%;min-width:0;justify-content:flex-start;gap:0}
-/* Zone du nom à largeur fixe (157 px : le plus long nom de la base, ROUSSEAU Margaux, y tient sur une ligne) : l'étiquette des dates commence au même x pour tous les clients.
-   Un nom plus long passe sur deux lignes dans sa zone, sans troncature. Le statut est aligné à droite sur le bord du contenu (alignement commun avec Soldé, la plaque et les icônes) et passe à la ligne si la place manque. */
-.mqS .client-top .btn.client-btn{width:157px;min-width:0;flex:0 0 157px;height:auto;min-height:36px;padding:2px 8px}
-.mqS .client-top .cbt{display:block;min-width:0;white-space:normal;overflow-wrap:anywhere;text-align:center;line-height:16px}
-.mqS .client-top .pill.stt{margin-left:8px}
-.mqS .client-top .st-txt{margin-left:auto;padding-left:8px;flex:0 1 auto;min-width:0;white-space:normal;text-align:right;height:auto}
-.mqS .client-top .st-txt .sg{display:inline-block}
+.mqS .client-top{width:fit-content;min-width:289.38px;max-width:100%}
 /* Participants : 3 lignes visibles, au-delà défilement vertical avec une barre fine gris foncé juste à droite des noms. */
 .mqS .plwrap{position:relative;display:block;width:max-content;padding-right:9px}
 .mqS .plist.plist-scroll{max-height:calc(3 * 13px * 1.35 + 8px);overflow-y:auto;scrollbar-width:none;overscroll-behavior:contain}
@@ -623,6 +616,7 @@ html,body{overflow-x:clip;overflow-y:visible;width:100%;width:100dvw;max-width:1
 .mqC .cpast:not(.po) .pbody{display:none}
 .mqC .pbody{overflow:hidden}
 .mqS .part-right{align-items:flex-end}
+.mqS .part-split{grid-template-columns:minmax(0,1fr) auto}
 .mqS .fiche .part-plate{align-items:flex-end}
 .mqS .fiche .part-plate .opt-icos{width:auto;justify-content:flex-end;gap:calc(37px / 3)}
 .mqS .pill.pay.due{background:#FCEDEB;color:#A8473F;border-color:#F3D9D6}
@@ -1190,7 +1184,7 @@ var rsv=u?addD(u,-(7+h%40)):null,rsvT=rsv?(rsv.getDate()+' '+MC[rsv.getMonth()]+
 var lin=OPI.some(function(o){return o.q===2})?mhLinenParts(c.n+"|"+c.a+"|linge"):[];
 var IO=[3,4,1,0],ico=OPI.filter(function(o){return IO.indexOf(o.q)>=0}).sort(function(p,q){return IO.indexOf(p.q)-IO.indexOf(q.q)}).map(function(o){var t=o.q===3?"Forfait ménage":o.q===1?"Location barbecue":o.q===4?"Animal de compagnie":SU[o.q][2];return '<span class="opt-ico" title="'+esc(t)+'" aria-label="'+esc(t)+'">'+mqIco(o.q)+'</span>'}).join('');
 var pay='<span class="pill pay'+(reste>0?' due':'')+'">'+(reste>0?'Reste à payer '+eur(reste):eur(all)+' · Soldé')+'</span>';
-var d='<div class="client"><div class="client-top"><span class="btn client-btn" role="button" tabindex="0" data-vcn="'+r+'" title="'+whoBtn+'"><span class="cbt">'+whoBtn+'</span></span>'+(dpill?'<span class="pill stt">'+dpill+'</span>':'')+(stLabel?'<span class="st-txt '+stc+'">'+stLabel.split(' · ').map(function(g,i,a){return '<span class="sg">'+esc(g)+(i<a.length-1?' ·':'')+'</span>'}).join(' ')+'</span>':'')+'</div><div class="rule"></div>';
+var d='<div class="client"><div class="client-top"><span class="btn client-btn" role="button" tabindex="0" data-vcn="'+r+'">'+whoBtn+'</span>'+(dpill?'<span class="pill stt">'+dpill+'</span>':'')+(stLabel?'<span class="st-txt '+stc+'">'+esc(stLabel)+'</span>':'')+'</div><div class="rule"></div>';
 d+='<div class="part-split"><div class="part-left"><div class="occ">'+esc(occ)+'</div>'+(ppA.length+ppK.length>3?'<div class="plwrap"><div class="plist plist-scroll">'+ppA.concat(ppK).join('')+'</div><span class="plbar" aria-hidden="true"><i></i></span></div>':'<div class="plist">'+ppA.concat(ppK).join('')+'</div>')+'</div><div class="part-right">'+pay+((c.a!=null||ico)?'<div class="part-plate">'+(c.a!=null?'<span class="plt">'+MQV.plate+plq+'</span>':'')+(ico?'<span class="opt-icos">'+ico+'</span>':'')+'</div>':'')+'</div></div>';
 d+='</div><div class="rule"></div><section class="main"><div class="unithead"><div class="unit">'+mqUnit(loc)+'</div><div class="typo">'+esc(cat)+(rooms?' · '+esc(rooms):'')+'</div></div>';
 if(lin.length)d+='<div class="linen">'+lin.map(function(t){return '<span class="ltag">'+esc(t)+'</span>'}).join('')+'</div>';
