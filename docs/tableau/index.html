@@ -572,37 +572,26 @@ html,body{overflow-x:clip;overflow-y:visible;width:100%;width:100dvw;max-width:1
 .mqI .ctx{font-family: Geist, Inter, sans-serif; font-size: 13px; font-weight: 400; color: #5C5C5C; line-height: 1.35; margin: 2px 0 0;}
 /* MQ-CSS:fin */
 /* Vues : une ligne par client (client | séjour | intervention), colonnes 360 px alignées en haut. */
-.vues .vrows{display:flex;flex-direction:row;align-items:flex-start;gap:16px;overflow-x:auto;padding:4px 0 12px;max-width:100%}
-.vues .vrow{display:flex;flex-direction:column;align-items:flex-start;gap:16px;flex:0 0 auto}
+.vues .vrows{display:grid;grid-template-rows:repeat(3,minmax(68px,auto));column-gap:16px;row-gap:0;align-items:start;overflow-x:auto;margin:0 calc(-1 * var(--vbl,0px));padding:0 var(--vbl,0px);max-width:none}
+.vues{--vbl:16px}
+.vues .vband{grid-column:1/-1;align-self:stretch;margin:0 calc(-1 * var(--vbl,0px));z-index:0}
+.vues .vband-c{grid-row:1;background:#3A3A3A}
+.vues .vband-s{grid-row:2;background:#EAF5EC}
+.vues .vband-i{grid-row:3;background:#F2A65A}
+.vues .vrow{display:contents}
+.vues .vrows>.vrow>.vcol{margin:16px 0;z-index:1}
 .vues .vcol{flex:0 0 auto;width:360px;min-width:0;position:relative}
-/* Colonnes Vues : croix de fermeture, boutons +, fonds par type de fiche. */
+/* Colonnes Vues : croix de fermeture, boutons +. Fond de la page en trois bandes (client, séjour, intervention). */
 .vues .vclose{position:absolute;top:8px;right:8px;width:20px;height:20px;padding:0;border:0;border-radius:6px;background:none;color:#9A9A9A;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2}
 .vues .vclose svg{width:9px;height:9px}
 .vues .vclose:hover{background:rgba(0,0,0,.06);color:#1A1A1A}
-.vues .vcol-client .vclose{color:#BDBDBD}
-.vues .vcol-client .vclose:hover{background:rgba(255,255,255,.12);color:#fff}
-.vues .vcol-client .vpick~.vclose{color:#9A9A9A}
 .vues .mqC .vpen{right:34px}
-.vues .vplus{align-self:center;display:flex;flex-direction:column;gap:8px;flex:0 0 auto}
-.vues .mqI .card{background:#FDF0E3}
-.vues .mqS .card{background:#EAF5EC}
-.vues .mqC .card{background:#3A3A3A;border-color:#3A3A3A}
-.vues .mqC .id-line .fn{color:#FFFFFF}
-.vues .mqC .id-line .gn{color:#D9D9D9}
-.vues .mqC .coords p,.vues .mqC .cmh,.vues .mqC .cmo,.vues .mqC .chev,.vues .mqC .pchev{color:#C4C4C4}
-.vues .mqC .cmh{text-decoration-color:#5A5A5A}
-.vues .mqC .cdates,.vues .mqC .cunit{color:#EDEDED}
-.vues .mqC .rule{background:#555555}
-.vues .mqC .vpen{color:#C4C4C4}
-.vues .mqC .vpen:hover{background:#4A4A4A;color:#fff}
-.vues .mqC .vced label span{color:#D9D9D9}
 .vues .vcol>.s9tabs{margin:0 0 6px;gap:4px}
 .vues .vcol>.s9tabs .s9tab{border-bottom:1px solid #E4E4E4;border-radius:7px;max-width:180px}
 .vues .vcol>.s9tabs .s9tab.on{height:24px;margin-bottom:0;border-color:#D0D0D0}
 .vues .vcol-client.vflash .mqC .card{animation:vfl .9s ease}
 @keyframes vfl{0%{box-shadow:0 0 0 3px rgba(26,26,26,.18)}100%{box-shadow:0 0 0 0 rgba(26,26,26,0)}}
-.vues .vadd{height:36px;border-radius:18px;border:1px solid #D0D0D0;background:#fff;color:#5C5C5C;font:500 13px/1 Geist,Inter,sans-serif;display:flex;align-items:center;justify-content:flex-start;gap:8px;cursor:pointer;flex:0 0 auto;padding:0 14px 0 10px}
-.vues .vadd b{font-weight:400;font-size:20px;line-height:1;width:16px;text-align:center}
+.vues .vadd{width:36px;height:36px;border-radius:50%;border:1px solid #D0D0D0;background:#fff;color:#5C5C5C;font:400 20px/1 Geist,Inter,sans-serif;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;align-self:center;justify-self:start;z-index:1}
 .vues .vadd:hover{color:#1A1A1A;border-color:#9A9A9A}
 .vues .vpick{background:#fff;border:1px solid #E4E4E4;border-radius:10px;padding:16px;font-family:Geist,Inter,sans-serif}
 .vues .vpick input{width:100%;box-sizing:border-box;font:inherit;font-size:13px;padding:8px 10px;border:1px solid #E4E4E4;border-radius:8px;outline:none;background:#fff;color:#1A1A1A}
@@ -1388,15 +1377,17 @@ else if(m==="s"){var MC=["janv.","févr.","mars","avr.","mai","juin","juil.","ao
 else{itList().forEach(function(x){if(L.length<8&&((x.t||"")+" "+(x.n||"")+" "+(x.l||"")).toLowerCase().indexOf(q)>=0)L.push(x)});h=L.map(function(x){return '<button type="button" data-vpi="'+esc(x.id)+'" data-vr="'+i+'"><b>'+esc(x.t||"Intervention")+'</b> '+esc(x.n||"")+'<span>'+esc(String(x.l||"").replace("Mobil-home","MH"))+'</span></button>'}).join('')}}
 return '<div class="vpick"><input type="search" data-vq="'+i+'" placeholder="'+ph+'" value="'+esc(R.q||"")+'" autocomplete="off" aria-label="'+ph+'"><div class="vpl">'+(q?(h||'<p>Aucun résultat.</p>'):'<p>Saisissez un nom pour choisir '+(m==="s"?"le séjour":m==="i"?"l'intervention":"le client")+' de cette colonne.</p>')+'</div></div>'}
 function vRowHtml(i){var R=VW.r[i],ci=R.c?clientInfo(R.c):null,h='<section class="vrow'+(VFOC===i?' vfoc':'')+'" data-vrow="'+i+'">';
-h+='<div class="vcol vcol-client">'+(ci?clMq(R.c,i,R.e):vPick(i,R))+'<button type="button" class="vclose" data-vx="r'+i+'" aria-label="Fermer" title="Fermer">'+MQV.x+'</button></div>';
+h+='<div class="vcol vcol-client" style="grid-row:1;grid-column:'+(i+1)+'">'+(ci?clMq(R.c,i,R.e):vPick(i,R))+'<button type="button" class="vclose" data-vx="r'+i+'" aria-label="Fermer" title="Fermer">'+MQV.x+'</button></div>';
 if(ci&&R.s.length){var S=R.s[0];R.sc=0;
-h+='<div class="vcol vcol-sejour">'+sjMq(S,i,0)+'<button type="button" class="vclose" data-vx="r'+i+'" aria-label="Fermer" title="Fermer">'+MQV.x+'</button></div>';
+h+='<div class="vcol vcol-sejour" style="grid-row:2;grid-column:'+(i+1)+'">'+sjMq(S,i,0)+'<button type="button" class="vclose" data-vx="r'+i+'" aria-label="Fermer" title="Fermer">'+MQV.x+'</button></div>';
 var L=itList();S.i=(S.i||[]).filter(function(id){return L.some(function(y){return y.id===id})});
 if(S.i.length){var x=L.filter(function(y){return y.id===S.i[0]})[0];S.ic=0;
-h+='<div class="vcol vcol-intervention">'+itMq(x)+'<button type="button" class="vclose" data-vx="i'+i+'_0" aria-label="Fermer" title="Fermer">'+MQV.x+'</button></div>'}}
+h+='<div class="vcol vcol-intervention" style="grid-row:3;grid-column:'+(i+1)+'">'+itMq(x)+'<button type="button" class="vclose" data-vx="i'+i+'_0" aria-label="Fermer" title="Fermer">'+MQV.x+'</button></div>'}}
 return h+'</section>'}
 function vPage(search){VW.r=VW.r.filter(function(R){return R.c==null||clientInfo(R.c)});vNorm();
-return '<div class="d vues"><div class="sjh"><h2>Vues</h2>'+search+'</div><div class="vrows">'+VW.r.map(function(R,i){return vRowHtml(i)}).join('')+'<div class="vplus" role="group" aria-label="Ouvrir une fiche"><button type="button" class="vadd" data-vadd="c" aria-label="Ajouter une fiche client" title="Ajouter une fiche client"><b>+</b>Client</button><button type="button" class="vadd" data-vadd="s" aria-label="Ajouter une fiche séjour" title="Ajouter une fiche séjour"><b>+</b>Séjour</button><button type="button" class="vadd" data-vadd="i" aria-label="Ajouter une fiche intervention" title="Ajouter une fiche intervention"><b>+</b>Intervention</button></div></div></div>'}
+var N=VW.r.length,lc=-1,ls=-1,li=-1;VW.r.forEach(function(R,i){lc=i;if(R.c&&R.s.length){ls=i;if(R.s[0].i&&R.s[0].i.length)li=i}});
+function pb(m,row,last,lab){return '<button type="button" class="vadd" data-vadd="'+m+'" aria-label="'+lab+'" style="grid-row:'+row+';grid-column:'+(last+2)+'">+</button>'}
+return '<div class="d vues"><div class="sjh"><h2>Vues</h2>'+search+'</div><div class="vrows" style="grid-template-columns:'+(N?'repeat('+N+',360px) ':'')+'36px minmax(0,1fr)"><div class="vband vband-c" aria-hidden="true"></div><div class="vband vband-s" aria-hidden="true"></div><div class="vband vband-i" aria-hidden="true"></div>'+VW.r.map(function(R,i){return vRowHtml(i)}).join('')+pb("c",1,lc,"Ajouter une fiche client")+pb("s",2,ls,"Ajouter une fiche séjour")+pb("i",3,li,"Ajouter une fiche intervention")+'</div></div>'}
 function vBind(){var A=app;function rr(e){return +e.dataset.vr}
 A.querySelectorAll("[data-vx]").forEach(function(b){b.onclick=function(ev){ev.stopPropagation();var t=b.dataset.vx,m=t.slice(1).split("_").map(Number),R=VW.r[m[0]];if(!R)return;if(t[0]==="r"){VW.r.splice(m[0],1);VFOC=null}else if(t[0]==="i"){var S0=R.s[0];if(S0){S0.i=[];S0.ic=0}}else if(t[0]==="s"){R.s.splice(m[1],1);if(R.sc>=R.s.length)R.sc=Math.max(0,R.s.length-1);else if(R.sc>m[1])R.sc--}else{var S=R.s[R.sc|0];if(S){S.i.splice(m[1],1);if(S.ic>=S.i.length)S.ic=Math.max(0,S.i.length-1);else if(S.ic>m[1])S.ic--}}vSave();render()}});
 A.querySelectorAll("[data-vst]").forEach(function(b){b.onclick=function(){VW.r[rr(b)].sc=+b.dataset.vst;vSave();render()}});
@@ -1413,7 +1404,7 @@ A.querySelectorAll(".vues [data-vps]").forEach(function(b){b.onclick=function(){
 A.querySelectorAll(".vues [data-vpi]").forEach(function(b){b.onclick=function(){var i=rr(b);VW.r.splice(i,1);vOpenIv(b.dataset.vpi)}});
 A.querySelectorAll(".vues [data-vadd]").forEach(function(ad){ad.onclick=function(){var i=vNewRow(null,ad.dataset.vadd);VFOC=i;vSave();render();var n=A.querySelector('[data-vq="'+i+'"]');if(n){n.focus();vScroll(i,"client")}}});
 A.querySelectorAll(".vues input.vfile").forEach(function(inp){inp.onchange=function(){var f=inp.files&&inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(){IT_PH[inp.dataset.itid+"|"+inp.dataset.itph]=r.result;render()};r.readAsDataURL(f)}});
-mqAlign();sbBars();pastBind();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(app.querySelector('.mqS,.mqI'))mqAlign()});if(VFOC!=null){var i=VFOC;VFOC=null;setTimeout(function(){var e=A.querySelector('[data-vrow="'+i+'"]');if(e&&e.scrollIntoView)e.scrollIntoView({block:"nearest"})},0)}}
+mqAlign();sbBars();pastBind();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(app.querySelector('.mqS,.mqI'))mqAlign()});if(VFOC!=null){var i=VFOC;VFOC=null;setTimeout(function(){var e=A.querySelector('[data-vrow="'+i+'"] .vcol');if(e&&e.scrollIntoView)e.scrollIntoView({block:"nearest"})},0)}}
 /* v11g : bords droits de Soldé, de la plaque et des icônes sur celui de l'état du séjour ; haut de Soldé sur le haut des lettres de « 2 adultes · 1 enfant » (même calcul que la maquette). */
 function mqAlign(){app.querySelectorAll(".mqI .chrono").forEach(function(c){var ln=c.querySelector(".chrono-line"),d=c.querySelectorAll(".cstep .dot");if(!ln)return;if(d.length<2){ln.style.height="0px";return}var cr=c.getBoundingClientRect(),a=d[0].getBoundingClientRect(),z=d[d.length-1].getBoundingClientRect(),y0=(a.top+a.bottom)/2-cr.top+c.scrollTop,y1=(z.top+z.bottom)/2-cr.top+c.scrollTop;ln.style.left=((a.left+a.right)/2-cr.left-0.5)+"px";ln.style.top=y0+"px";ln.style.height=(y1-y0)+"px"});app.querySelectorAll(".mqS .fiche").forEach(function(f){var fr=f.querySelector(".frise"),dots=fr?fr.querySelectorAll(".day .dot"):[],mb=fr&&fr.querySelector(".mq-bar");if(mb&&dots.length>1){var R0=fr.getBoundingClientRect(),a=dots[0].getBoundingClientRect(),z=dots[dots.length-1].getBoundingClientRect(),c0=(a.top+a.bottom)/2-R0.top,c1=(z.top+z.bottom)/2-R0.top;mb.style.top=c0+"px";mb.style.bottom="auto";mb.style.height=(c1-c0)+"px"}else if(mb)mb.style.display="none";var pay=f.querySelector(".part-right .pill.pay"),pr=f.querySelector(".part-right"),occ=f.querySelector(".occ"),nb=f.querySelector(".client-top .client-btn"),dt=f.querySelector(".client-top .pill.stt");
 /* v12b. Ligne de base du texte d'un élément (sonde inline). */
