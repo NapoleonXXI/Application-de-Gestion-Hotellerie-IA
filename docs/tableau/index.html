@@ -618,18 +618,18 @@ html,body{overflow-x:clip;overflow-y:visible;width:100%;width:100dvw;max-width:1
 .mqS .plwrap{position:relative;display:block;width:max-content;padding-right:9px}
 .mqS .plist.plist-scroll{max-height:calc(3 * 13px * 1.35 + 8px);overflow-y:auto;scrollbar-width:none;overscroll-behavior:contain}
 .mqS .plist.plist-scroll::-webkit-scrollbar{display:none}
-.mqS .plbar,.mqC .sbbar,.mqI .sbbar{position:absolute;top:0;bottom:0;width:3px;border-radius:2px;background:#EEEEEE;cursor:pointer;opacity:0;transition:opacity .3s ease}
+.mqS .plbar,.mqS .sbbar,.mqC .sbbar,.mqI .sbbar{position:absolute;top:0;bottom:0;width:3px;border-radius:2px;background:#EEEEEE;cursor:pointer;opacity:0;transition:opacity .3s ease}
 .mqS .plbar{right:0}
-.mqS .plbar.on,.mqC .sbbar.on,.mqI .sbbar.on,.mqS .plbar:hover,.mqC .sbbar:hover,.mqI .sbbar:hover{opacity:1;transition:opacity .12s ease}
-.mqS .plbar i,.mqC .sbbar i,.mqI .sbbar i{position:absolute;left:0;right:0;top:0;border-radius:2px;background:#B5B5B5}
+.mqS .plbar.on,.mqS .sbbar.on,.mqC .sbbar.on,.mqI .sbbar.on,.mqS .plbar:hover,.mqS .sbbar:hover,.mqC .sbbar:hover,.mqI .sbbar:hover{opacity:1;transition:opacity .12s ease}
+.mqS .plbar i,.mqS .sbbar i,.mqC .sbbar i,.mqI .sbbar i{position:absolute;left:0;right:0;top:0;border-radius:2px;background:#B5B5B5}
 .mqC .sbw{position:relative}
 .mqC .sbbar{right:-12px}
 .mqC .stays.sb-list{overflow-y:auto;scrollbar-width:none;overscroll-behavior:contain}
 .mqC .stays.sb-list::-webkit-scrollbar{display:none}
-.mqI .sbw{position:relative}
-.mqI .sbbar{right:-12px}
-.mqI .chrono.sb-list{overflow-y:auto;scrollbar-width:none;overscroll-behavior:contain}
-.mqI .chrono.sb-list::-webkit-scrollbar{display:none}
+.mqI .sbw,.mqS .sbw{position:relative}
+.mqI .sbbar,.mqS .sbbar{right:-12px}
+.mqI .chrono.sb-list,.mqS .frise.sb-list{overflow-y:auto;scrollbar-width:none;overscroll-behavior:contain}
+.mqI .chrono.sb-list::-webkit-scrollbar,.mqS .frise.sb-list::-webkit-scrollbar{display:none}
 .mqC .cmhr{display:flex;align-items:center;gap:6px;margin:0 0 8px;cursor:pointer;user-select:none;width:fit-content}
 .mqC .cmhr .cmh{margin:0}
 .mqC .cmhr:focus-visible{outline:1px solid #D6D6D6;outline-offset:2px}
@@ -1373,17 +1373,47 @@ else if(m==="s"){var MC=["janv.","févr.","mars","avr.","mai","juin","juil.","ao
 else{itList().forEach(function(x){if(L.length<8&&((x.t||"")+" "+(x.n||"")+" "+(x.l||"")).toLowerCase().indexOf(q)>=0)L.push(x)});h=L.map(function(x){return '<button type="button" data-vpi="'+esc(x.id)+'" data-vr="'+i+'"><b>'+esc(x.t||"Intervention")+'</b> '+esc(x.n||"")+'<span>'+esc(String(x.l||"").replace("Mobil-home","MH"))+'</span></button>'}).join('')}}
 return '<div class="vpick"><input type="search" data-vq="'+i+'" placeholder="'+ph+'" value="'+esc(R.q||"")+'" autocomplete="off" aria-label="'+ph+'"><div class="vpl">'+(q?(h||'<p>Aucun résultat.</p>'):'<p>Saisissez un nom pour choisir '+(m==="s"?"le séjour":m==="i"?"l'intervention":"le client")+' de cette colonne.</p>')+'</div></div>'}
 function vRowHtml(i){var R=VW.r[i],ci=R.c?clientInfo(R.c):null,h='<section class="vrow'+(VFOC===i?' vfoc':'')+'" data-vrow="'+i+'">';
-h+='<div class="vcol vcol-client" style="grid-row:1;grid-column:'+(i+1)+'">'+(ci?clMq(R.c,i,R.e):vPick(i,R))+'<button type="button" class="vclose" data-vx="r'+i+'" aria-label="Fermer" title="Fermer">'+MQV.x+'</button></div>';
+var G=function(r,c){return VHZ?'grid-row:'+(i+1)+';grid-column:'+r:'grid-row:'+r+';grid-column:'+(i+1)};
+h+='<div class="vcol vcol-client" style="'+G(1)+'">'+(ci?clMq(R.c,i,R.e):vPick(i,R))+'<button type="button" class="vclose" data-vx="r'+i+'" aria-label="Fermer" title="Fermer">'+MQV.x+'</button></div>';
 if(ci&&R.s.length){var S=R.s[0];R.sc=0;
-h+='<div class="vcol vcol-sejour" style="grid-row:2;grid-column:'+(i+1)+'">'+sjMq(S,i,0)+'<button type="button" class="vclose" data-vx="r'+i+'" aria-label="Fermer" title="Fermer">'+MQV.x+'</button></div>';
+h+='<div class="vcol vcol-sejour" style="'+G(2)+'">'+sjMq(S,i,0)+'<button type="button" class="vclose" data-vx="r'+i+'" aria-label="Fermer" title="Fermer">'+MQV.x+'</button></div>';
 var L=itList();S.i=(S.i||[]).filter(function(id){return L.some(function(y){return y.id===id})});
 if(S.i.length){var x=L.filter(function(y){return y.id===S.i[0]})[0];S.ic=0;
-h+='<div class="vcol vcol-intervention" style="grid-row:3;grid-column:'+(i+1)+'">'+itMq(x)+'<button type="button" class="vclose" data-vx="i'+i+'_0" aria-label="Fermer" title="Fermer">'+MQV.x+'</button></div>'}}
+h+='<div class="vcol vcol-intervention" style="'+G(3)+'">'+itMq(x)+'<button type="button" class="vclose" data-vx="i'+i+'_0" aria-label="Fermer" title="Fermer">'+MQV.x+'</button></div>'}}
 return h+'</section>'}
 function vPage(search){VW.r=VW.r.filter(function(R){return R.c==null||clientInfo(R.c)});vNorm();
 var N=VW.r.length,lc=-1,ls=-1,li=-1;VW.r.forEach(function(R,i){lc=i;if(R.c&&R.s.length){ls=i;if(R.s[0].i&&R.s[0].i.length)li=i}});
-function pb(m,row,last,lab){return '<button type="button" class="vadd" data-vadd="'+m+'" aria-label="'+lab+'" style="grid-row:'+row+';grid-column:'+(last+2)+'">+</button>'}
+VHZ=vHzOk();
+function pb(m,row,last,lab){return '<button type="button" class="vadd" data-vadd="'+m+'" aria-label="'+lab+'"'+(VHZ?'':' style="grid-row:'+row+';grid-column:'+(last+2)+'"')+'>+</button>'}
+if(VHZ)return '<div class="d vues vh"><div class="sjh"><h2>Vues</h2>'+search+'</div><div class="vrows" style="grid-template-columns:360px minmax(0,1fr)">'+VW.r.map(function(R,i){return vRowHtml(i)}).join('')+'<div class="vaddh" style="grid-row:'+(N+1)+';grid-column:1">'+pb("c",1,lc,"Ajouter une fiche client")+pb("s",2,ls,"Ajouter une fiche séjour")+pb("i",3,li,"Ajouter une fiche intervention")+'</div></div></div>';
 return '<div class="d vues"><div class="sjh"><h2>Vues</h2>'+search+'</div><div class="vrows" style="grid-template-columns:'+(N?'repeat('+N+',360px) ':'')+'36px minmax(0,1fr)">'+VW.r.map(function(R,i){return vRowHtml(i)}).join('')+pb("c",1,lc,"Ajouter une fiche client")+pb("s",2,ls,"Ajouter une fiche séjour")+pb("i",3,li,"Ajouter une fiche intervention")+'</div></div>'}
+/* Vues ordinateur : fiche client à gauche, fiche séjour horizontale à droite, une ligne par client, boutons + sous la fiche client.
+   Seulement si la largeur le permet (fiche client 360 + fiche séjour 1032 + marges = 1440 px) ; sinon colonnes verticales. */
+var VHZ=false;
+function vHzW(){var w=1440;VW.r.forEach(function(R){if(R.c&&R.s.length&&R.s[0].i&&R.s[0].i.length)w=Infinity});return w}
+function vHzOk(){return VW.r.length>0&&document.documentElement.clientWidth>=vHzW()}
+addEventListener("resize",function(){if(typeof cur!=="undefined"&&cur===0&&sub===4&&vHzOk()!==VHZ)render()});
+function vHzSj(f){if(f.classList.contains('hz'))return;
+ var cl=f.querySelector('.client'),ps=cl.querySelector('.part-split'),rules=cl.querySelectorAll('.rule'),m=f.querySelector('section.main');
+ var B=document.createElement('div');B.className='hz-blocks';
+ function blk(n,els){var d=document.createElement('div');d.className='hzb hzb'+n;els.forEach(function(e){if(e)d.appendChild(e)});B.appendChild(d)}
+ rules[0].remove();
+ blk(1,[ps,rules[1],m.querySelector('.unithead'),m.querySelector('.plate-line')]);
+ blk(2,[m.querySelector('.frise-band')]);
+ blk(3,[m.querySelector('.notes')]);
+ blk(4,[m.querySelector('.fin-wrap'),m.querySelector('.book-line')]);
+ var sc0=B.querySelector('.fin .fline.sec'),sl=B.querySelector('.fin .sup-list');if(sc0&&sl&&sc0.nextElementSibling===sl){var gw=document.createElement('div');gw.className='hz-sup';sc0.parentNode.insertBefore(gw,sc0);gw.appendChild(sc0);gw.appendChild(sl)}
+ var ln=m.querySelector('.linen');if(ln&&ln.children.length)B.querySelector('.hzb1').appendChild(ln);
+ f.classList.add('hz');m.parentNode.insertBefore(B,m);if(!m.children.length||!m.textContent.trim())m.remove();
+ var L=document.createElement('div');L.className='hz-left';var Rr=document.createElement('div');Rr.className='hz-right';
+ f.insertBefore(L,cl);L.appendChild(cl);L.appendChild(B);f.appendChild(Rr);['.hzb2','.hzb3','.hzb4'].forEach(function(q){Rr.appendChild(B.querySelector(q))});
+ var b2=f.querySelector('.hzb2'),fb=b2.querySelector('.frise-band');if(!fb)return;fb.classList.add('hz7');
+ var fr=fb.querySelector('.frise'),dz=fr.querySelectorAll('.day');if(dz.length>7){var w=document.createElement('div');w.className='sbw';fr.parentNode.insertBefore(w,fr);w.appendChild(fr);fr.classList.add('sb-list');var sb=document.createElement('span');sb.className='sbbar';sb.setAttribute('aria-hidden','true');sb.appendChild(document.createElement('i'));w.appendChild(sb);fb.classList.add('hz7s')}
+ vHzFit(f)}
+/* Chronologie : 7 jours dans la hauteur du bloc ; au-delà, défilement avec la barre de l'app (sbw / sbbar). */
+function vHzFit(f){var b2=f.querySelector('.hzb2'),fb=b2&&b2.querySelector('.frise-band.hz7');if(!fb)return;var fr=fb.querySelector('.frise');for(var n=0;n<3;n++){var h=b2.getBoundingClientRect().height/7;if(Math.abs(parseFloat(b2.style.getPropertyValue('--hz7h'))-h)<0.001)break;b2.style.setProperty('--hz7h',h+'px')}
+ var dz=fr.querySelectorAll('.day');if(fr.classList.contains('sb-list')&&dz.length>7){fr.style.maxHeight='';fr.style.maxHeight=(dz[6].getBoundingClientRect().bottom-dz[0].getBoundingClientRect().top)+'px'}}
+function vHzApply(){if(!VHZ)return;app.querySelectorAll('.vues.vh .vcol-sejour .mqS .fiche').forEach(function(f){mqAlign();vHzSj(f)})}
 function vBind(){var A=app;function rr(e){return +e.dataset.vr}
 A.querySelectorAll("[data-vx]").forEach(function(b){b.onclick=function(ev){ev.stopPropagation();var t=b.dataset.vx,m=t.slice(1).split("_").map(Number),R=VW.r[m[0]];if(!R)return;if(t[0]==="r"){VW.r.splice(m[0],1);VFOC=null}else if(t[0]==="i"){var S0=R.s[0];if(S0){S0.i=[];S0.ic=0}}else if(t[0]==="s"){R.s.splice(m[1],1);if(R.sc>=R.s.length)R.sc=Math.max(0,R.s.length-1);else if(R.sc>m[1])R.sc--}else{var S=R.s[R.sc|0];if(S){S.i.splice(m[1],1);if(S.ic>=S.i.length)S.ic=Math.max(0,S.i.length-1);else if(S.ic>m[1])S.ic--}}vSave();render()}});
 A.querySelectorAll("[data-vst]").forEach(function(b){b.onclick=function(){VW.r[rr(b)].sc=+b.dataset.vst;vSave();render()}});
@@ -1400,9 +1430,9 @@ A.querySelectorAll(".vues [data-vps]").forEach(function(b){b.onclick=function(){
 A.querySelectorAll(".vues [data-vpi]").forEach(function(b){b.onclick=function(){var i=rr(b);VW.r.splice(i,1);vOpenIv(b.dataset.vpi)}});
 A.querySelectorAll(".vues [data-vadd]").forEach(function(ad){ad.onclick=function(){var i=vNewRow(null,ad.dataset.vadd);VFOC=i;vSave();render();var n=A.querySelector('[data-vq="'+i+'"]');if(n){n.focus();vScroll(i,"client")}}});
 A.querySelectorAll(".vues input.vfile").forEach(function(inp){inp.onchange=function(){var f=inp.files&&inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(){IT_PH[inp.dataset.itid+"|"+inp.dataset.itph]=r.result;render()};r.readAsDataURL(f)}});
-mqAlign();sbBars();pastBind();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(app.querySelector('.mqS,.mqI'))mqAlign()});if(VFOC!=null){var i=VFOC;VFOC=null;setTimeout(function(){var e=A.querySelector('[data-vrow="'+i+'"] .vcol');if(e&&e.scrollIntoView)e.scrollIntoView({block:"nearest"})},0)}}
+vHzApply();mqAlign();sbBars();pastBind();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(app.querySelector('.mqS,.mqI'))mqAlign()});if(VFOC!=null){var i=VFOC;VFOC=null;setTimeout(function(){var e=A.querySelector('[data-vrow="'+i+'"] .vcol');if(e&&e.scrollIntoView)e.scrollIntoView({block:"nearest"})},0)}}
 /* v11g : bords droits de Soldé, de la plaque et des icônes sur celui de l'état du séjour ; haut de Soldé sur le haut des lettres de « 2 adultes · 1 enfant » (même calcul que la maquette). */
-function mqAlign(){app.querySelectorAll(".mqI .chrono").forEach(function(c){var ln=c.querySelector(".chrono-line"),d=c.querySelectorAll(".cstep .dot");if(!ln)return;if(d.length<2){ln.style.height="0px";return}var cr=c.getBoundingClientRect(),a=d[0].getBoundingClientRect(),z=d[d.length-1].getBoundingClientRect(),y0=(a.top+a.bottom)/2-cr.top+c.scrollTop,y1=(z.top+z.bottom)/2-cr.top+c.scrollTop;ln.style.left=((a.left+a.right)/2-cr.left-0.5)+"px";ln.style.top=y0+"px";ln.style.height=(y1-y0)+"px"});app.querySelectorAll(".mqS .fiche").forEach(function(f){var fr=f.querySelector(".frise"),dots=fr?fr.querySelectorAll(".day .dot"):[],mb=fr&&fr.querySelector(".mq-bar");if(mb&&dots.length>1){var R0=fr.getBoundingClientRect(),a=dots[0].getBoundingClientRect(),z=dots[dots.length-1].getBoundingClientRect(),c0=(a.top+a.bottom)/2-R0.top,c1=(z.top+z.bottom)/2-R0.top;mb.style.top=c0+"px";mb.style.bottom="auto";mb.style.height=(c1-c0)+"px"}else if(mb)mb.style.display="none";var pay=f.querySelector(".part-right .pill.pay"),pr=f.querySelector(".part-right"),occ=f.querySelector(".occ"),nb=f.querySelector(".client-top .client-btn"),dt=f.querySelector(".client-top .pill.stt");
+function mqAlign(){if(VHZ)app.querySelectorAll('.vues.vh .mqS .fiche.hz').forEach(vHzFit);app.querySelectorAll(".mqI .chrono").forEach(function(c){var ln=c.querySelector(".chrono-line"),d=c.querySelectorAll(".cstep .dot");if(!ln)return;if(d.length<2){ln.style.height="0px";return}var cr=c.getBoundingClientRect(),a=d[0].getBoundingClientRect(),z=d[d.length-1].getBoundingClientRect(),y0=(a.top+a.bottom)/2-cr.top+c.scrollTop,y1=(z.top+z.bottom)/2-cr.top+c.scrollTop;ln.style.left=((a.left+a.right)/2-cr.left-0.5)+"px";ln.style.top=y0+"px";ln.style.height=(y1-y0)+"px"});app.querySelectorAll(".mqS .fiche").forEach(function(f){var fr=f.querySelector(".frise"),dots=fr?fr.querySelectorAll(".day .dot"):[],mb=fr&&fr.querySelector(".mq-bar");if(mb&&dots.length>1){var R0=fr.getBoundingClientRect(),a=dots[0].getBoundingClientRect(),z=dots[dots.length-1].getBoundingClientRect(),c0=(a.top+a.bottom)/2-R0.top,c1=(z.top+z.bottom)/2-R0.top;mb.style.top=c0+"px";mb.style.bottom="auto";mb.style.height=(c1-c0)+"px"}else if(mb)mb.style.display="none";var pay=f.querySelector(".part-right .pill.pay"),pr=f.querySelector(".part-right"),occ=f.querySelector(".occ"),nb=f.querySelector(".client-top .client-btn"),dt=f.querySelector(".client-top .pill.stt");
 /* v12b. Ligne de base du texte d'un élément (sonde inline). */
 function bl(el){var w=document.createElement("span"),p=document.createElement("span");w.style.cssText="display:inline;position:static;margin:0;padding:0;border:0;";p.style.cssText="display:inline-block;width:0;height:0;vertical-align:baseline;overflow:hidden;margin:0;padding:0;border:0;";while(el.firstChild)w.appendChild(el.firstChild);w.appendChild(p);el.appendChild(w);var y=p.getBoundingClientRect().bottom;w.removeChild(p);while(w.firstChild)el.insertBefore(w.firstChild,w);el.removeChild(w);return y}
 function fs(el){return parseFloat(getComputedStyle(el).fontSize)}
@@ -1416,7 +1446,7 @@ var pl=f.querySelector(".plate-line .plt"),ring=pl&&pl.querySelector(".plt-ring"
 var ln=f.querySelector(".plate-line"),cs=ln?ln.querySelectorAll(".opt-circle"):[];if(cs.length){var LW=ln.getBoundingClientRect().width,n=cs.length;ln.style.position="relative";ln.style.height="26px";Array.prototype.forEach.call(cs,function(c,i){c.style.position="absolute";c.style.top="0px";c.style.margin="0";c.style.left=(LW-(n-i)*43.8+17.8)+"px"})}})}
 /* Barre de défilement fine (participants, rubriques client) : visible seulement pendant le défilement, curseur borné à sa piste. */
 function sbFit(){/* Chronologie d'intervention : 6 étapes visibles, puis défilement. */app.querySelectorAll(".mqI .chrono.sb-list").forEach(function(l){var st=l.querySelectorAll(".cstep");if(st.length<=6)return;l.style.maxHeight=(st[5].getBoundingClientRect().bottom-l.getBoundingClientRect().top+l.scrollTop)+"px"});app.querySelectorAll(".mqC .sb-list").forEach(function(l){var rows=l.querySelectorAll(".stay-row");if(rows.length<=3)return;var r3=rows[2],st=r3.closest(".stay"),pb=st&&r3===st.querySelector(".stay-row:last-child")?parseFloat(getComputedStyle(st).paddingBottom)||0:0;l.style.maxHeight=(r3.getBoundingClientRect().bottom-l.getBoundingClientRect().top+l.scrollTop+pb)+"px"})}
-function sbBars(){sbFit();app.querySelectorAll(".mqS .plwrap,.mqC .sbw,.mqI .sbw").forEach(function(w){var l=w.querySelector(".plist,.stays,.chrono"),bar=w.querySelector(".plbar,.sbbar"),t=bar.querySelector("i"),tm=0,drag=0;
+function sbBars(){sbFit();app.querySelectorAll(".mqS .plwrap,.mqS .sbw,.mqC .sbw,.mqI .sbw").forEach(function(w){var l=w.querySelector(".plist,.stays,.chrono,.frise"),bar=w.querySelector(".plbar,.sbbar"),t=bar.querySelector("i"),tm=0,drag=0;
 function geo(){var T=bar.getBoundingClientRect().height,H=l.clientHeight,S=l.scrollHeight,h=Math.min(T,Math.max(12,T*H/Math.max(S,1)));return {T:T,H:H,S:S,h:h}}
 function up(){var g=geo(),m=Math.max(0,g.S-g.H),p=m?Math.min(1,Math.max(0,l.scrollTop/m)):0;t.style.height=g.h+"px";t.style.top=(p*(g.T-g.h))+"px"}
 function show(){bar.classList.add("on");clearTimeout(tm);if(!drag)tm=setTimeout(function(){bar.classList.remove("on")},800)}
@@ -1465,4 +1495,43 @@ function on(u){U=u;u.profil=profil;lg.style.display="none";var o=document.getEle
 sb.auth.getSession().then(function(r){if(r.data.session)on(r.data.session.user)});
 document.getElementById("lc").onclick=function(){cr=!cr;document.getElementById("lb").textContent=cr?"Créer le compte":"Se connecter";this.textContent=cr?"J'ai déjà un compte":"Créer un compte";m.textContent=""};
 f.onsubmit=function(e){e.preventDefault();if(!profil){m.textContent="Choisis un profil.";return}m.textContent="…";var c={email:document.getElementById("le").value,password:document.getElementById("lp").value};(cr?sb.auth.signUp(Object.assign({options:{emailRedirectTo:location.origin+location.pathname}},c)):sb.auth.signInWithPassword(c)).then(function(r){if(r.error){m.textContent=r.error.message==="Invalid login credentials"?"E-mail ou mot de passe incorrect.":r.error.message;return}if(r.data.session){ecrireProfil(profil);on(r.data.session.user)}else m.textContent="Confirme ton e-mail, puis connecte-toi."})}})();</script>
+<style id="vues-hz">
+/* Vues ordinateur, fiche séjour horizontale (maquette v1h). */
+.vues.vh .vrows{grid-template-rows:auto;align-items:stretch}
+.vues.vh .vrows>.vrow>.vcol{display:flex;flex-direction:column}
+.vues.vh .vrows>.vrow>.vcol.vcol-sejour{width:auto;min-width:0}
+.vues.vh .vrows>.vrow>.vcol>.mqC,.vues.vh .vrows>.vrow>.vcol>.mqS{flex:1 1 auto;display:flex;flex-direction:column}
+.vues.vh .vrows>.vrow>.vcol>.mqC>.card,.vues.vh .vrows>.vrow>.vcol>.mqS>.card{flex:1 1 auto}
+.vues.vh .vaddh{display:flex;justify-content:center;gap:16px;align-self:start}
+.vh .mqS .fiche.hz{width:auto;display:flex;flex-direction:column}
+.vh .mqS .fiche.hz .client{padding:22px 22px 0}
+.vh .mqS .fiche.hz .client-top{width:auto;justify-content:flex-start;gap:var(--hzgap,8px)}
+.vh .mqS .fiche.hz .hz-blocks{flex:1 1 auto;display:grid;grid-template-columns:max-content max-content minmax(0,1fr) max-content;column-gap:var(--hzcg,24px);padding:20px 22px 22px;align-items:stretch}
+.vh .mqS .fiche.hz .hzb{display:flex;flex-direction:column;justify-content:space-between;min-width:0}
+.vh .mqS .fiche.hz .hzb>*{margin:0}
+.vh .mqS .fiche.hz .hzb1{justify-content:flex-start}
+.vh .mqS .fiche.hz .hzb1 .unithead{margin:0 0 12px}
+.vh .mqS .fiche.hz .hzb1 .plate-line{margin:0 0 12px}
+.vh .mqS .fiche.hz .hzb1 .rule{height:1px;background:#E4E4E4;margin:16px 0}
+.vh .mqS .fiche.hz .hzb2{justify-content:center}
+.vh .mqS .fiche.hz .frise-band{border:0;padding:0;margin:0;flex:1 1 auto;display:flex}
+.vh .mqS .fiche.hz .frise{width:max-content;margin:0 auto;justify-content:space-between}
+.vh .mqS .fiche.hz .day{padding:0}
+.vh .mqS .fiche.hz .frise-band.hz7{flex:0 0 auto}
+.vh .mqS .fiche.hz .frise-band.hz7 .frise{justify-content:flex-start}
+.vh .mqS .fiche.hz .frise-band.hz7 .day{height:var(--hz7h);box-sizing:border-box}
+.vh .mqS .fiche.hz .frise-band.hz7s .sbw{margin:0 auto;width:max-content}
+.vh .mqS .fiche.hz .frise-band.hz7s .frise{margin:0}
+.vh .mqS .fiche.hz .dsub{padding-left:20px}
+.vh .mqS .fiche.hz .notes{display:flex;flex-direction:column;justify-content:space-between;gap:14px;flex:1 1 auto}
+.vh .mqS .fiche.hz .notes .ask{flex:1 1 0;display:flex;flex-direction:column;justify-content:center}
+.vh .mqS .fiche.hz .fin-wrap{flex:1 1 auto;display:flex;margin:0 0 14px}
+.vh .mqS .fiche.hz .fin{display:flex;flex-direction:column;justify-content:flex-start}
+.vh .mqS .fiche.hz .fin .fline.total{margin-top:auto}
+.vh .mqS .fiche.hz .book-line{margin:0}
+.vh .mqS .fiche.hz{flex-direction:row;align-items:stretch}
+.vh .mqS .fiche.hz .hz-left{display:flex;flex-direction:column;flex:0 0 auto;min-width:0}
+.vh .mqS .fiche.hz .hz-left .hz-blocks{grid-template-columns:max-content;padding-right:0}
+.vh .mqS .fiche.hz .hz-right{flex:1 1 auto;min-width:0;display:grid;grid-template-columns:max-content minmax(0,1fr) max-content;column-gap:var(--hzcg,24px);padding:var(--hzpv,36px) 22px var(--hzpv,36px) 24px;align-items:stretch}
+</style>
 </body></html>
