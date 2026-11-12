@@ -574,14 +574,10 @@ html,body{overflow-x:clip;overflow-y:visible;width:100%;width:100dvw;max-width:1
 /* Vues : une ligne par client (client | séjour | intervention), colonnes 360 px alignées en haut. */
 .vues .vrows{display:grid;grid-template-rows:repeat(3,minmax(68px,auto));column-gap:16px;row-gap:0;align-items:start;overflow-x:auto;margin:0 calc(-1 * var(--vbl,0px));padding:0 var(--vbl,0px);max-width:none}
 .vues{--vbl:16px}
-.vues .vband{grid-column:1/-1;align-self:stretch;margin:0 calc(-1 * var(--vbl,0px));z-index:0}
-.vues .vband-c{grid-row:1;background:#3A3A3A}
-.vues .vband-s{grid-row:2;background:#EAF5EC}
-.vues .vband-i{grid-row:3;background:#F2A65A}
 .vues .vrow{display:contents}
 .vues .vrows>.vrow>.vcol{margin:16px 0;z-index:1}
 .vues .vcol{flex:0 0 auto;width:360px;min-width:0;position:relative}
-/* Colonnes Vues : croix de fermeture, boutons +. Fond de la page en trois bandes (client, séjour, intervention). */
+/* Colonnes Vues : croix de fermeture, boutons +. */
 .vues .vclose{position:absolute;top:8px;right:8px;width:20px;height:20px;padding:0;border:0;border-radius:6px;background:none;color:#9A9A9A;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2}
 .vues .vclose svg{width:9px;height:9px}
 .vues .vclose:hover{background:rgba(0,0,0,.06);color:#1A1A1A}
@@ -1387,7 +1383,7 @@ return h+'</section>'}
 function vPage(search){VW.r=VW.r.filter(function(R){return R.c==null||clientInfo(R.c)});vNorm();
 var N=VW.r.length,lc=-1,ls=-1,li=-1;VW.r.forEach(function(R,i){lc=i;if(R.c&&R.s.length){ls=i;if(R.s[0].i&&R.s[0].i.length)li=i}});
 function pb(m,row,last,lab){return '<button type="button" class="vadd" data-vadd="'+m+'" aria-label="'+lab+'" style="grid-row:'+row+';grid-column:'+(last+2)+'">+</button>'}
-return '<div class="d vues"><div class="sjh"><h2>Vues</h2>'+search+'</div><div class="vrows" style="grid-template-columns:'+(N?'repeat('+N+',360px) ':'')+'36px minmax(0,1fr)"><div class="vband vband-c" aria-hidden="true"></div><div class="vband vband-s" aria-hidden="true"></div><div class="vband vband-i" aria-hidden="true"></div>'+VW.r.map(function(R,i){return vRowHtml(i)}).join('')+pb("c",1,lc,"Ajouter une fiche client")+pb("s",2,ls,"Ajouter une fiche séjour")+pb("i",3,li,"Ajouter une fiche intervention")+'</div></div>'}
+return '<div class="d vues"><div class="sjh"><h2>Vues</h2>'+search+'</div><div class="vrows" style="grid-template-columns:'+(N?'repeat('+N+',360px) ':'')+'36px minmax(0,1fr)">'+VW.r.map(function(R,i){return vRowHtml(i)}).join('')+pb("c",1,lc,"Ajouter une fiche client")+pb("s",2,ls,"Ajouter une fiche séjour")+pb("i",3,li,"Ajouter une fiche intervention")+'</div></div>'}
 function vBind(){var A=app;function rr(e){return +e.dataset.vr}
 A.querySelectorAll("[data-vx]").forEach(function(b){b.onclick=function(ev){ev.stopPropagation();var t=b.dataset.vx,m=t.slice(1).split("_").map(Number),R=VW.r[m[0]];if(!R)return;if(t[0]==="r"){VW.r.splice(m[0],1);VFOC=null}else if(t[0]==="i"){var S0=R.s[0];if(S0){S0.i=[];S0.ic=0}}else if(t[0]==="s"){R.s.splice(m[1],1);if(R.sc>=R.s.length)R.sc=Math.max(0,R.s.length-1);else if(R.sc>m[1])R.sc--}else{var S=R.s[R.sc|0];if(S){S.i.splice(m[1],1);if(S.ic>=S.i.length)S.ic=Math.max(0,S.i.length-1);else if(S.ic>m[1])S.ic--}}vSave();render()}});
 A.querySelectorAll("[data-vst]").forEach(function(b){b.onclick=function(){VW.r[rr(b)].sc=+b.dataset.vst;vSave();render()}});
