@@ -622,10 +622,20 @@ html,body{overflow-x:clip;overflow-y:visible;width:100%;width:100dvw;max-width:1
 .mqC .cbg{position:relative;flex:0 0 40px;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:transparent;border:1.3px solid #5C5C5C;color:#5C5C5C;cursor:default;outline:none}
 .mqC .cbg::after{content:attr(data-t);position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%);padding:4px 8px;border-radius:6px;background:#2B2B2B;color:#fff;font-family:Geist,Inter,sans-serif;font-size:11px;font-weight:500;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:5}
 .mqC .cbg:hover::after,.mqC .cbg:focus::after{opacity:1}
-.mqC .cinf{display:flex;align-items:center;gap:12px}.mqC .cinf-t{flex:1 1 auto;min-width:0}
+.mqC .cinf{display:flex;align-items:flex-end;gap:12px}.mqC .cinf-t{flex:1 1 auto;min-width:0}
 .mqC .cpen{flex:0 0 auto;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid transparent;color:#5C5C5C;cursor:pointer;transition:border-color .15s}
 .mqC .cpen:hover{border-color:#9A9A9A}.mqC .cpen:focus-visible{outline:none;border-color:#9A9A9A}
 .mqC .cinf+.rule{margin-top:20px}
+.mqC .cinf .cpen{margin-bottom:-7px}
+.mqI .iusep{height:1px;background:#E4E4E4;margin:0 0 10px}
+.mqS .fiche .frise .mq-bar{background:#E6E6E6}
+.mqS .fiche .dot{width:8px;height:8px;flex:0 0 8px;margin-left:1px;background:#C4C4C4}
+.mqS .fiche .dot.ends{background:#9A9A9A}
+.mqS .fiche .dot.ev{background:#C45B54}
+.mqS .fiche .dnum{font-size:14px;color:#5C5C5C}
+.mqS .fiche .dnum .dd{font-weight:500}
+.mqS .fiche .dsub{color:#9A9A9A}
+.mqS .iv-btn:not(.validee){background:#FBEBDD;border-color:#F3DCC6;color:#8A4B1C}
 .mqC .vpen{position:absolute;top:10px;right:10px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:6px;color:#9A9A9A;cursor:pointer;opacity:0;transition:opacity .15s}
 .mqC .card:hover .vpen,.mqC .vpen:focus{opacity:1}
 .mqC .vpen:hover{background:#F4F4F4;color:#1A1A1A}
@@ -662,7 +672,7 @@ html,body{overflow-x:clip;overflow-y:visible;width:100%;width:100dvw;max-width:1
 .mqS .plist.plist-scroll,.mqS .plist.mhd{height:calc(3 * 13px * 1.35 + 8px);max-height:none}
 .mqS .part-split .occ{min-height:22px;display:flex;align-items:flex-end}
 .mqS .part-right .mhh{justify-content:flex-end}.mqS .mhh .unit{line-height:1}
-.mqS .payline{display:flex;justify-content:flex-end;margin:0 0 12px}
+.mqS .payline{display:flex;justify-content:flex-start;margin:0 0 12px}
 .mqS .client-top{align-items:center}.mqS .client-top .pill.stt{height:36px;min-height:0;align-self:center}
 .mqS .client-top .st-txt{height:auto;white-space:normal;text-align:right;line-height:12px}
 .mqS .plist.mhd{align-items:flex-end;text-align:right;overflow-y:auto;scrollbar-width:none;overscroll-behavior:contain}
@@ -1386,7 +1396,7 @@ var FZ='<div class="frise-band"><div class="frise"><div class="mq-bar"></div>'+d
 d+='<div class="notes"><div class="ask dem"><h4>Demande client</h4><p>« '+esc(RC[h%RC.length])+' »</p></div><div class="ask rem"><h4>Remarque établissement</h4><p>'+esc(RE[(h>>>4)%RE.length])+'</p></div></div>';
 d+='<div class="fin-wrap"><div class="fin">';
 d+='<div class="fline"><span class="lab">Hébergement · '+k+' nuit'+(k>1?'s':'')+' × '+(78+h%5)+' €</span><span class="amt-l">'+eur(hb)+'</span></div>';
-if(OPI.length)d+='<div class="fline sec"><span class="lab">Options et suppléments</span><span class="amt-l"></span></div><div class="sup-list">'+OPI.map(function(o){var t=o.q===3?"Forfait ménage":o.q===1?"Location barbecue":SU[o.q][2],du=o.q===3?0:o.dur;return '<div class="fline"><span class="lab">'+mqIco(o.q,1)+esc(t)+(du?' · '+du+' jour'+(du>1?'s':''):'')+'</span><span class="amt-l">'+eur(o.m)+'</span></div>'}).join('')+'</div>';
+if(OPI.length)d+='<div class="sup-list">'+OPI.map(function(o){var t=o.q===3?"Forfait ménage":o.q===1?"Location barbecue":SU[o.q][2],du=o.q===3?0:o.dur;return '<div class="fline"><span class="lab">'+mqIco(o.q,1)+esc(t)+(du?' · '+du+' jour'+(du>1?'s':''):'')+'</span><span class="amt-l">'+eur(o.m)+'</span></div>'}).join('')+'</div>';
 d+='<div class="fline"><span class="lab">Taxe de séjour · '+k+' nuit'+(k>1?'s':'')+' × '+np+' pers. × 0,80 €</span><span class="amt-l">'+eur(tx)+'</span></div><div class="fline total"><span class="lab">Total TTC</span><span class="amt-l">'+eur(all)+'</span></div></div></div>';
 if(c.a!=null)d+=FZ;
 if(c.a!=null)d+='<p class="book-line"><span class="book-start">Réservé le '+rsvT+'</span><span class="book-mid">'+canal+'</span><span class="book-end">'+rid+'</span></p>';
@@ -1427,7 +1437,7 @@ function dt(e){var d=addD(E0,e.a);return d.getDate()+' '+MC[d.getMonth()]+' '+d.
 var R=[],pc=0,SRC=[["cli","Signalement client · Application"],["rec","Signalement réception"],["tech","Signalement équipe technique"]][hs(String(x.id)+"|src")%3];L.forEach(function(e){if(e.by&&!pc){pc=1;if(!/accueil/i.test(e.by))R.push({l:"Prise en charge",d:dt(e)})}if(e.by){var rc=/accueil|réception|bureau/i.test(e.by);R.push({w:rc?"rec":"tech",l:e.by.replace(/\s*\((accueil|réception|bureau)\)/i,""),d:dt(e),t:e.tx})}else if(/^Signalement client$/.test(e.tx||""))R.push({w:SRC[0],l:SRC[1],d:dt(e)});else R.push({l:e.tx||"",d:dt(e)})});
 var CWI={tech:'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',rec:'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>',cli:'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>'};
 var CMX=5,cl=R.length>CMX;var chr=R.length?'<div class="chrono-sec"><div class="cmh">Chronologie</div>'+(cl?'<div class="sbw">':'')+'<div class="chrono'+(cl?' sb-list':'')+'"><div class="chrono-line" aria-hidden="true"></div>'+R.map(function(q,i){return '<div class="cstep'+(i===R.length-1?' last':'')+'"><div class="dot"></div><div class="cbody"><div class="crow"><span class="clab">'+(q.w?'<span class="cwho cw-'+q.w+'">'+CWI[q.w]+'<span>'+esc(q.l)+'</span></span>':esc(q.l))+'</span><span class="cwhen">'+esc(q.d)+'</span></div>'+(q.t?'<p class="ctx">'+esc(q.t)+'</p>':'')+'</div></div>'}).join('')+'</div>'+(cl?'<span class="sbbar" aria-hidden="true"><i></i></span></div>':'')+'</div>':'';
-return '<div class="mqI"><article class="card fiche"><div class="pad"><div class="it-head"><div class="it-title">'+esc(x.t||"Intervention")+'</div>'+(x.tech?'<span class="tech-tag">'+esc(x.tech)+'</span>':'')+'</div><div class="unit-row"><div class="unit">'+mqUnit(x.l)+'</div><span class="st-passage">'+(pass==="cond"?"Passage sous conditions":"Passage OK")+'</span></div>'+(sl.length?'<p class="stay-line">'+sl.map(function(t){return '<span>'+esc(t)+'</span>'}).join('<i class="sl-sep" aria-hidden="true">·</i>')+'</p>':'')+
+return '<div class="mqI"><article class="card fiche"><div class="pad"><div class="it-head"><div class="it-title">'+esc(x.t||"Intervention")+'</div>'+(x.tech?'<span class="tech-tag">'+esc(x.tech)+'</span>':'')+'</div><div class="unit-row"><div class="unit">'+mqUnit(x.l)+'</div><span class="st-passage">'+(pass==="cond"?"Passage sous conditions":"Passage OK")+'</span></div>'+(sl.length?'<div class="iusep"></div><p class="stay-line">'+sl.map(function(t){return '<span>'+esc(t)+'</span>'}).join('<i class="sl-sep" aria-hidden="true">·</i>')+'</p>':'')+
 '<div class="ask"><div class="sec-h">Description</div><p class="comment">'+esc(x.ask||"")+'</p></div>'+'<div class="ph-grid">'+ph("client","Photo client")+ph("tech","Photo technicien")+'</div>'+chr+'</div></article></div>'}
 /* État de Vues : une ligne par client. r[i] = {c: id client | null (ligne vide), s: [séjours {n,l,a,k,i:[ids intervention],ic}], sc: séjour affiché, e: édition client, q: recherche}. */
 var VW=(function(){try{var o=JSON.parse(localStorage.getItem("vues")||"null");if(o&&Array.isArray(o.r))return o}catch(e){}return {r:[]}})(),VFOC=null;
