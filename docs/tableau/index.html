@@ -612,6 +612,11 @@ html,body{overflow-x:clip;overflow-y:visible;width:100%;width:100dvw;max-width:1
 .vues .vpl button:hover{background:#F4F4F4}
 /* Compléments de comportement, sans effet sur le rendu au repos. */
 .mqC .card,.mqI .card,.mqS .card{position:relative}
+.mqC .fiche{min-height:284px}
+.mqC .cinf{display:flex;align-items:center;gap:12px}.mqC .cinf-t{flex:1 1 auto;min-width:0}
+.mqC .cpen{flex:0 0 auto;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid transparent;color:#5C5C5C;cursor:pointer;transition:border-color .15s}
+.mqC .cpen:hover{border-color:#9A9A9A}.mqC .cpen:focus-visible{outline:none;border-color:#9A9A9A}
+.mqC .cinf+.rule{margin-top:20px}
 .mqC .vpen{position:absolute;top:10px;right:10px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:6px;color:#9A9A9A;cursor:pointer;opacity:0;transition:opacity .15s}
 .mqC .card:hover .vpen,.mqC .vpen:focus{opacity:1}
 .mqC .vpen:hover{background:#F4F4F4;color:#1A1A1A}
@@ -1381,6 +1386,8 @@ return '<div class="mqS"><article class="card fiche">'+d+'</section></article></
 /* Commentaire établissement : modifiable seulement après le crayon ; enregistré avec sa date (sans l'heure). Commentaires fictifs : date déterministe ≤ CLCM0. */
 var CLCM0=new Date(2026,10,12),CLCM=(function(){try{return JSON.parse(localStorage.getItem("clCm")||"{}")}catch(e){return {}}})();
 function clCmSave(id,t){var n=new Date();CLCM[id]={t:t,d:[n.getFullYear(),n.getMonth(),n.getDate()]};try{localStorage.setItem("clCm",JSON.stringify(CLCM))}catch(e){}}
+/* Démo fictive : e-mail déduit du prénom et du nom. Pas une donnée réelle. */
+function clMail(x){function k(t){return String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z]+/g,"-").replace(/^-|-$/g,"")}return k(x.pr)+"."+k(x.n)+"@gmail.com"}
 function clMq(id,r,ed){var x=clientInfo(id);if(!x)return '';var MC=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."],T0=Math.round((d0(new Date())-d0(E0))/864e5),S0=x.st.map(function(y,j){return [y,j]}),
 S3=S0.filter(function(z){return z[0].a<=T0&&z[0].a+z[0].k>T0}),S1=S0.filter(function(z){return z[0].a>T0}).sort(function(p,q){return p[0].a-q[0].a}),S2=S0.filter(function(z){return z[0].a+z[0].k<=T0}).sort(function(p,q){return q[0].a-p[0].a});
 function grp(L,t,cls,n){if(!L.length)return '';var h='',mk=null,open=0;L.forEach(function(z){var y=z[0],d=addD(E0,y.a),e=addD(E0,y.a+y.k),m=d.getFullYear()*12+d.getMonth();if(m!==mk){if(open)h+='</div></div>';mk=m;open=1;var mn=MN[d.getMonth()];h+='<div class="stay"><div class="stay-body"><div class="cmo">'+mn.charAt(0).toUpperCase()+mn.slice(1)+' '+d.getFullYear()+'</div>'}
@@ -1390,11 +1397,11 @@ if(0){var po=!!(VW.r[r]&&VW.r[r].po);return '<div class="'+(n?'sec-past ':'')+'c
 return '<div class="'+(n?'sec-past ':'')+'csec" data-vsec="'+cls+'"><div class="cmh">'+t+'</div>'+body+'</div>'}
 var cm=["Client fidèle, toujours ponctuel pour les règlements.","Préfère les emplacements calmes, loin de l'animation.","A signalé un souci de chauffe-eau l'an dernier, vérifier avant l'arrivée.","Vient souvent avec ses petits-enfants, prévoir le lit bébé.","Paiement en chèques vacances habituellement."][hs(x.n+x.pr)%5];
 var hd=ed?'<div class="cfi c6ed vced"><div class="edf">'+[["Nom",x.n],["Prénom",x.pr],["Date de naissance",bdNum(x.bd)],["Adresse",x.ad],["Téléphone",x.tel]].map(function(f){return '<label><span>'+f[0]+'</span><input value="'+esc(f[1])+'"></label>'}).join("")+'</div><div class="drb" style="margin-top:12px"><button type="button" class="cbn" data-vce="0" data-vr="'+r+'">Annuler</button><button type="button" class="cbn sv sj" data-vce="0" data-vr="'+r+'">Enregistrer</button></div></div>'
-:'<div class="id-line"><span class="fn">'+esc(x.n)+'</span>\n<span class="gn">'+esc(x.pr)+'</span></div><div class="coords">'+(x.bd?'<p>Date de naissance : '+esc(bdTxt(x.bd))+'</p>':'')+'<p>Adresse : '+esc(x.ad)+'</p><p>Téléphone : '+esc(x.tel)+'</p></div>';
+:'<div class="id-line"><span class="fn">'+esc(x.n)+'</span>\n<span class="gn">'+esc(x.pr)+'</span></div><div class="coords">'+(x.bd?'<p>Date de naissance : '+esc(bdTxt(x.bd))+'</p>':'')+'<p>Adresse : '+esc(x.ad)+'</p><p>Téléphone : '+esc(x.tel)+'</p><p>E-mail : '+esc(x.em||clMail(x))+'</p></div>';
 var rf=(S3[0]||S2[0]||S1[0]||[])[0],cau="Réception",cs=CLCM[id],cd=null;if(cs){cm=cs.t;cd=new Date(cs.d[0],cs.d[1],cs.d[2])}if(rf){var re=rf.e||stEtab(x.n,rf.l,rf.a);if(re)cau+=" · "+esc(re);if(!cd){if(rf.a<=T0)cd=addD(E0,rf.a);else{var rv=addD(E0,rf.a-(7+hs(x.n+rf.l+rf.a)%40));cd=rv<=CLCM0?rv:new Date(CLCM0.getFullYear(),CLCM0.getMonth(),CLCM0.getDate()-1-hs(id+"|cm")%30)}}}
 if(cd)cau+=" · "+cd.getDate()+" "+MC[cd.getMonth()]+" "+cd.getFullYear();
 var s='',n=0;[[S3,"Séjour en cours","current"],[S1,"Séjours à venir","upcoming"],[S2,"Séjours passés","past"]].forEach(function(g){if(!g[0].length)return;s+=grp(g[0],g[1],g[2],n);n++});
-return '<div class="mqC"><article class="card fiche cmsjc">'+(ed?'':'<span class="vpen" role="button" tabindex="0" data-vce="1" data-vr="'+r+'" aria-label="Modifier" title="Modifier"><svg width="13" height="13" viewBox="0 0 14 14" aria-hidden="true"><path d="M9.5 2.5l2 2L5 11H3V9z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg></span>')+'<div class="pad cmsjt">'+hd+'<div class="rule"></div><div class="ask"><p class="comment"'+(ed?' contenteditable="true" spellcheck="false" data-vcm="'+r+'"':'')+'>'+esc(cm)+'</p><p class="cauth">'+cau+'</p></div>'+sjxW(id,s)+'</div></article></div>'}
+return '<div class="mqC"><article class="card fiche cmsjc"><div class="pad cmsjt">'+(ed?hd:'<div class="cinf"><div class="cinf-t">'+hd+'</div><span class="cpen" role="button" tabindex="0" data-vce="1" data-vr="'+r+'" aria-label="Modifier les informations" title="Modifier"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M9.5 2.5l2 2L5 11H3V9z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg></span></div>')+'<div class="rule"></div>'+sjxW(id,s)+'</div></article></div>'}
 /* Fiche intervention v7c (sans case Commentaires, étapes en cases). Photos : fond gris + « + » ; seule une photo ajoutée par l'utilisateur (IT_PH) remplace le gris. */
 function itMq(x){if(!x)return "";var MC=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."],pass=x.pass==="cond"?"cond":"ok";
 var sl=[];if(x.a!=null&&x.k){var u=addD(E0,x.a),w=addD(E0,x.a+x.k);sl.push(u.getDate()+(u.getMonth()!==w.getMonth()||u.getFullYear()!==w.getFullYear()?' '+MC[u.getMonth()]:'')+' → '+w.getDate()+' '+MC[w.getMonth()]+' '+w.getFullYear())}
