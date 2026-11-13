@@ -1383,19 +1383,16 @@ h+='<div class="vcol vcol-intervention" style="'+G(3)+'">'+itMq(x)+'<button type
 return h+'</section>'}
 function vPage(search){VW.r=VW.r.filter(function(R){return R.c==null||clientInfo(R.c)});vNorm();
 var N=VW.r.length,lc=-1,ls=-1,li=-1;VW.r.forEach(function(R,i){lc=i;if(R.c&&R.s.length){ls=i;if(R.s[0].i&&R.s[0].i.length)li=i}});
-VHZ=vHzOk();VHIP=VHZ&&vHzIp();VHZ3=VHZ&&vHz3();VHG=[];var gr=1;VW.r.forEach(function(R,i){VHG[i]=gr;gr+=VHZ&&!VHZ3&&vHzI(R)?2:1});
+VHZ=vHzOk();VHZ3=VHZ&&document.documentElement.clientWidth>=2488&&VW.r.some(vHzI);VHG=[];var gr=1;VW.r.forEach(function(R,i){VHG[i]=gr;gr+=VHZ&&!VHZ3&&vHzI(R)?2:1});
 function pb(m,row,last,lab){return '<button type="button" class="vadd" data-vadd="'+m+'" aria-label="'+lab+'"'+(VHZ?'':' style="grid-row:'+row+';grid-column:'+(last+2)+'"')+'>+</button>'}
-if(VHZ)return '<div class="d vues vh'+(VHIP?' vip':'')+'"><div class="sjh"><h2>Vues</h2>'+search+'</div><div class="vrows" style="grid-template-columns:'+(VHZ3?(VHIP?'360px max-content 1032px':'360px 1032px 1032px'):VHIP?'360px max-content':'360px minmax(0,1fr)')+'">'+VW.r.map(function(R,i){return vRowHtml(i)}).join('')+'<div class="vaddh" style="grid-row:'+gr+';grid-column:1">'+pb("c",1,lc,"Ajouter une fiche client")+pb("s",2,ls,"Ajouter une fiche séjour")+pb("i",3,li,"Ajouter une fiche intervention")+'</div></div></div>';
+if(VHZ)return '<div class="d vues vh"><div class="sjh"><h2>Vues</h2>'+search+'</div><div class="vrows" style="grid-template-columns:'+(VHZ3?'360px 1032px 1032px':'360px minmax(0,1fr)')+'">'+VW.r.map(function(R,i){return vRowHtml(i)}).join('')+'<div class="vaddh" style="grid-row:'+gr+';grid-column:1">'+pb("c",1,lc,"Ajouter une fiche client")+pb("s",2,ls,"Ajouter une fiche séjour")+pb("i",3,li,"Ajouter une fiche intervention")+'</div></div></div>';
 return '<div class="d vues"><div class="sjh"><h2>Vues</h2>'+search+'</div><div class="vrows" style="grid-template-columns:'+(N?'repeat('+N+',360px) ':'')+'36px minmax(0,1fr)">'+VW.r.map(function(R,i){return vRowHtml(i)}).join('')+pb("c",1,lc,"Ajouter une fiche client")+pb("s",2,ls,"Ajouter une fiche séjour")+pb("i",3,li,"Ajouter une fiche intervention")+'</div></div>'}
 /* Vues ordinateur : fiche client à gauche, fiche séjour horizontale à droite, une ligne par client, boutons + sous la fiche client.
    Seulement si la largeur le permet (fiche client 360 + fiche séjour 1032 + marges = 1440 px) ; sinon colonnes verticales. */
-var VHZ=false,VHZ3=false,VHIP=false,VHG=[];function vHzI(R){return !!(R.c&&R.s.length&&R.s[0].i&&R.s[0].i.length)}
-function vHzW(){return 1024}
-/* iPad (1024–1439 px) : fiche client | fiche séjour | fiche intervention sur une seule ligne, qui défile à l'horizontale. */
-function vHzIp(){var w=document.documentElement.clientWidth;return w>=1024&&w<1440}
-function vHz3(){var w=document.documentElement.clientWidth;return VW.r.some(vHzI)&&(w>=2488||vHzIp())}
+var VHZ=false,VHZ3=false,VHG=[];function vHzI(R){return !!(R.c&&R.s.length&&R.s[0].i&&R.s[0].i.length)}
+function vHzW(){var w=1440;VW.r.forEach(function(R){});return w}
 function vHzOk(){return VW.r.length>0&&document.documentElement.clientWidth>=vHzW()}
-addEventListener("resize",function(){if(typeof cur!=="undefined"&&cur===0&&sub===4&&(vHzOk()!==VHZ||(VHZ&&(vHz3()!==VHZ3||vHzIp()!==VHIP))))render()});
+addEventListener("resize",function(){if(typeof cur!=="undefined"&&cur===0&&sub===4&&(vHzOk()!==VHZ||(VHZ&&(document.documentElement.clientWidth>=2488&&VW.r.some(vHzI))!==VHZ3)))render()});
 function vHzSj(f){if(f.classList.contains('hz'))return;
  var cl=f.querySelector('.client'),ps=cl.querySelector('.part-split'),rules=cl.querySelectorAll('.rule'),m=f.querySelector('section.main');
  var B=document.createElement('div');B.className='hz-blocks';
@@ -1414,7 +1411,7 @@ function vHzSj(f){if(f.classList.contains('hz'))return;
  var fr=fb.querySelector('.frise'),dz=fr.querySelectorAll('.day');if(dz.length>7){var w=document.createElement('div');w.className='sbw';fr.parentNode.insertBefore(w,fr);w.appendChild(fr);fr.classList.add('sb-list');var sb=document.createElement('span');sb.className='sbbar';sb.setAttribute('aria-hidden','true');sb.appendChild(document.createElement('i'));w.appendChild(sb);fb.classList.add('hz7s')}
  vHzFit(f)}
 /* Chronologie : 7 jours dans la hauteur du bloc ; au-delà, défilement avec la barre de l'app (sbw / sbbar). */
-function vHzFit(f){var b2=f.querySelector('.hzb2'),fb=b2&&b2.querySelector('.frise-band.hz7');if(!fb)return;var fr=fb.querySelector('.frise');if(fr.classList.contains('sb-list'))fr.style.maxHeight='0px';for(var n=0;n<3;n++){var h=b2.getBoundingClientRect().height/7;if(Math.abs(parseFloat(b2.style.getPropertyValue('--hz7h'))-h)<0.001)break;b2.style.setProperty('--hz7h',h+'px')}
+function vHzFit(f){var b2=f.querySelector('.hzb2'),fb=b2&&b2.querySelector('.frise-band.hz7');if(!fb)return;var fr=fb.querySelector('.frise');for(var n=0;n<3;n++){var h=b2.getBoundingClientRect().height/7;if(Math.abs(parseFloat(b2.style.getPropertyValue('--hz7h'))-h)<0.001)break;b2.style.setProperty('--hz7h',h+'px')}
  var dz=fr.querySelectorAll('.day');if(fr.classList.contains('sb-list')&&dz.length>7){fr.style.maxHeight='';fr.style.maxHeight=(dz[6].getBoundingClientRect().bottom-dz[0].getBoundingClientRect().top)+'px'}}
 function vHzApply(){if(!VHZ)return;app.querySelectorAll('.vues.vh .vcol-sejour .mqS .fiche').forEach(function(f){mqAlign();vHzSj(f)});app.querySelectorAll('.vues.vh .vcol-intervention .mqI .fiche').forEach(vHzIt);vHzItH()}
 function vHzItH(){if(VHZ&&!VHZ3)app.querySelectorAll('.vues.vh .vrow').forEach(function(r){var it=r.querySelector('.vcol-intervention'),c=r.querySelector('.vcol-client .card');if(it&&c)it.style.height=c.getBoundingClientRect().height+'px'})}
@@ -1513,9 +1510,6 @@ f.onsubmit=function(e){e.preventDefault();if(!profil){m.textContent="Choisis un 
 .vues.vh .vrows>.vrow>.vcol>.mqC,.vues.vh .vrows>.vrow>.vcol>.mqS{flex:1 1 auto;display:flex;flex-direction:column}
 .vues.vh .vrows>.vrow>.vcol>.mqC>.card,.vues.vh .vrows>.vrow>.vcol>.mqS>.card{flex:1 1 auto}
 .vues.vh .vaddh{display:flex;justify-content:center;gap:16px;align-self:start}
-.vues.vh.vip .vrows{scrollbar-width:none}
-.vues.vh.vip .vrows::-webkit-scrollbar{display:none}
-.vues.vh.vip .mqS .fiche.hz .hz-right{grid-template-columns:max-content 198px max-content}
 .vh .mqS .fiche.hz{width:auto;display:flex;flex-direction:column}
 .vh .mqS .fiche.hz .client{padding:22px 22px 0}
 .vh .mqS .fiche.hz .client-top{width:auto;justify-content:flex-start;gap:var(--hzgap,8px)}
